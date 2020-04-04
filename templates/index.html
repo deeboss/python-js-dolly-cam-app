@@ -24,8 +24,16 @@
         Calculate!
       </button>
 
-
+      
+      
       <p id="result">Result</p>
+
+
+      <div>
+          <button id="blinkLed">
+            Do shit!
+          </button>
+      </div>
 
     </div>
 
@@ -33,6 +41,19 @@
       $(function() {
         $('#button').on('click', function() {
           $.getJSON('/showAlert', {
+            a: $('input[name="a"]').val(),
+            b: $('input[name="b"]').val()
+          }, function(data) {
+            $("#result").text(data.result);
+          });
+          return false;
+        });
+      });
+
+      // 
+      $(function() {
+        $('#blinkLed').on('click', function() {
+          $.getJSON('/test', {
             a: $('input[name="a"]').val(),
             b: $('input[name="b"]').val()
           }, function(data) {
