@@ -13,11 +13,8 @@ _< Currently in Progress >_
 For the Raspberry Pi
 
 ```
-# Edit the Wifi Name
-sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
-
 # Activate the hotspot
-sudo /usr/bin/autohotspotN
+sudo ~/Documents/python-dolly-cam-app/hotspot.sh
 ```
 
 For the Python environment
