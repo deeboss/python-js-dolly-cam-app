@@ -1,5 +1,15 @@
 # Python Dolly Cam App
 
+For the raspberry PI
+
+```
+# Edit the Wifi Name
+sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+
+# Activate the hotspot
+sudo /usr/bin/autohotspotN
+```
+
 To get started:
 
 1. Run virtual env with `. venv/bin/activate` command
