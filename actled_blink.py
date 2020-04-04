@@ -9,3 +9,5 @@ while True:
     time.sleep(1)
     os.system("echo 0 | sudo tee /sys/class/leds/led1/brightness")
     time.sleep(1)
+
+os.system("sudo echo input | sudo tee /sys/class/leds/led1/trigger")
