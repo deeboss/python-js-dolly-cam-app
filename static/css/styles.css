@@ -1,0 +1,14 @@
+html {
+    font-family: monospace
+}
+
+.wrapper {
+    padding: 20px;
+}
+
+button {
+    padding: 8px 20px;
+    appearance: none;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+}
