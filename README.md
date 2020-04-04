@@ -41,8 +41,8 @@ flask run --host=0.0.0.0
 
 ## Roadmap
 
-1. The Raspberry Pi can act as its own WiFi hotspot without active internet connection (_✅ 03/04/2020)
-2. Anyone can issue commands to the Raspberry Pi OS through the Python/Flask Web Server at port 5000 (_✅ 04/04/2020)
+1. The Raspberry Pi can act as its own WiFi hotspot without active internet connection (✅ _03/04/2020_)
+2. Anyone can issue commands to the Raspberry Pi OS through the Python/Flask Web Server at port 5000 (✅ _04/04/2020_)
 3. _*Coming Soon*_
 4. _*Coming Soon*_
 5. _*Coming Soon*_
