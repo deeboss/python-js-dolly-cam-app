@@ -21,6 +21,7 @@ sudo /usr/bin/autohotspotN
 ```
 
 For the Python environment
+
 (Make sure you're in the application's directory)
 
 ```
@@ -31,7 +32,7 @@ python3 -m venv venv
 
 1. Go into the application directory through `cd /Documents/app`
 2. Run virtual env with `. venv/bin/activate` command
-3. Install packages through `pip install -requirements.rpi.txt`
+3. Install packages through `pip install -r requirements.rpi.txt`
 4. Run app through:
 ```
 export FLASK_APP=app.py
@@ -41,15 +42,15 @@ flask run --host=0.0.0.0
 
 ## Roadmap
 
-1. The Raspberry Pi can act as its own WiFi hotspot without active internet connection (✅ _03/04/2020_)
-2. Anyone can issue commands to the Raspberry Pi OS through the Python/Flask Web Server at port 5000 (✅ _04/04/2020_)
-3. _*Coming Soon*_
-4. _*Coming Soon*_
-5. _*Coming Soon*_
-6. _*Coming Soon*_
-7. _*Coming Soon*_
-8. _*Coming Soon*_
-10. _*Coming Soon*_
+1. ✅ The Raspberry Pi can act as its own WiFi hotspot without active internet connection (_03/04/2020_)
+2. ✅ Anyone can issue commands to the Raspberry Pi OS through the Python/Flask Web Server at port 5000 (_04/04/2020_)
+3. _*To Be Determined*_
+4. _*To Be Determined*_
+5. _*To Be Determined*_
+6. _*To Be Determined*_
+7. _*To Be Determined*_
+8. _*To Be Determined*_
+10. _*To Be Determined*_
 
 
 
@@ -73,6 +74,7 @@ sudo pip3 install --upgrade pip
 ```
 
 https://installvirtual.com/install-python-3-on-raspberry-pi-raspbian/
+
 http://www.knight-of-pi.org/installing-python3-6-on-a-raspberry-pi/
 
 
