@@ -2,6 +2,10 @@ import os
 import sys
 import time     # Import the sleep function from the time module
 
+print("Access IP: ")
+os.system("hostname -I \n")
+
+
 # Detect if python script is running on Raspberry Pi.
 if os.uname()[1].startswith("raspberry"):
     import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
