@@ -1,7 +1,11 @@
-import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
 import os
 import sys
 import time     # Import the sleep function from the time module
+
+# Detect if python script is running on Raspberry Pi.
+if os.uname()[1].startswith("raspberry"):
+    import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
+    print("imported!");
 
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
