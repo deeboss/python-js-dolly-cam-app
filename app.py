@@ -32,7 +32,7 @@ def blinkLed():
 
     os.system("sudo echo input | sudo tee /sys/class/leds/led1/trigger")
 
-    return
+    return jsonify("hello")
 
 
 
