@@ -53,7 +53,7 @@
       // 
       $(function() {
         $('#blinkLed').on('click', function() {
-          $.getJSON('/test', {
+          $.getJSON('/blinkLed', {
             a: $('input[name="a"]').val(),
             b: $('input[name="b"]').val()
           }, function(data) {
