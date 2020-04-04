@@ -33,12 +33,8 @@ python3 -m venv venv
 1. Go into the application directory through `cd /Documents/app`
 2. Run virtual env with `. venv/bin/activate` command
 3. Install packages through `pip install -r requirements.rpi.txt`
-4. Run app through:
-```
-export FLASK_APP=app.py
-flask run --host=0.0.0.0
-```
-5. Access your Raspberry Pi client web server through your Pi's IP address at port 5000, or `10.10.10.10:5000` when disconnected from the internet
+4. Run app through `python3 app.py`
+5. Use your browser (mobile or desktop) to access your Raspberry Pi client web server through your Pi's IP address at port 5000 (or `10.10.10.10:5000` when disconnected from the internet)
 
 ## Roadmap
 

@@ -12,26 +12,8 @@
     <div class='wrapper'>
       <h1> Dolly Remote </h1>
       <div>
-        <label for="a">1st value</label>
-        <input type="number" name="a" />
-      </div>
-      <div>
-        <label for="b">2nd value</label>
-        <input type="number" name="b" />
-      </div>
-      <hr />
-      <button id="button">
-        Calculate
-      </button>
-
-      
-      
-      <p id="result">Result</p>
-
-
-      <div>
           <button id="blinkLed">
-            Do shit!
+            Make me blink
           </button>
       </div>
 
@@ -39,24 +21,8 @@
 
     <script type="text/javascript">
       $(function() {
-        $('#button').on('click', function() {
-          $.getJSON('/showAlert', {
-            a: $('input[name="a"]').val(),
-            b: $('input[name="b"]').val()
-          }, function(data) {
-            $("#result").text(data.result);
-          });
-          return false;
-        });
-      });
-
-      // 
-      $(function() {
         $('#blinkLed').on('click', function() {
-          $.getJSON('/blinkLed', {
-            a: $('input[name="a"]').val(),
-            b: $('input[name="b"]').val()
-          }, function(data) {
+          $.getJSON('/blinkLed', {}, function(data) {
             $("#result").text(data.result);
           });
           return false;
