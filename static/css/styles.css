@@ -2,13 +2,38 @@ html {
     font-family: monospace
 }
 
+body {
+    font-size: 100%;
+    text-align: center;
+}
+
 .wrapper {
     padding: 20px;
 }
 
 button {
-    padding: 8px 20px;
     appearance: none;
     -webkit-appearance: none;
+    font-size: larger;
+    padding: 12px 32px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 2px;
+    background: blue;
+    color: white;
     text-transform: uppercase;
+    outline: none;
+    opacity: 1;
+    transform: translateY(0px);
+    transition: transform 0.12s ease-in-out, opacity 0.12s ease-in-out;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:active {
+    transform: translateY(4px);
+    opacity: 0.8;
+    transition: transform 0.12s ease-in-out, opacity 0.12s ease-in-out;
 }
