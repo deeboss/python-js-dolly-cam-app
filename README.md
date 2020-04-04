@@ -13,7 +13,7 @@ _< Currently in Progress >_
 For the Raspberry Pi
 
 ```
-# Activate the hotspot
+# Activate/Deactivate the hotspot
 sudo ~/Documents/python-dolly-cam-app/hotspot.sh
 ```
 
