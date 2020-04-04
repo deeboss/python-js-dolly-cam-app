@@ -31,7 +31,7 @@ python3 -m venv venv
 
 1. Go into the application directory through `cd /Documents/app`
 2. Run virtual env with `. venv/bin/activate` command
-3. Install packages through `pip install`   (`requirements.txt` coming soon)
+3. Install packages through `pip install -requirements.rpi.txt`
 4. Run app through:
 ```
 export FLASK_APP=app.py

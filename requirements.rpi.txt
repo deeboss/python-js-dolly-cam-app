@@ -1,3 +1,3 @@
 -r requirements.txt
 
-RPi.GPIO==0.7.01
+RPi.GPIO==0.7.0
