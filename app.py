@@ -5,7 +5,6 @@ import time     # Import the sleep function from the time module
 # Detect if python script is running on Raspberry Pi.
 if os.uname()[1].startswith("raspberry"):
     import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
-    print("imported!");
 
 from flask import Flask, jsonify, render_template, request
 app = Flask(__name__)
@@ -31,4 +30,4 @@ def blinkLed():
 
 # Run Server
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', debug=True, port=5000)
+    app.run(host='0.0.0.0', debug=True, port=5000)
