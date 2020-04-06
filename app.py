@@ -1,10 +1,13 @@
+#!/home/pi/venv/bin/python3
+
 import os
 import sys
 import time     # Import the sleep function from the time module
 
+os.system(". /home/pi/venv/bin/activate")
+
 print("Access IP: ")
 os.system("hostname -I \n")
-
 
 # Detect if python script is running on Raspberry Pi.
 if os.uname()[1].startswith("raspberry"):
@@ -19,7 +22,7 @@ def home():
 
 @app.route('/blinkLed')
 def blinkLed():
-    os.system("sudo echo gpio | sudo tee /sys/class/leds/led0/trigger")
+    os.system("sudo echo gpio | sudo tee /sys/class/leds/led1/trigger")
     for n in range(0, 5):
         os.system("echo 1 | sudo tee /sys/class/leds/led1/brightness")
         time.sleep(1)
