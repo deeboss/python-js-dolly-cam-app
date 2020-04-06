@@ -1,8 +1,9 @@
 #!/bin/bash
 
 FILE=/etc/wpa_supplicant
+HOME=/home/pi/Documents/python-dolly-cam-app
 
-
+# Start hotspot
 if test -f "$FILE/wpa_supplicant.conf"; then
    sudo mv $FILE/wpa_supplicant.conf $FILE/wpa_supplicant.conf.orig
    sudo /usr/bin/autohotspotN
