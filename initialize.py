@@ -20,4 +20,10 @@ while True:
 
       # Turn on venv and run server
       os.system("/home/pi/Documents/python-dolly-cam-app/app.py")
+
+      # Turn off hotspot after closing server
+      os.system("/home/pi/Documents/python-dolly-cam-app/hotspot.sh")
+
+      sys.exit("Finished!")
+
    time.sleep(0.1)
