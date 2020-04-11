@@ -10,42 +10,147 @@
   </head>
   <body>
     <!-- <nav class="other-controls">
+      <div class="icon-row">
+        <img class="icon settings" src="{{ url_for('static', filename='img/icon-settings.svg') }}"/>
+      </div>
     </nav> -->
     <div class='wrapper'>
       <h1> Dolly Remote </h1>
-      <button id="blinkLed">
-        Make me blink
-      </button>
-      <div>
-        <div>
-          <input id="0" name="shutterOptions" type="radio">
-          <label for="0">Option 1: 30"</label>
-        </div>
-        <div>
-          <input id="9" name="shutterOptions" type="radio">
-          <label for="9">Option 2: 4"</label>
-        </div>
-        <div>
-          <input id="25" name="shutterOptions" type="radio">
-          <label for="25">Option 3: 1/10</label>
-        </div>
-        <div>
-          <input id="39" name="shutterOptions" type="radio">
-          <label for="39">Option 4: 1/250</label>
-        </div>
-      </div>
-      <button id="adjustShutterSpeed">
-        Adjust Shutter Speed
-      </button>
-      </div>
+    </div>
     <footer class="camera-controls">
-      <button class="button--capture-image" id="">
-        <span></span>
-      </button>
+      <ul class="flex align-center justify-content-center">
+        <li>
+          <div class="icon-row" style="visibility: hidden">
+            <img class="icon settings" src="{{url_for('static', filename='img/icon-settings.js') }}">
+          </div>
+        </li>
+        <li class="camera-controls--center-button">
+          <button class="button--capture-image" id="captureImage">
+            <span></span>
+          </button>
+        </li>
+        <li>
+          <div class="icon-row">
+            <img id="openSettings" class="icon settings" src="{{ url_for('static', filename='img/icon-settings.svg') }}"/>
+          </div>
+        </li>
+      </ul>
     </footer>
-
+    <div class="drawer">
+      <ul class="drawer-list">
+        <li>
+          <div class="list-title">ISO</div>
+          <div class="list-options">
+            <div class="flex justify-content-around">
+              <div>
+                <input id="iso0" name="iso" type="radio">
+                <label for="iso0">Auto</label>
+              </div>
+              <div>
+                <input id="iso1" name="iso" type="radio">
+                <label for="iso1">25</label>
+              </div>
+              <div>
+                <input id="iso2" name="iso" type="radio">
+                <label for="iso2">50</label>
+              </div>
+              <div>
+                <input id="iso5" name="iso" type="radio">
+                <label for="iso5">100</label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-title">Exposure Compensation</div>
+          <div class="list-options">
+            <div class="flex justify-content-around">
+              <div>
+                <input id="exposurecompensation0" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation0">0</label>
+              </div>
+              <div>
+                <input id="exposurecompensation1" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation1">5</label>
+              </div>
+              <div>
+                <input id="exposurecompensation3" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation3">4.5</label>
+              </div>
+              <div>
+                <input id="exposurecompensation4" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation4">4.3</label>
+              </div>
+              <div>
+                <input id="exposurecompensation5" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation5">4</label>
+              </div>
+              <div>
+                <input id="exposurecompensation9" name="exposurecompensation" type="radio">
+                <label for="exposurecompensation9">3</label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-title">Shutter Speed</div>
+          <div class="list-options">
+            <div class="flex justify-content-around">
+              <div>
+                <input id="shutterspeed0" name="shutterspeed" type="radio">
+                <label for="shutterspeed0">30"</label>
+              </div>
+              <div>
+                <input id="shutterspeed9" name="shutterspeed" type="radio">
+                <label for="shutterspeed9">4"</label>
+              </div>
+              <div>
+                <input id="shutterspeed25" name="shutterspeed" type="radio">
+                <label for="shutterspeed25">1/10</label>
+              </div>
+              <div>
+                <input id="shutterspeed39" name="shutterspeed" type="radio">
+                <label for="shutterspeed39">1/250</label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-title">Flash</div>
+          <div class="list-options">
+            <div class="flex justify-content-around">
+              <div>
+                <input id="flashmode0" name="flashmode" type="radio">
+                <label for="flashmode0">Off</label>
+              </div>
+              <div>
+                <input id="flashmode1" name="flashmode" type="radio">
+                <label for="flashmode1">Automatic</label>
+              </div>
+              <div>
+                <input id="flashmode3" name="flashmode" type="radio">
+                <label for="flashmode3">Fill flash</label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-title">Others</div>
+          <div class="list-options">
+            <div class="flex justify-content-center align-center" id="blinkLed">
+              <img class="icon blink" src="{{url_for('static', filename='img/icon-led_blink.svg') }}">
+              <span>Test connection to device</span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
     <script type="text/javascript">
       $(function() {
+        $('#openSettings').on("click", function(){
+          $('.drawer').toggleClass("expand");
+        });
+
         $('#blinkLed').on('click', function() {
           $.getJSON('/blinkLed', {}, function(data) {});
           return false;
