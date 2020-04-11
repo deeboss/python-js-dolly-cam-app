@@ -1,0 +1,17 @@
+autofocus
+capture
+movie
+imagesize
+iso
+colortemperature
+whitebalance
+exposurecompensation
+flashmode
+f-number
+imagequality
+focusmode
+expprogram
+aspectratio
+capturemode
+exposuremetermode
+shutterspeed

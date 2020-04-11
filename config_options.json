@@ -1,0 +1,1353 @@
+{
+  "Label": "Auto-Focus",
+  "Readonly": "0",
+  "Type": "TOGGLE",
+  "Current": "2",
+  "END": null
+}
+{
+  "Label": "Capture",
+  "Readonly": "0",
+  "Type": "TOGGLE",
+  "Current": "2",
+  "END": null
+}
+{
+  "Label": "Bulb Mode",
+  "Readonly": "0",
+  "Type": "TOGGLE",
+  "Current": "2",
+  "END": null
+}
+{
+  "Label": "Movie Capture",
+  "Readonly": "0",
+  "Type": "TOGGLE",
+  "Current": "2",
+  "END": null
+}
+{
+  "Label": "PTP Opcode",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "0x1001,0xparam1,0xparam2",
+  "END": null
+}
+{
+  "Label": "Serial Number",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "00000000000000003282841003438749",
+  "END": null
+}
+{
+  "Label": "Camera Manufacturer",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "Sony Corporation",
+  "END": null
+}
+{
+  "Label": "Camera Model",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "ILCE-6500",
+  "END": null
+}
+{
+  "Label": "Device Version",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "1.0",
+  "END": null
+}
+{
+  "Label": "Vendor Extension",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "Sony PTP Extensions",
+  "END": null
+}
+{
+  "Label": "Battery Level",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "21%",
+  "END": null
+}
+{
+  "Label": "Image Size",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Large",
+  "Choice": [
+    "0 Unknown value 0004",
+    "1 Unknown value 000e",
+    "2 Unknown value 000f",
+    "3 Unknown value 0005",
+    "4 Unknown value 0006",
+    "5 Unknown value 0007",
+    "6 Unknown value 0010",
+    "7 Unknown value 0011",
+    "8 Unknown value 0012",
+    "9 Unknown value 0008",
+    "10 Unknown value 0013",
+    "11 Unknown value 0009",
+    "12 Unknown value 000a",
+    "13 Unknown value 000b",
+    "14 Unknown value 0014",
+    "15 Unknown value 0015",
+    "16 Unknown value 000c",
+    "17 Unknown value 0017",
+    "18 Unknown value 0018",
+    "19 Unknown value 000d",
+    "20 Large",
+    "21 Medium",
+    "22 Small"
+  ],
+  "END": null
+}
+{
+  "Label": "ISO Speed",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "2000",
+  "Choice": [
+    "0 Auto ISO",
+    "1 25",
+    "2 50",
+    "3 64",
+    "4 80",
+    "5 100",
+    "6 125",
+    "7 160",
+    "8 200",
+    "9 250",
+    "10 320",
+    "11 400",
+    "12 500",
+    "13 640",
+    "14 800",
+    "15 1000",
+    "16 1250",
+    "17 1600",
+    "18 2000",
+    "19 2500",
+    "20 3200",
+    "21 4000",
+    "22 5000",
+    "23 6400",
+    "24 8000",
+    "25 10000",
+    "26 12800",
+    "27 16000",
+    "28 20000",
+    "29 25600",
+    "30 32000",
+    "31 40000",
+    "32 51200",
+    "33 64000",
+    "34 80000",
+    "35 102400",
+    "36 128000",
+    "37 160000",
+    "38 204800",
+    "39 256000",
+    "40 320000",
+    "41 409600",
+    "42 Auto ISO Multi Frame Noise Reduction",
+    "43 25 Multi Frame Noise Reduction",
+    "44 50 Multi Frame Noise Reduction",
+    "45 64 Multi Frame Noise Reduction",
+    "46 80 Multi Frame Noise Reduction",
+    "47 100 Multi Frame Noise Reduction",
+    "48 125 Multi Frame Noise Reduction",
+    "49 160 Multi Frame Noise Reduction",
+    "50 200 Multi Frame Noise Reduction",
+    "51 250 Multi Frame Noise Reduction",
+    "52 320 Multi Frame Noise Reduction",
+    "53 400 Multi Frame Noise Reduction",
+    "54 500 Multi Frame Noise Reduction",
+    "55 640 Multi Frame Noise Reduction",
+    "56 800 Multi Frame Noise Reduction",
+    "57 1000 Multi Frame Noise Reduction",
+    "58 1250 Multi Frame Noise Reduction",
+    "59 1600 Multi Frame Noise Reduction",
+    "60 2000 Multi Frame Noise Reduction",
+    "61 2500 Multi Frame Noise Reduction",
+    "62 3200 Multi Frame Noise Reduction",
+    "63 4000 Multi Frame Noise Reduction",
+    "64 5000 Multi Frame Noise Reduction",
+    "65 6400 Multi Frame Noise Reduction",
+    "66 8000 Multi Frame Noise Reduction",
+    "67 10000 Multi Frame Noise Reduction",
+    "68 12800 Multi Frame Noise Reduction",
+    "69 16000 Multi Frame Noise Reduction",
+    "70 25600 Multi Frame Noise Reduction",
+    "71 51200 Multi Frame Noise Reduction",
+    "72 36864 Multi Frame Noise Reduction",
+    "73 8192 Multi Frame Noise Reduction",
+    "74 16384 Multi Frame Noise Reduction",
+    "75 65535 Multi Frame Noise Reduction",
+    "76 100 Multi Frame Noise Reduction",
+    "77 200 Multi Frame Noise Reduction",
+    "78 400 Multi Frame Noise Reduction",
+    "79 800 Multi Frame Noise Reduction",
+    "80 1600 Multi Frame Noise Reduction",
+    "81 3200 Multi Frame Noise Reduction",
+    "82 6400 Multi Frame Noise Reduction",
+    "83 12800 Multi Frame Noise Reduction",
+    "84 25600 Multi Frame Noise Reduction",
+    "85 51200 Multi Frame Noise Reduction",
+    "86 36864 Multi Frame Noise Reduction",
+    "87 8192 Multi Frame Noise Reduction",
+    "88 16384 Multi Frame Noise Reduction"
+  ],
+  "END": null
+}
+{
+  "Label": "Color Temperature",
+  "Readonly": "0",
+  "Type": "TEXT",
+  "Current": "3500",
+  "END": null
+}
+{
+  "Label": "WhiteBalance",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Preset 1",
+  "Choice": [
+    "0 Automatic",
+    "1 Daylight",
+    "2 Shade",
+    "3 Cloudy",
+    "4 Tungsten",
+    "5 Fluorescent",
+    "6 Fluorescent",
+    "7 Fluorescent",
+    "8 Fluorescent",
+    "9 Flash",
+    "10 Underwater",
+    "11 Choose Color Temperature",
+    "12 Preset 1",
+    "13 Preset 2",
+    "14 Preset 3"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Compensation",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "0",
+  "Choice": [
+    "0 0",
+    "1 5",
+    "2 4.7",
+    "3 4.5",
+    "4 4.3",
+    "5 4",
+    "6 3.7",
+    "7 3.5",
+    "8 3.3",
+    "9 3",
+    "10 2.7",
+    "11 2.5",
+    "12 2.3",
+    "13 2",
+    "14 1.7",
+    "15 1.5",
+    "16 1.3",
+    "17 1",
+    "18 0.7",
+    "19 0.5",
+    "20 0.3",
+    "21 -0.3",
+    "22 -0.5",
+    "23 -0.7",
+    "24 -1",
+    "25 -1.3",
+    "26 -1.5",
+    "27 -1.7",
+    "28 -2",
+    "29 -2.3",
+    "30 -2.5",
+    "31 -2.7",
+    "32 -3",
+    "33 -3.3",
+    "34 -3.5",
+    "35 -3.7",
+    "36 -4",
+    "37 -4.3",
+    "38 -4.5",
+    "39 -4.7",
+    "40 -5"
+  ],
+  "END": null
+}
+{
+  "Label": "Flash Mode",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Red-eye fill",
+  "Choice": [
+    "0 Flash off",
+    "1 Automatic Flash",
+    "2 Red-eye automatic",
+    "3 Fill flash",
+    "4 Red-eye fill",
+    "5 Unknown value 8001",
+    "6 Rear Curtain Sync",
+    "7 Wireless Sync",
+    "8 Unknown value 8031",
+    "9 Slow Sync"
+  ],
+  "END": null
+}
+{
+  "Label": "F-Number",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "0",
+  "Bottom": "0",
+  "Top": "655.35",
+  "Step": "0.01",
+  "END": null
+}
+{
+  "Label": "Image Quality",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "RAW",
+  "Choice": [
+    "0 Standard",
+    "1 Fine",
+    "2 Extra Fine",
+    "3 RAW",
+    "4 RAW+JPEG"
+  ],
+  "END": null
+}
+{
+  "Label": "Focus Mode",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Manual",
+  "Choice": [
+    "0 Manual",
+    "1 Automatic",
+    "2 AF-C",
+    "3 AF-A",
+    "4 DMF"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Program",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "M",
+  "Choice": [
+    "0 Intelligent Auto",
+    "1 Superior Auto",
+    "2 P",
+    "3 A",
+    "4 S",
+    "5 M",
+    "6 Movie",
+    "7 Unknown value 8051",
+    "8 Unknown value 8052",
+    "9 Unknown value 8053",
+    "10 Unknown value 8054",
+    "11 Unknown value 8080",
+    "12 Unknown value 8081",
+    "13 Unknown value 8082",
+    "14 Unknown value 8055",
+    "15 Unknown value 8056",
+    "16 Unknown value 8057",
+    "17 Unknown value 8058",
+    "18 Unknown value 8083",
+    "19 Unknown value 8059",
+    "20 Unknown value 805a",
+    "21 Unknown value 805b",
+    "22 Unknown value 805c",
+    "23 Sweep Panorama",
+    "24 Portrait",
+    "25 Sports Action",
+    "26 Macro",
+    "27 Landscape",
+    "28 Sunset",
+    "29 Night Scene",
+    "30 Hand-held Twilight",
+    "31 Night Portrait",
+    "32 Unknown value 8018"
+  ],
+  "END": null
+}
+{
+  "Label": "Aspect Ratio",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "16:9",
+  "Choice": [
+    "0 3:2",
+    "1 16:9"
+  ],
+  "END": null
+}
+{
+  "Label": "Still Capture Mode",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Single Shot",
+  "Choice": [
+    "0 Single Shot",
+    "1 Unknown value 8010",
+    "2 Burst",
+    "3 Unknown value 8015",
+    "4 Continuous Low Speed",
+    "5 Selftimer 2s",
+    "6 Selftimer 5s",
+    "7 Selftimer 10s",
+    "8 Selftimer 10s 3 Pictures",
+    "9 Selftimer 10s 5 Pictures",
+    "10 Selftimer 5s 3 Pictures",
+    "11 Selftimer 5s 5 Pictures",
+    "12 Selftimer 2s 3 Pictures",
+    "13 Selftimer 2s 5 Pictures"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Metering Mode",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "Average",
+  "Choice": [
+    "0 Center Spot",
+    "1 Average",
+    "2 Unknown value 8002",
+    "3 Unknown value 8004",
+    "4 Unknown value 8005",
+    "5 Unknown value 8003",
+    "6 Unknown value 8006"
+  ],
+  "END": null
+}
+{
+  "Label": "Shutter Speed",
+  "Readonly": "0",
+  "Type": "RADIO",
+  "Current": "1/250",
+  "Choice": [
+    "0 30",
+    "1 25",
+    "2 20",
+    "3 15",
+    "4 13",
+    "5 10",
+    "6 8",
+    "7 6",
+    "8 5",
+    "9 4",
+    "10 32/10",
+    "11 25/10",
+    "12 2",
+    "13 16/10",
+    "14 13/10",
+    "15 1",
+    "16 8/10",
+    "17 6/10",
+    "18 5/10",
+    "19 4/10",
+    "20 1/3",
+    "21 1/4",
+    "22 1/5",
+    "23 1/6",
+    "24 1/8",
+    "25 1/10",
+    "26 1/13",
+    "27 1/15",
+    "28 1/20",
+    "29 1/25",
+    "30 1/30",
+    "31 1/40",
+    "32 1/50",
+    "33 1/60",
+    "34 1/80",
+    "35 1/100",
+    "36 1/125",
+    "37 1/160",
+    "38 1/200",
+    "39 1/250",
+    "40 1/320",
+    "41 1/400",
+    "42 1/500",
+    "43 1/640",
+    "44 1/800",
+    "45 1/1000",
+    "46 1/1250",
+    "47 1/1600",
+    "48 1/2000",
+    "49 1/2500",
+    "50 1/3200",
+    "51 1/4000",
+    "52 Bulb"
+  ],
+  "END": null
+}
+{
+  "Label": "Compression Setting",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "16",
+  "Choice": [
+    "0 2",
+    "1 3",
+    "2 4",
+    "3 16",
+    "4 19"
+  ],
+  "END": null
+}
+{
+  "Label": "White Balance",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "32800",
+  "Choice": [
+    "0 2",
+    "1 4",
+    "2 32785",
+    "3 32784",
+    "4 6",
+    "5 32769",
+    "6 32770",
+    "7 32771",
+    "8 32772",
+    "9 7",
+    "10 32816",
+    "11 32786",
+    "12 32800",
+    "13 32801",
+    "14 32802"
+  ],
+  "END": null
+}
+{
+  "Label": "F-Number",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "0",
+  "Bottom": "0",
+  "Top": "65535",
+  "Step": "1",
+  "END": null
+}
+{
+  "Label": "Focus Mode",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2",
+    "2 32772",
+    "3 32773",
+    "4 32774"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Metering Mode",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 4",
+    "1 1",
+    "2 32770",
+    "3 32772",
+    "4 32773",
+    "5 32771",
+    "6 32774"
+  ],
+  "END": null
+}
+{
+  "Label": "Flash Mode",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "5",
+  "Choice": [
+    "0 2",
+    "1 1",
+    "2 4",
+    "3 3",
+    "4 5",
+    "5 32769",
+    "6 32771",
+    "7 32772",
+    "8 32817",
+    "9 32818"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Program Mode",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 32768",
+    "1 32769",
+    "2 2",
+    "3 3",
+    "4 4",
+    "5 1",
+    "6 32848",
+    "7 32849",
+    "8 32850",
+    "9 32851",
+    "10 32852",
+    "11 32896",
+    "12 32897",
+    "13 32898",
+    "14 32853",
+    "15 32854",
+    "16 32855",
+    "17 32856",
+    "18 32899",
+    "19 32857",
+    "20 32858",
+    "21 32859",
+    "22 32860",
+    "23 32833",
+    "24 7",
+    "25 32785",
+    "26 32789",
+    "27 32788",
+    "28 32786",
+    "29 32787",
+    "30 32790",
+    "31 32791",
+    "32 32792"
+  ],
+  "END": null
+}
+{
+  "Label": "Exposure Bias Compensation",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "0",
+  "Choice": [
+    "0 0",
+    "1 5000",
+    "2 4700",
+    "3 4500",
+    "4 4300",
+    "5 4000",
+    "6 3700",
+    "7 3500",
+    "8 3300",
+    "9 3000",
+    "10 2700",
+    "11 2500",
+    "12 2300",
+    "13 2000",
+    "14 1700",
+    "15 1500",
+    "16 1300",
+    "17 1000",
+    "18 700",
+    "19 500",
+    "20 300",
+    "21 -300",
+    "22 -500",
+    "23 -700",
+    "24 -1000",
+    "25 -1300",
+    "26 -1500",
+    "27 -1700",
+    "28 -2000",
+    "29 -2300",
+    "30 -2500",
+    "31 -2700",
+    "32 -3000",
+    "33 -3300",
+    "34 -3500",
+    "35 -3700",
+    "36 -4000",
+    "37 -4300",
+    "38 -4500",
+    "39 -4700",
+    "40 -5000"
+  ],
+  "END": null
+}
+{
+  "Label": "Still Capture Mode",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 32784",
+    "2 2",
+    "3 32789",
+    "4 32786",
+    "5 32773",
+    "6 32771",
+    "7 32772",
+    "8 32776",
+    "9 32777",
+    "10 32780",
+    "11 32781",
+    "12 32782",
+    "13 32783"
+  ],
+  "END": null
+}
+{
+  "Label": "DOC Compensation",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "0",
+  "Choice": [
+    "0 0",
+    "1 3000",
+    "2 2700",
+    "3 2500",
+    "4 2300",
+    "5 2000",
+    "6 1700",
+    "7 1500",
+    "8 1300",
+    "9 1000",
+    "10 700",
+    "11 500",
+    "12 300",
+    "13 -300",
+    "14 -500",
+    "15 -700",
+    "16 -1000",
+    "17 -1300",
+    "18 -1500",
+    "19 -1700",
+    "20 -2000",
+    "21 -2300",
+    "22 -2500",
+    "23 -2700",
+    "24 -3000"
+  ],
+  "END": null
+}
+{
+  "Label": "DRangeOptimize",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 31",
+    "2 17",
+    "3 18",
+    "4 19",
+    "5 20",
+    "6 21",
+    "7 32",
+    "8 33",
+    "9 34",
+    "10 35",
+    "11 36",
+    "12 37",
+    "13 38"
+  ],
+  "END": null
+}
+{
+  "Label": "Image size",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 4",
+    "1 14",
+    "2 15",
+    "3 5",
+    "4 6",
+    "5 7",
+    "6 16",
+    "7 17",
+    "8 18",
+    "9 8",
+    "10 19",
+    "11 9",
+    "12 10",
+    "13 11",
+    "14 20",
+    "15 21",
+    "16 12",
+    "17 23",
+    "18 24",
+    "19 13",
+    "20 1",
+    "21 2",
+    "22 3"
+  ],
+  "END": null
+}
+{
+  "Label": "Shutter speed",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "65786",
+  "Bottom": "0",
+  "Top": "4.29497e+09",
+  "Step": "1",
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd20e",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "13",
+  "Choice": [
+    "0 1",
+    "1 2",
+    "2 3",
+    "3 11",
+    "4 8",
+    "5 9",
+    "6 10",
+    "7 4",
+    "8 12",
+    "9 5",
+    "10 13",
+    "11 6",
+    "12 14",
+    "13 7",
+    "14 15"
+  ],
+  "END": null
+}
+{
+  "Label": "Color temperature",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "3500",
+  "Bottom": "2500",
+  "Top": "9900",
+  "Step": "100",
+  "END": null
+}
+{
+  "Label": "Aspect Ratio",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "2",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "Focus status",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2",
+    "2 3",
+    "3 5",
+    "4 6",
+    "5 7"
+  ],
+  "END": null
+}
+{
+  "Label": "ISO",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "2000",
+  "Choice": [
+    "0 16777215",
+    "1 25",
+    "2 50",
+    "3 64",
+    "4 80",
+    "5 100",
+    "6 125",
+    "7 160",
+    "8 200",
+    "9 250",
+    "10 320",
+    "11 400",
+    "12 500",
+    "13 640",
+    "14 800",
+    "15 1000",
+    "16 1250",
+    "17 1600",
+    "18 2000",
+    "19 2500",
+    "20 3200",
+    "21 4000",
+    "22 5000",
+    "23 6400",
+    "24 8000",
+    "25 10000",
+    "26 12800",
+    "27 16000",
+    "28 20000",
+    "29 25600",
+    "30 32000",
+    "31 40000",
+    "32 51200",
+    "33 64000",
+    "34 80000",
+    "35 102400",
+    "36 128000",
+    "37 160000",
+    "38 204800",
+    "39 256000",
+    "40 320000",
+    "41 409600",
+    "42 33554431",
+    "43 16777241",
+    "44 16777266",
+    "45 16777280",
+    "46 16777296",
+    "47 16777316",
+    "48 16777341",
+    "49 16777376",
+    "50 16777416",
+    "51 16777466",
+    "52 16777536",
+    "53 16777616",
+    "54 16777716",
+    "55 16777856",
+    "56 16778016",
+    "57 16778216",
+    "58 16778466",
+    "59 16778816",
+    "60 16779216",
+    "61 16779716",
+    "62 16780416",
+    "63 16781216",
+    "64 16782216",
+    "65 16783616",
+    "66 16785216",
+    "67 16787216",
+    "68 16790016",
+    "69 16793216",
+    "70 16802816",
+    "71 16828416",
+    "72 16879616",
+    "73 16982016",
+    "74 17186816",
+    "75 50331647",
+    "76 33554532",
+    "77 33554632",
+    "78 33554832",
+    "79 33555232",
+    "80 33556032",
+    "81 33557632",
+    "82 33560832",
+    "83 33567232",
+    "84 33580032",
+    "85 33605632",
+    "86 33656832",
+    "87 33759232",
+    "88 33964032"
+  ],
+  "END": null
+}
+{
+  "Label": "Picture Effect",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "32768",
+  "Choice": "0 32768",
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd21d",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "0",
+  "Choice": [
+    "0 0",
+    "1 1",
+    "2 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd21f",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 2",
+    "1 1"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd217",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 2",
+    "1 1"
+  ],
+  "END": null
+}
+{
+  "Label": "Battery Level",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "21",
+  "Choice": [
+    "0 -1",
+    "1 0",
+    "2 1",
+    "3 2",
+    "4 3",
+    "5 4",
+    "6 5",
+    "7 6",
+    "8 7",
+    "9 8",
+    "10 9",
+    "11 10",
+    "12 11",
+    "13 12",
+    "14 13",
+    "15 14",
+    "16 15",
+    "17 16",
+    "18 17",
+    "19 18",
+    "20 19",
+    "21 20",
+    "22 21",
+    "23 22",
+    "24 23",
+    "25 24",
+    "26 25",
+    "27 26",
+    "28 27",
+    "29 28",
+    "30 29",
+    "31 30",
+    "32 31",
+    "33 32",
+    "34 33",
+    "35 34",
+    "36 35",
+    "37 36",
+    "38 37",
+    "39 38",
+    "40 39",
+    "41 40",
+    "42 41",
+    "43 42",
+    "44 43",
+    "45 44",
+    "46 45",
+    "47 46",
+    "48 47",
+    "49 48",
+    "50 49",
+    "51 50",
+    "52 51",
+    "53 52",
+    "54 53",
+    "55 54",
+    "56 55",
+    "57 56",
+    "58 57",
+    "59 58",
+    "60 59",
+    "61 60",
+    "62 61",
+    "63 62",
+    "64 63",
+    "65 64",
+    "66 65",
+    "67 66",
+    "68 67",
+    "69 68",
+    "70 69",
+    "71 70",
+    "72 71",
+    "73 72",
+    "74 73",
+    "75 74",
+    "76 75",
+    "77 76",
+    "78 77",
+    "79 78",
+    "80 79",
+    "81 80",
+    "82 81",
+    "83 82",
+    "84 83",
+    "85 84",
+    "86 85",
+    "87 86",
+    "88 87",
+    "89 88",
+    "90 89",
+    "91 90",
+    "92 91",
+    "93 92",
+    "94 93",
+    "95 94",
+    "96 95",
+    "97 96",
+    "98 97",
+    "99 98",
+    "100 99",
+    "101 100"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd219",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "2",
+  "Choice": [
+    "0 2",
+    "1 1"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd212",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "0",
+  "Choice": [
+    "0 0",
+    "1 1",
+    "2 2",
+    "3 3",
+    "4 4",
+    "5 5",
+    "6 6",
+    "7 7",
+    "8 8",
+    "9 9",
+    "10 10",
+    "11 11",
+    "12 12",
+    "13 13",
+    "14 14",
+    "15 15"
+  ],
+  "END": null
+}
+{
+  "Label": "CC Filter",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "176",
+  "Choice": [
+    "0 164",
+    "1 165",
+    "2 166",
+    "3 167",
+    "4 168",
+    "5 169",
+    "6 170",
+    "7 171",
+    "8 172",
+    "9 173",
+    "10 174",
+    "11 175",
+    "12 176",
+    "13 177",
+    "14 178",
+    "15 179",
+    "16 180",
+    "17 181",
+    "18 182",
+    "19 183",
+    "20 184",
+    "21 185",
+    "22 186",
+    "23 187",
+    "24 188",
+    "25 189",
+    "26 190",
+    "27 191",
+    "28 192",
+    "29 193",
+    "30 194",
+    "31 195",
+    "32 196",
+    "33 197",
+    "34 198",
+    "35 199",
+    "36 200",
+    "37 201",
+    "38 202",
+    "39 203",
+    "40 204",
+    "41 205",
+    "42 206",
+    "43 207",
+    "44 208",
+    "45 209",
+    "46 210",
+    "47 211",
+    "48 212",
+    "49 213",
+    "50 214",
+    "51 215",
+    "52 216",
+    "53 217",
+    "54 218",
+    "55 219",
+    "56 220"
+  ],
+  "END": null
+}
+{
+  "Label": "AB Filter",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "192",
+  "Bottom": "164",
+  "Top": "220",
+  "Step": "2",
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd222",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 17"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd221",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 0",
+    "1 1",
+    "2 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd214",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "3.39118e+07",
+  "Bottom": "0",
+  "Top": "4.29497e+09",
+  "Step": "1",
+  "END": null
+}
+{
+  "Label": "Objects in memory",
+  "Readonly": "0",
+  "Type": "RANGE",
+  "Current": "0",
+  "Bottom": "0",
+  "Top": "65535",
+  "Step": "1",
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd2c1",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd2c2",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd2c3",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd2c9",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "Movie",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "PTP Property 0xd2c5",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
+{
+  "Label": "Still Image",
+  "Readonly": "0",
+  "Type": "MENU",
+  "Current": "1",
+  "Choice": [
+    "0 1",
+    "1 2"
+  ],
+  "END": null
+}
