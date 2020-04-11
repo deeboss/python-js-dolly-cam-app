@@ -34,11 +34,6 @@ def blinkLed():
 
     return jsonify("hello")
 
-@app.route('/adjustShutterSpeed')
-def captureImage():
-    os.system("gphoto2 --capture-image")
-    return jsonify("Works")
-
 @app.route('/captureImage')
 def captureImage():
     os.system("gphoto2 --capture-image")
@@ -46,6 +41,7 @@ def captureImage():
 
 @app.route('/changeCameraSettings')
 def changeSettings():
+    print("ok")
     return jsonify("OK!")
 
 # Run Server
