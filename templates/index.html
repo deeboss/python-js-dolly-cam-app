@@ -21,7 +21,7 @@
       <ul class="flex align-center justify-content-center">
         <li>
           <div class="icon-row" style="visibility: hidden">
-            <img class="icon settings" src="{{url_for('static', filename='img/icon-settings.js') }}">
+            <img class="icon settings" src="{{url_for('static', filename='img/icon-settings.svg') }}">
           </div>
         </li>
         <li class="camera-controls--center-button">
@@ -38,6 +38,21 @@
     </footer>
     <div class="drawer">
       <ul class="drawer-list">
+        <!-- <li>
+          <div class="list-title">Capture Mode</div>
+          <div class="list-options">
+            <div class="flex justify-content-around">
+              <div>
+                <input id="movie" name="movie" type="radio">
+                <label for="movie0">Image Mode</label>
+              </div>
+              <div>
+                <input id="movie1" name="movie" type="radio">
+                <label for="movie1">Video Recording Mode</label>
+              </div>
+            </div>
+          </div>
+        </li> -->
         <li>
           <div class="list-title">ISO</div>
           <div class="list-options">
@@ -62,32 +77,28 @@
           </div>
         </li>
         <li>
-          <div class="list-title">Exposure Compensation</div>
+          <div class="list-title">Focus Mode</div>
           <div class="list-options">
-            <div class="flex justify-content-around">
+            <div class="flex justify-content-start">
               <div>
-                <input id="exposurecompensation0" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation0">0</label>
+                <input id="focusmode0" name="focusmode" type="radio">
+                <label for="focusmode0">Manual</label>
               </div>
               <div>
-                <input id="exposurecompensation1" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation1">5</label>
+                <input id="focusmode1" name="focusmode" type="radio">
+                <label for="focusmode1">Automatic</label>
               </div>
               <div>
-                <input id="exposurecompensation3" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation3">4.5</label>
+                <input id="focusmode2" name="focusmode" type="radio">
+                <label for="focusmode2">AF-C</label>
               </div>
               <div>
-                <input id="exposurecompensation4" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation4">4.3</label>
+                <input id="focusmode3" name="focusmode" type="radio">
+                <label for="focusmode3">AF-A</label>
               </div>
               <div>
-                <input id="exposurecompensation5" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation5">4</label>
-              </div>
-              <div>
-                <input id="exposurecompensation9" name="exposurecompensation" type="radio">
-                <label for="exposurecompensation9">3</label>
+                <input id="focusmode4" name="focusmode" type="radio">
+                <label for="focusmode4">DMF</label>
               </div>
             </div>
           </div>
@@ -95,11 +106,7 @@
         <li>
           <div class="list-title">Shutter Speed</div>
           <div class="list-options">
-            <div class="flex justify-content-around">
-              <div>
-                <input id="shutterspeed0" name="shutterspeed" type="radio">
-                <label for="shutterspeed0">30"</label>
-              </div>
+            <div class="flex justify-content-start">
               <div>
                 <input id="shutterspeed9" name="shutterspeed" type="radio">
                 <label for="shutterspeed9">4"</label>
@@ -111,6 +118,41 @@
               <div>
                 <input id="shutterspeed39" name="shutterspeed" type="radio">
                 <label for="shutterspeed39">1/250</label>
+              </div>
+              <div>
+                <input id="shutterspeed41" name="shutterspeed" type="radio">
+                <label for="shutterspeed41">1/400</label>
+              </div>
+              <div>
+                <input id="shutterspeed44" name="shutterspeed" type="radio">
+                <label for="shutterspeed44">1/800</label>
+              </div>
+              <div>
+                <input id="shutterspeed48" name="shutterspeed" type="radio">
+                <label for="shutterspeed48">1/2000</label>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="list-title">White Balance</div>
+          <div class="list-options">
+            <div class="flex justify-content-start">
+              <div>
+                <input id="whitebalance0" name="whitebalance" type="radio">
+                <label for="whitebalance0">Automatic</label>
+              </div>
+              <div>
+                <input id="whitebalance1" name="whitebalance" type="radio">
+                <label for="whitebalance1">Daylight</label>
+              </div>
+              <div>
+                <input id="whitebalance3" name="whitebalance" type="radio">
+                <label for="whitebalance3">Cloudy</label>
+              </div>
+              <div>
+                <input id="whitebalance9" name="whitebalance" type="radio">
+                <label for="whitebalance9">Flash</label>
               </div>
             </div>
           </div>
@@ -138,7 +180,7 @@
           <div class="list-title">Others</div>
           <div class="list-options">
             <div class="flex justify-content-center align-center" id="blinkLed">
-              <img class="icon blink" src="{{url_for('static', filename='img/icon-led_blink.svg') }}">
+              <!-- <img class="icon blink" src="{{url_for('static', filename='img/icon-led_blink.svg') }}"> -->
               <span>Test connection to device</span>
             </div>
           </div>
@@ -156,12 +198,13 @@
           var targetId = target[0].id;
           var optionName = targetId.replace(/\d+/g, '');
           var optionValue = targetId.match(/\d+/)[0];
-
+          
+          target.prop("checked", true);
           $.getJSON('/changeCameraSettings', {
               optionName: optionName,
               optionValue: optionValue
           }, function(data){
-           console.log(data.result); 
+           target.prop("checked", true);
           });
           return false;
         });

@@ -101,6 +101,10 @@ button.button--capture-image:active span {
     display: flex;
 }
 
+.justify-content-start {
+    justify-content: flex-start;
+}
+
 .justify-content-center {
     justify-content: center;
 }
@@ -199,6 +203,18 @@ img.icon {
 .drawer.expand .drawer-list li:nth-of-type(5) {
     transition-delay: 0.65s;
 }
+
+.drawer.expand .drawer-list li:nth-of-type(6) {
+    transition-delay: 0.725s;
+}
+
+.drawer.expand .drawer-list li:nth-of-type(7) {
+    transition-delay: 0.800s;
+}
+
+.drawer.expand .drawer-list li:nth-of-type(8) {
+    transition-delay: 0.875s;
+}
  
 .drawer-list {
     padding-left: 0;
@@ -228,6 +244,9 @@ img.icon {
 
 .drawer-list .list-options {
     padding: 20px 20px;
+    white-space: nowrap;
+    overflow-x: scroll;
+
 }
 
 input[type="radio"] {
@@ -238,7 +257,7 @@ input[type="radio"] {
 input[type="radio"]+label {
     text-align: center;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px 26px;
     border-radius: 4px;
 }
 
