@@ -41,7 +41,11 @@ def captureImage():
 
 @app.route('/changeCameraSettings')
 def changeSettings():
-    print("ok")
+    optionName = request.args.get('optionName', 0, type=str)
+    optionValue = request.args.get('optionValue', 0, type=str)
+
+    os.system('gphoto2 --set-config={}={}'.format(optionName, optionValue))
+
     return jsonify("OK!")
 
 # Run Server
