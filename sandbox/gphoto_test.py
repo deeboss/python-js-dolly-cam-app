@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import logging
 import os
 import subprocess
@@ -22,3 +24,6 @@ def main():
     subprocess.call(['xdg-open', target])
     camera.exit()
     return 0
+
+if __name__ == "__main__":
+    sys.exit(main())
