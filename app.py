@@ -3,6 +3,7 @@
 import os
 import sys
 import time     # Import the sleep function from the time module
+import gphoto2 as gp
 
 os.system(". /home/pi/venv/bin/activate")
 
