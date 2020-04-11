@@ -164,6 +164,9 @@ img.icon {
 .drawer {
     position: absolute;
     bottom: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-bottom: 120px;
     height: 100%;
     background: #181616;
     width: 100%;
