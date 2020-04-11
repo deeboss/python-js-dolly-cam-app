@@ -9,22 +9,50 @@
     <script type=text/javascript src="{{url_for('static', filename='js/jquery.js') }}"></script>
   </head>
   <body>
+    <!-- <nav class="other-controls">
+    </nav> -->
     <div class='wrapper'>
       <h1> Dolly Remote </h1>
+      <button id="blinkLed">
+        Make me blink
+      </button>
       <div>
-          <button id="blinkLed">
-            Make me blink
-          </button>
+        <div>
+          <input id="0" name="shutterOptions" type="radio">
+          <label for="0">Option 1: 30"</label>
+        </div>
+        <div>
+          <input id="9" name="shutterOptions" type="radio">
+          <label for="9">Option 2: 4"</label>
+        </div>
+        <div>
+          <input id="25" name="shutterOptions" type="radio">
+          <label for="25">Option 3: 1/10</label>
+        </div>
+        <div>
+          <input id="39" name="shutterOptions" type="radio">
+          <label for="39">Option 4: 1/250</label>
+        </div>
       </div>
-
-    </div>
+      <button id="adjustShutterSpeed">
+        Adjust Shutter Speed
+      </button>
+      </div>
+    <footer class="camera-controls">
+      <button class="button--capture-image" id="">
+        <span></span>
+      </button>
+    </footer>
 
     <script type="text/javascript">
       $(function() {
         $('#blinkLed').on('click', function() {
-          $.getJSON('/blinkLed', {}, function(data) {
-            $("#result").text(data.result);
-          });
+          $.getJSON('/blinkLed', {}, function(data) {});
+          return false;
+        });
+
+        $('#captureImage').on('click', function() {
+          $.getJSON('/captureImage', {}, function(data) {});
           return false;
         });
       });

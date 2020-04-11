@@ -34,7 +34,10 @@ def blinkLed():
 
     return jsonify("hello")
 
-
+@app.route('/captureImage')
+def captureImage():
+    os.system("gphoto2 --capture-image")
+    return jsonify("Works")
 
 # Run Server
 if __name__ == "__main__":
