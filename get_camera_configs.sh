@@ -4,3 +4,4 @@ while IFS= read -r CONFIG; do
     gphoto2 --get-config=$CONFIG
 done < available_configs.txt > config_options.txt
 
+python3 generate_config_json.py
