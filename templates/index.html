@@ -36,9 +36,9 @@
         </li>
       </ul>
     </footer>
-    <div class="drawer">
+    <div class="drawer expand">
       <ul class="drawer-list">
-        <li>
+        <!-- <li>
           <div class="list-title">Capture Mode</div>
           <div class="list-options">
             <div class="flex justify-content-around">
@@ -175,7 +175,7 @@
               </div>
             </div>
           </div>
-        </li>
+        </li> -->
         <li>
           <div class="list-title">Others</div>
           <div class="list-options">
@@ -188,37 +188,71 @@
       </ul>
     </div>
     <script type="text/javascript">
-      $(function() {
-        $('#openSettings').on("click", function(){
-          $('.drawer').toggleClass("expand");
-        });
+      var configsData = JSON.parse('{{ data | tojson | safe}}');
 
-        $('input[type="radio"]').on("click", function(event) {
-          var target = $(event.target);
-          var targetId = target[0].id;
-          var optionName = targetId.replace(/\d+/g, '');
-          var optionValue = targetId.match(/\d+/)[0];
+        var target = $('.drawer-list');
+
+        for (var i = configsData.length - 1; i >= 0; i--) {
+          var configId = configsData[i].id;
+          var optionName = configsData[i].Label;
+          var optionsDiv = $('<div class="flex">');
+
+          if (configsData[i].Choice) {
+            target.prepend(
+              $('<li>')
+              .append(
+                $('<div class="list-title">')
+                  .append(
+                    optionName
+                  )
+              )
+              .append(
+                  $('<div class="list-options">')
+                    .append(
+                      optionsDiv
+                    )
+              )
+            )
+
+            
+            for (var j = 0; j < configsData[i].Choice.length; j++) {
+              var optionsName = configsData[i].Choice[j]
+              optionsDiv.append($('<div>')
+                .append(
+                  $('<input type="radio">').attr({
+                    id: configId + j
+                  })
+                )
+                .append(
+                  $('<label>').attr({
+                    for: configId + j
+                  })
+                    .append(
+                      optionsName
+                    )
+                )
+              )
+            }
+          }
           
-          target.prop("checked", true);
-          $.getJSON('/changeCameraSettings', {
-              optionName: optionName,
-              optionValue: optionValue
-          }, function(data){
-           target.prop("checked", true);
-          });
-          return false;
-        });
+          
+        }
 
-        $('#blinkLed').on('click', function() {
-          $.getJSON('/blinkLed', {}, function(data) {});
-          return false;
-        });
 
-        $('#captureImage').on('click', function() {
-          $.getJSON('/captureImage', {}, function(data) {});
-          return false;
-        });
-      });
+        // var configItem = `
+        //   <li>
+        //     <div class="list-title">${name}</div>
+        //     <div class="list-options">
+        //       <div class="flex justify-content-start">
+        //         <div>
+        //           <input id="${id}${optionIdx}" name="${id}" type="radio">
+        //           <label for="${id}${optionIdx}">${optionName}</label>
+        //         </div>
+        //       </div>
+        //     </div>
+        //   </li>
+        // `
     </script>
+    <script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

@@ -181,42 +181,10 @@ img.icon {
     transition: transform 0.35s ease-in-out;
 }
 
-.drawer.expand .drawer-list li {
+.drawer.expand .drawer-list {
     opacity: 1;
     transform: translateY(0px);
-    transition: all 0.4s ease-in-out;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(1) {
-    transition-delay: 0.35s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(2) {
-    transition-delay: 0.425s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(3) {
-    transition-delay: 0.5s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(4) {
-    transition-delay: 0.575s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(5) {
-    transition-delay: 0.65s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(6) {
-    transition-delay: 0.725s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(7) {
-    transition-delay: 0.800s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(8) {
-    transition-delay: 0.875s;
+    transition: all 0.4s 0.5s ease-in-out;
 }
  
 .drawer-list {
@@ -224,13 +192,16 @@ img.icon {
     margin-top: 0;
 }
 
-.drawer-list li {
+.drawer .drawer-list {
     opacity: 0;
-    list-style-type: none;
-    text-align: left;
-    margin-bottom: 8px;
     transform: translateY(-8px);
     transition: all 0.15s ease-in-out;
+}
+
+.drawer-list li {
+    list-style-type: none;
+    text-align: left;
+    margin-bottom: 8px;   
 }
 
 .drawer-list li > div {
