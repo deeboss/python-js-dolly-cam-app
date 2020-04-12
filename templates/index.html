@@ -16,6 +16,9 @@
     </nav> -->
     <div class='wrapper'>
       <h1> Dolly Remote </h1>
+      <div class="container--livefeed">
+        <!-- <img src="http://placehold.it/1920x1080"> -->
+      </div>
     </div>
     <footer class="camera-controls">
       <ul class="flex align-center justify-content-center">
@@ -51,7 +54,7 @@
     </div>
     <script type="text/javascript">
       var configsData = JSON.parse('{{ data | tojson | safe}}');
-
+        console.log(configsData);
         var target = $('.drawer-list');
 
         for (var i = configsData.length - 1; i >= 0; i--) {
@@ -92,12 +95,13 @@
               optionsDiv.append($('<div>')
                 .append(
                   $('<input type="radio">').attr({
-                    id: configId + j
+                    id: configId + '_' + j,
+                    name: configId
                   })
                 )
                 .append(
                   $('<label>').attr({
-                    for: configId + j
+                    for: configId + '_' + j
                   })
                     .append(
                       optionsName
@@ -109,21 +113,6 @@
           
           
         }
-
-
-        // var configItem = `
-        //   <li>
-        //     <div class="list-title">${name}</div>
-        //     <div class="list-options">
-        //       <div class="flex justify-content-start">
-        //         <div>
-        //           <input id="${id}${optionIdx}" name="${id}" type="radio">
-        //           <label for="${id}${optionIdx}">${optionName}</label>
-        //         </div>
-        //       </div>
-        //     </div>
-        //   </li>
-        // `
     </script>
     <script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
   </body>
