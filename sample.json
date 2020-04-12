@@ -1,0 +1,25 @@
+[
+    {
+        "Label": "auto-focus",
+        "Readonly": "0",
+        "Type": "TOGGLE",
+        "Current": "2"
+    },
+    {
+        "Label": "Capture",
+        "Readonly": "0",
+        "Type": "TOGGLE",
+        "Current": "2"
+    },
+    {
+        "Label": "Image Size",
+        "Readonly": "0",
+        "Type": "RADIO",
+        "Current": "Large",
+        "Choice": [
+            "Large",
+            "Medium",
+            "Small"
+        ]
+    }
+]

@@ -1,0 +1,10 @@
+{
+    "Label": "Still Image",
+    "Readonly": "0",
+    "Type": "MENU",
+    "Current": "1",
+    "Choice": "1 2",
+    "Bottom": "0",
+    "Top": "65535",
+    "Step": "1"
+}
