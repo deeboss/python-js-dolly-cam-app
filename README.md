@@ -44,6 +44,7 @@ python3 -m venv venv
 
 ## Roadmap
 
+#### General
 1. ✅ The Raspberry Pi can act as its own WiFi hotspot without active internet connection (_03/04/2020_)
 2. ✅ Anyone can issue commands to the Raspberry Pi OS through the Python/Flask Web Server at port 5000 (_04/04/2020_)
 3. Implementing a physical button that initializes server environment, i.e. turns on hotspot and runs server through venv
@@ -51,10 +52,27 @@ python3 -m venv venv
 5. Gearbox design and coordination thereof with servo control script. Ideally want to be able to input a given speed in m/s rather than RPM.
 6. **First major milestone: vehicle with forward/backward movement.**
 7. Incorporating turning input.
-8. _*To Be Determined*_
-10. _*To Be Determined*_
 
+#### Camera
+1. ✅ Can connect a camera and control it via the Raspberry Pi + your phone (_11/04/2020_)
+2. ✅ Support for different brands of cameras by outputting a list of configurations available for that specific device  (_12/04/2020_)
+3. Can toggle to video mode and photography mode
 
+#### Client Side Remote Control
+1. Can see a live preview rendering on your phone
+2. _To be determined_
+3. _To be determined_
+
+## Connecting the Camera
+
+_Before attempting to use your camera, check if it is listed as a supported device [here](http://www.gphoto.org/proj/libgphoto2/support.php)_ 
+
+1. Connect your DSLR camera to one of the USB ports
+2. Turn the camera on
+3. Enable "PTP mode" or "Connect to Computer mode" equivalent
+4. For optimal results, set it to "Manual" mode
+5. Run `. get_camera_configs.sh`. This will automatically create a list of supported configurations for your device
+6. Access the remote control server (`10.10.10.10:5000`) and enjoy!
 
 ## Resources
 
