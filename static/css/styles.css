@@ -96,6 +96,10 @@ button.button--capture-image:active span {
     transition: transform 0.12s ease-in-out;
 }
 
+.container--liveview img {
+    width: 100%;
+    height: auto;
+}  
 
 .flex {
     display: flex;

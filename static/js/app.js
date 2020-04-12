@@ -7,8 +7,9 @@ $(function() {
     $('input[type="radio"]').on("click", function(event) {
       var target = $(event.target);
       var targetId = target[0].id;
-      var optionName = targetId.replace(/\d+/g, '');
-      var optionValue = targetId.match(/\d+/)[0];
+      var splitTarget = targetId.split("_");
+      var optionName = splitTarget[0];
+      var optionValue = splitTarget[1];
       
       target.prop("checked", true);
       $.getJSON('/changeCameraSettings', {
