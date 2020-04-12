@@ -201,7 +201,11 @@ img.icon {
 .drawer-list li {
     list-style-type: none;
     text-align: left;
-    margin-bottom: 8px;   
+    margin-bottom: 15px;   
+}
+
+.drawer-list li:not(:first-of-type)  {
+    margin: 15px 0;
 }
 
 .drawer-list li > div {
@@ -217,9 +221,7 @@ img.icon {
 }
 
 .drawer-list .list-options {
-    padding: 20px 20px;
-    white-space: nowrap;
-    overflow-x: scroll;
+    padding: 20px 0;
 
 }
 
@@ -233,9 +235,36 @@ input[type="radio"]+label {
     cursor: pointer;
     padding: 10px 26px;
     border-radius: 4px;
+    display: block;
 }
 
 input[type="radio"]:checked+label {
     color: yellow;
     font-weight: 600;
+}
+
+
+
+.options--x-scroll-view {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.options--list-view {
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.options--list-view > div {
+    width: 50%;
+    padding: 10px;
+}
+
+.options--list-view > div input[type="radio"]+label {
+    padding: 10px;
+}
+
+.options--centered-view {
+    text-align: center;
+    justify-content: center;
 }

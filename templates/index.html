@@ -36,146 +36,8 @@
         </li>
       </ul>
     </footer>
-    <div class="drawer expand">
+    <div class="drawer">
       <ul class="drawer-list">
-        <!-- <li>
-          <div class="list-title">Capture Mode</div>
-          <div class="list-options">
-            <div class="flex justify-content-around">
-              <div>
-                <input id="movie" name="movie" type="radio">
-                <label for="movie0">Image Mode</label>
-              </div>
-              <div>
-                <input id="movie1" name="movie" type="radio">
-                <label for="movie1">Video Recording Mode</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-title">ISO</div>
-          <div class="list-options">
-            <div class="flex justify-content-around">
-              <div>
-                <input id="iso0" name="iso" type="radio">
-                <label for="iso0">Auto</label>
-              </div>
-              <div>
-                <input id="iso1" name="iso" type="radio">
-                <label for="iso1">25</label>
-              </div>
-              <div>
-                <input id="iso2" name="iso" type="radio">
-                <label for="iso2">50</label>
-              </div>
-              <div>
-                <input id="iso5" name="iso" type="radio">
-                <label for="iso5">100</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-title">Focus Mode</div>
-          <div class="list-options">
-            <div class="flex justify-content-start">
-              <div>
-                <input id="focusmode0" name="focusmode" type="radio">
-                <label for="focusmode0">Manual</label>
-              </div>
-              <div>
-                <input id="focusmode1" name="focusmode" type="radio">
-                <label for="focusmode1">Automatic</label>
-              </div>
-              <div>
-                <input id="focusmode2" name="focusmode" type="radio">
-                <label for="focusmode2">AF-C</label>
-              </div>
-              <div>
-                <input id="focusmode3" name="focusmode" type="radio">
-                <label for="focusmode3">AF-A</label>
-              </div>
-              <div>
-                <input id="focusmode4" name="focusmode" type="radio">
-                <label for="focusmode4">DMF</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-title">Shutter Speed</div>
-          <div class="list-options">
-            <div class="flex justify-content-start">
-              <div>
-                <input id="shutterspeed9" name="shutterspeed" type="radio">
-                <label for="shutterspeed9">4"</label>
-              </div>
-              <div>
-                <input id="shutterspeed25" name="shutterspeed" type="radio">
-                <label for="shutterspeed25">1/10</label>
-              </div>
-              <div>
-                <input id="shutterspeed39" name="shutterspeed" type="radio">
-                <label for="shutterspeed39">1/250</label>
-              </div>
-              <div>
-                <input id="shutterspeed41" name="shutterspeed" type="radio">
-                <label for="shutterspeed41">1/400</label>
-              </div>
-              <div>
-                <input id="shutterspeed44" name="shutterspeed" type="radio">
-                <label for="shutterspeed44">1/800</label>
-              </div>
-              <div>
-                <input id="shutterspeed48" name="shutterspeed" type="radio">
-                <label for="shutterspeed48">1/2000</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-title">White Balance</div>
-          <div class="list-options">
-            <div class="flex justify-content-start">
-              <div>
-                <input id="whitebalance0" name="whitebalance" type="radio">
-                <label for="whitebalance0">Automatic</label>
-              </div>
-              <div>
-                <input id="whitebalance1" name="whitebalance" type="radio">
-                <label for="whitebalance1">Daylight</label>
-              </div>
-              <div>
-                <input id="whitebalance3" name="whitebalance" type="radio">
-                <label for="whitebalance3">Cloudy</label>
-              </div>
-              <div>
-                <input id="whitebalance9" name="whitebalance" type="radio">
-                <label for="whitebalance9">Flash</label>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="list-title">Flash</div>
-          <div class="list-options">
-            <div class="flex justify-content-around">
-              <div>
-                <input id="flashmode0" name="flashmode" type="radio">
-                <label for="flashmode0">Off</label>
-              </div>
-              <div>
-                <input id="flashmode1" name="flashmode" type="radio">
-                <label for="flashmode1">Automatic</label>
-              </div>
-              <div>
-                <input id="flashmode3" name="flashmode" type="radio">
-                <label for="flashmode3">Fill flash</label>
-              </div>
-            </div>
-          </div>
-        </li> -->
         <li>
           <div class="list-title">Others</div>
           <div class="list-options">
@@ -217,6 +79,16 @@
             
             for (var j = 0; j < configsData[i].Choice.length; j++) {
               var optionsName = configsData[i].Choice[j]
+
+              if (configsData[i].Choice.length > 10) {
+                optionsDiv.addClass("options--x-scroll-view");
+              } else if (configsData[i].Choice.length < 4) {
+                optionsDiv.addClass("options--centered-view");
+              } else {
+                optionsDiv.addClass("options--list-view");
+              }
+              
+
               optionsDiv.append($('<div>')
                 .append(
                   $('<input type="radio">').attr({
