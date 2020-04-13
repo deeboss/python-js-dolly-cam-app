@@ -1,12 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import MyAppContextProvider from './contexts/MyAppContext';
+
+import MyFirstComponent from './components/MyFirstComponent';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <MyAppContextProvider>
+        {/* This text is from App.js */}
+        <MyFirstComponent/>
+      </MyAppContextProvider>
     </div>
   );
 }
