@@ -22,7 +22,7 @@ step_seq = [
   [1,0,0,1]
 ]
 
-'''
+
 # working press to move set distance
 def step_func(rotations,x,y,z,delay):
     for i in range(rotations*512):
@@ -41,8 +41,8 @@ while True:
     if GPIO.input(35) == True:
         forward_full()
         sys.exit("DONE")
-'''
 
+'''
 while True:
     if GPIO.input(35) == True:
         for step in range(7,-1,-2):
@@ -55,5 +55,6 @@ while True:
               GPIO.output(control_pins[pin], step_seq[step][pin])
             time.sleep(0.002)
     time.sleep(0.01)
+'''
         
 GPIO.cleanup()
