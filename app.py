@@ -36,12 +36,15 @@ os.system("hostname -I \n")
 if os.uname()[1].startswith("raspberry"):
     import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, json, render_template, request
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    json_url = os.path.join(app.root_path, '', 'config_options.json')
+    data = json.load(open(json_url))
+
+    return render_template("index.html", data=data)
 
 @app.route('/blinkLed')
 def blinkLed():

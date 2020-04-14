@@ -96,6 +96,10 @@ button.button--capture-image:active span {
     transition: transform 0.12s ease-in-out;
 }
 
+.container--liveview img {
+    width: 100%;
+    height: auto;
+}  
 
 .flex {
     display: flex;
@@ -181,42 +185,10 @@ img.icon {
     transition: transform 0.35s ease-in-out;
 }
 
-.drawer.expand .drawer-list li {
+.drawer.expand .drawer-list {
     opacity: 1;
     transform: translateY(0px);
-    transition: all 0.4s ease-in-out;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(1) {
-    transition-delay: 0.35s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(2) {
-    transition-delay: 0.425s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(3) {
-    transition-delay: 0.5s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(4) {
-    transition-delay: 0.575s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(5) {
-    transition-delay: 0.65s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(6) {
-    transition-delay: 0.725s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(7) {
-    transition-delay: 0.800s;
-}
-
-.drawer.expand .drawer-list li:nth-of-type(8) {
-    transition-delay: 0.875s;
+    transition: all 0.4s 0.5s ease-in-out;
 }
  
 .drawer-list {
@@ -224,13 +196,20 @@ img.icon {
     margin-top: 0;
 }
 
-.drawer-list li {
+.drawer .drawer-list {
     opacity: 0;
-    list-style-type: none;
-    text-align: left;
-    margin-bottom: 8px;
     transform: translateY(-8px);
     transition: all 0.15s ease-in-out;
+}
+
+.drawer-list li {
+    list-style-type: none;
+    text-align: left;
+    margin-bottom: 15px;   
+}
+
+.drawer-list li:not(:first-of-type)  {
+    margin: 15px 0;
 }
 
 .drawer-list li > div {
@@ -246,9 +225,7 @@ img.icon {
 }
 
 .drawer-list .list-options {
-    padding: 20px 20px;
-    white-space: nowrap;
-    overflow-x: scroll;
+    padding: 20px 0;
 
 }
 
@@ -262,9 +239,36 @@ input[type="radio"]+label {
     cursor: pointer;
     padding: 10px 26px;
     border-radius: 4px;
+    display: block;
 }
 
 input[type="radio"]:checked+label {
     color: yellow;
     font-weight: 600;
+}
+
+
+
+.options--x-scroll-view {
+    white-space: nowrap;
+    overflow-x: scroll;
+}
+
+.options--list-view {
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.options--list-view > div {
+    width: 50%;
+    padding: 10px;
+}
+
+.options--list-view > div input[type="radio"]+label {
+    padding: 10px;
+}
+
+.options--centered-view {
+    text-align: center;
+    justify-content: center;
 }
