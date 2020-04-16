@@ -91,9 +91,12 @@ def checkIfMotorShouldMove():
 def startRunningMotor():
     global motorMove
     while motorMove == True:
-        print("running...")
+        for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
+            for pin in range(4):
+                GPIO.output(control_pins[pin], step_seq[step][pin])
+            time.sleep(0.002)
+        # # motor_position += 1
         checkIfMotorShouldMove()
-        time.sleep(.5)
 
 @app.route('/forwardStart')
 def forwardStart():
@@ -101,6 +104,8 @@ def forwardStart():
     motorMove = True
     startRunningMotor()
 
+    global stopCommandIssued
+    stopCommandIssued = False
     return jsonify("OK")
 
 @app.route('/forwardStop')
