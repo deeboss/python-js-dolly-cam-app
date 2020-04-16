@@ -51,7 +51,7 @@ def home():
 @app.route('/blinkLed')
 def blinkLed():
     
-    '''
+
     os.system("sudo echo gpio | sudo tee /sys/class/leds/led1/trigger")
     for n in range(0, 5):
         os.system("echo 1 | sudo tee /sys/class/leds/led1/brightness")
@@ -60,16 +60,7 @@ def blinkLed():
         time.sleep(1)
 
     os.system("sudo echo input | sudo tee /sys/class/leds/led1/trigger")
-    '''
-    
-    # motor forward
-    while Button == True:
-        for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
-            for pin in range(4):
-              GPIO.output(control_pins[pin], step_seq[step][pin])
-            time.sleep(0.002)
-        motor_position += 1
-    
+
     '''
     # motor return
     while Buttonback == True:
@@ -82,6 +73,42 @@ def blinkLed():
     '''
 
     return jsonify("hello")
+
+
+global motorMove
+global stopCommandIssued
+
+motorMove = False
+stopCommandIssued = False
+
+def checkIfMotorShouldMove():
+    global motorMove
+    global stopCommandIssued
+
+    if stopCommandIssued == True:
+        motorMove = False
+
+def startRunningMotor():
+    global motorMove
+    while motorMove == True:
+        print("running...")
+        checkIfMotorShouldMove()
+        time.sleep(.5)
+
+@app.route('/forwardStart')
+def forwardStart():
+    global motorMove
+    motorMove = True
+    startRunningMotor()
+
+    return jsonify("OK")
+
+@app.route('/forwardStop')
+def forwardStop():
+    global stopCommandIssued
+    stopCommandIssued = True
+
+    return jsonify("OK")
 
 @app.route('/captureImage')
 def captureImage():
