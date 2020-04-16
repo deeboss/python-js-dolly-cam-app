@@ -1,14 +1,13 @@
-#!/home/pi/venv/bin/python3
+#!/home/pi/Documents/python-dolly-cam-app/venv/bin/python3
 
 import os
 import sys
 import time     # Import the sleep function from the time module
-import gphoto2 as gp
+# import gphoto2 as gp
 import RPi.GPIO as GPIO
 
 GPIO.cleanup()
-
-os.system(". /home/pi/venv/bin/activate")
+os.system(". venv/bin/activate")
 
 # Motor GPIO set up
 step_seq = [
