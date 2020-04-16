@@ -9,6 +9,9 @@ import RPi.GPIO as GPIO
 GPIO.cleanup()
 os.system(". venv/bin/activate")
 
+# Initialize motor position
+motor_position = 0
+
 # Motor GPIO set up
 step_seq = [
   [1,0,0,0],
@@ -59,12 +62,24 @@ def blinkLed():
     os.system("sudo echo input | sudo tee /sys/class/leds/led1/trigger")
     '''
     
-    # hijacked this to test the motor
-    for i in range(512):
-        for step in range(0,8,2):
+    # motor forward
+    while Button == True:
+        for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
             for pin in range(4):
               GPIO.output(control_pins[pin], step_seq[step][pin])
             time.sleep(0.002)
+        motor_position += 1
+    
+    '''
+    # motor return
+    while Buttonback == True:
+        for i in range(motor_position,0,-1):
+            for step in range(7,-1,-2):
+                for pin in range(4):
+                    GPIO.output(control_pins[pin], step_seq[step][pin])
+                time.sleep(0.002)
+        motor_position == 0  # reset motor position
+    '''
 
     return jsonify("hello")
 
