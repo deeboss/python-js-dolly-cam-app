@@ -45,4 +45,9 @@ $(function() {
       $.getJSON('/forwardStop', {}, function(data) {});
       return false;
     });
+
+    $('#rewind').on("click", function() {
+      $.getJSON('/rewind', {}, function(data) {});
+      return false;
+    });
   });

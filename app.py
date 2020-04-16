@@ -10,7 +10,8 @@ GPIO.cleanup()
 os.system(". venv/bin/activate")
 
 # Initialize motor position
-motor_position = 0
+global steps_taken
+steps_taken = 0
 
 # Motor GPIO set up
 step_seq = [
@@ -64,12 +65,12 @@ def blinkLed():
     '''
     # motor return
     while Buttonback == True:
-        for i in range(motor_position,0,-1):
+        for i in range(steps_taken,0,-1):
             for step in range(7,-1,-2):
                 for pin in range(4):
                     GPIO.output(control_pins[pin], step_seq[step][pin])
                 time.sleep(0.002)
-        motor_position == 0  # reset motor position
+        steps_taken == 0  # reset motor position
     '''
 
     return jsonify("hello")
@@ -90,13 +91,19 @@ def checkIfMotorShouldMove():
 
 def startRunningMotor():
     global motorMove
+    global steps_taken
+
     while motorMove == True:
         for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
             for pin in range(4):
                 GPIO.output(control_pins[pin], step_seq[step][pin])
             time.sleep(0.002)
-        # # motor_position += 1
+        steps_taken += 1
+
         checkIfMotorShouldMove()
+    
+    print("Stopping Motor. Total Steps Taken:")
+    print(steps_taken)
 
 @app.route('/forwardStart')
 def forwardStart():
@@ -113,6 +120,21 @@ def forwardStop():
     global stopCommandIssued
     stopCommandIssued = True
 
+    return jsonify("OK")
+
+@app.route('/rewind')
+def rewind():
+    global steps_taken
+    print("Initiating Rewind. Total Steps To Take:")
+    print(steps_taken)
+
+    for i in range(0, steps_taken):
+        for step in range(7,-1,-2): # one full loop through is one rotation of motor (prior to gearing)
+            for pin in range(4):
+                GPIO.output(control_pins[pin], step_seq[step][pin])
+            time.sleep(0.002)
+
+    steps_taken = 0
     return jsonify("OK")
 
 @app.route('/captureImage')
