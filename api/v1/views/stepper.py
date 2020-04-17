@@ -56,7 +56,7 @@ def startRunningMotor():
     print("Stopping Motor. Total Steps Taken:")
     print(steps_taken)
 
-@app.route('/forwardStart')
+@app_views.route('/forwardStart')
 def forwardStart():
     global motorMove
     motorMove = True
@@ -66,14 +66,14 @@ def forwardStart():
     stopCommandIssued = False
     return jsonify("OK")
 
-@app.route('/forwardStop')
+@app_views.route('/forwardStop')
 def forwardStop():
     global stopCommandIssued
     stopCommandIssued = True
 
     return jsonify("OK")
 
-@app.route('/rewind')
+@app_views.route('/rewind')
 def rewind():
     global steps_taken
     print("Initiating Rewind. Total Steps To Take:")
