@@ -12,7 +12,7 @@ $(function() {
       var optionValue = splitTarget[1];
       
       target.prop("checked", true);
-      $.getJSON('/api/changeCameraSettings', {
+      $.getJSON('/api/v1/changeCameraSettings', {
           optionName: optionName,
           optionValue: optionValue
       }, function(data){
@@ -22,32 +22,32 @@ $(function() {
     });
 
     $('#blinkLed').on('click', function() {
-      $.getJSON('/api/blinkLed', {}, function(data) {});
+      $.getJSON('/api/v1/blinkLed', {}, function(data) {});
       return false;
     });
 
     $('#captureImage').on('click', function() {
-      $.getJSON('/api/captureImage', {}, function(data) {});
+      $.getJSON('/api/v1/captureImage', {}, function(data) {});
       return false;
     });
 
     // $('#forward').on('click', function(){
-    //   $.getJSON('/api/forward', {}, function(data) {});
+    //   $.getJSON('/api/v1/forward', {}, function(data) {});
     //   return false;
     // });
 
     $('#forward').mousedown(function() {
-      $.getJSON('/api/forwardStart', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
       return false;
     });
 
     $('#forward').mouseup(function() {
-      $.getJSON('/api/forwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
       return false;
     });
 
     $('#rewind').on("click", function() {
-      $.getJSON('/api/rewind', {}, function(data) {});
+      $.getJSON('/api/v1/rewind', {}, function(data) {});
       return false;
     });
   });
