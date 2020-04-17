@@ -20,6 +20,7 @@
         <!-- <img src="http://placehold.it/1920x1080"> -->
       </div>
       <div class="sandbox-controls">
+        <button id="blinkLed">Make Pi Blink</button>
         <button id="forward">Forwards</button>
         <button id="rewind">Rewind</button>
         <button>Test Button 3</button>
@@ -44,19 +45,7 @@
         </li>
       </ul>
     </footer>
-    <div class="drawer">
-      <ul class="drawer-list">
-        <li>
-          <div class="list-title">Others</div>
-          <div class="list-options">
-            <div class="flex justify-content-center align-center" id="blinkLed">
-              <!-- <img class="icon blink" src="{{url_for('static', filename='img/icon-led_blink.svg') }}"> -->
-              <span>Test connection to device</span>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
+    <div class="drawer"><ul class="drawer-list"></ul></div>
     <script type="text/javascript">
       var configsData = JSON.parse('{{ data | tojson | safe}}');
         // console.log(configsData);
@@ -68,7 +57,7 @@
           var optionsDiv = $('<div class="flex">');
 
           if (configsData[i].Choice) {
-            target.prepend(
+            target.append(
               $('<li>')
               .append(
                 $('<div class="list-title">')
