@@ -30,4 +30,24 @@ $(function() {
       $.getJSON('/captureImage', {}, function(data) {});
       return false;
     });
+
+    // $('#forward').on('click', function(){
+    //   $.getJSON('/forward', {}, function(data) {});
+    //   return false;
+    // });
+
+    $('#forward').mousedown(function() {
+      $.getJSON('/forwardStart', {}, function(data) {});
+      return false;
+    });
+
+    $('#forward').mouseup(function() {
+      $.getJSON('/forwardStop', {}, function(data) {});
+      return false;
+    });
+
+    $('#rewind').on("click", function() {
+      $.getJSON('/rewind', {}, function(data) {});
+      return false;
+    });
   });
