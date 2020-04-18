@@ -1,7 +1,11 @@
-import os
-import time     # Import the sleep function from the time module
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
+import os
+import sys
+import time     # Import the sleep function from the time module
+import RPi.GPIO as GPIO
+
+GPIO.cleanup()
 
 # Initialize motor position
 global steps_taken
@@ -19,13 +23,12 @@ step_seq = [
   [1,0,0,1]
 ]
 
-# GPIO.setmode(GPIO.BOARD)
-# control_pins = [7,11,13,15]
+GPIO.setmode(GPIO.BOARD)
+control_pins = [7,11,13,15]
 
-# for pin in control_pins:
-#   GPIO.setup(pin,GPIO.OUT)
-#   GPIO.output(pin,0)
-
+for pin in control_pins:
+  GPIO.setup(pin,GPIO.OUT)
+  GPIO.output(pin,0)
 
 global motorMove
 global stopCommandIssued

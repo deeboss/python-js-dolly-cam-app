@@ -7,7 +7,6 @@ from flask import Flask, jsonify, json, render_template, request
 # from models import filename_of_models
 import os
 
-
 # Global Flask Application Variable: app
 app = Flask(__name__)
 
