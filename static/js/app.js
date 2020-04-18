@@ -45,6 +45,14 @@ $(function() {
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', '/static/data/egg.mp3');
 
+    $('#eggVolume').change(function(){
+      if (this.checked) {
+        audioElement.volume = 0;
+      } else {
+        audioElement.volume = .6;
+      }
+    })
+
     $('#forward').mousedown(function() {
       $.getJSON('/forwardStart', {}, function(data) {});
 
