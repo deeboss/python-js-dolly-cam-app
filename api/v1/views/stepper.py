@@ -1,5 +1,6 @@
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
+from models.stepper import Stepper
 import os
 import sys
 import time     # Import the sleep function from the time module
@@ -10,6 +11,9 @@ GPIO.cleanup()
 # Initialize motor position
 global steps_taken
 steps_taken = 0
+
+# Instantiate a stepper to get its attributes and methods
+stepper = Stepper()
 
 # Motor GPIO set up
 step_seq = [
@@ -64,7 +68,6 @@ def forwardStart():
     global motorMove
     motorMove = True
     startRunningMotor()
-
     global stopCommandIssued
     stopCommandIssued = False
     return jsonify("OK")

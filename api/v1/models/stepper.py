@@ -13,9 +13,3 @@ class Stepper:
             instantiates stepper object
         """
         print("Stepper is ready")
-
-    def whoisThis(self):
-        print("Penguin")
-
-    def run(self):
-        print("Run faster")
