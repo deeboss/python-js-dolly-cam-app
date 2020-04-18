@@ -47,19 +47,19 @@ $(function() {
 
     $('#eggVolume').change(function(){
       if (this.checked) {
-        audioElement.volume = 0;
+        audioElement.volume = .3;
       } else {
-        audioElement.volume = .6;
+        audioElement.volume = 0;
       }
     })
 
     $('#forward').mousedown(function() {
       $.getJSON('/forwardStart', {}, function(data) {});
 
-      audioElement.addEventListener('ended', function() {
-        this.play();
-      }, false);
-      audioElement.play();
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
 
       return false;
     });
@@ -67,23 +67,30 @@ $(function() {
     $('#forward').on('touchstart', function() {
       $.getJSON('/forwardStart', {}, function(data) {});
 
-      audioElement.addEventListener('ended', function() {
-        this.play();
-      }, false);
-      audioElement.play();
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
 
       return false;
     }).bind('touchend', function(){
       $.getJSON('/forwardStop', {}, function(data) {});
-      audioElement.pause(); 
-      audioElement.currentTime = 0;
+      
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
     });
 
     $('#forward').mouseup(function() {
       $.getJSON('/forwardStop', {}, function(data) {});
 
-      audioElement.pause(); 
-      audioElement.currentTime = 0;
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
       return false;
     });
 

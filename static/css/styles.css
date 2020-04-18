@@ -26,6 +26,30 @@ body {
     color: white;
 }
 
+body.funmode {
+    animation: colorchange 4s ease-in-out infinite; /* animation-name followed by duration in seconds*/
+    /* you could also use milliseconds (ms) or something like 2.5s */
+    -webkit-animation: colorchange 4s ease-in-out infinite; /* Chrome and Safari */
+}
+
+@keyframes colorchange
+{
+0%   {background: red;}
+25%  {background: yellow;}
+50%  {background: blue;}
+75%  {background: green;}
+100% {background: red;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+0%   {background: red;}
+25%  {background: yellow;}
+50%  {background: blue;}
+75%  {background: green;}
+100% {background: red;}
+}
+
 .wrapper {
     padding: 20px 0 80px;
     height: 100%;
