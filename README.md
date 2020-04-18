@@ -100,3 +100,17 @@ http://www.knight-of-pi.org/installing-python3-6-on-a-raspberry-pi/
 
 **Raspberry Pi Remote Controlled Car**
 https://www.instructables.com/id/Raspberry-Pi-Remote-Controlled-Car-1/
+
+
+**Installing GPhoto2 Pre-requisites**
+
+```
+wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
+tar xvfz pkg-config-0.29.2.tar.gz
+cd pkg-config-0.29.2
+./configure --prefix=/usr/local/pkg_config/0_29_2 --with-internal-glib
+make
+make install
+```
+
+https://noknow.info/it/os/install_pkg_config_from_source?lang=en
