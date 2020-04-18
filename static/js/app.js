@@ -42,9 +42,17 @@ $(function() {
     //   $.getJSON('/forward', {}, function(data) {});
     //   return false;
     // });
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', '/static/data/egg.mp3');
 
     $('#forward').mousedown(function() {
       $.getJSON('/forwardStart', {}, function(data) {});
+
+      audioElement.addEventListener('ended', function() {
+        this.play();
+      }, false);
+      audioElement.play();
+
       return false;
     });
 
