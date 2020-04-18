@@ -1,8 +1,15 @@
 
 $(function() {
     $('#openSettings').on("click", function(){
-      $('.drawer').toggleClass("expand");
+      $('.drawer').toggle().toggleClass("expand");
     });
+
+    $('button').on('touchstart', function(){
+      var that = $(this);
+      that.addClass('ontouchstart');
+    }).bind('touchend', function(){
+      $(this).removeClass('ontouchstart');
+  });
 
     $('input[type="radio"]').on("click", function(event) {
       var target = $(event.target);
