@@ -56,8 +56,26 @@ $(function() {
       return false;
     });
 
+    $('#forward').on('touchstart', function() {
+      $.getJSON('/forwardStart', {}, function(data) {});
+
+      audioElement.addEventListener('ended', function() {
+        this.play();
+      }, false);
+      audioElement.play();
+
+      return false;
+    }).bind('touchend', function(){
+      $.getJSON('/forwardStop', {}, function(data) {});
+      audioElement.pause(); 
+      audioElement.currentTime = 0;
+    });
+
     $('#forward').mouseup(function() {
       $.getJSON('/forwardStop', {}, function(data) {});
+
+      audioElement.pause(); 
+      audioElement.currentTime = 0;
       return false;
     });
 
