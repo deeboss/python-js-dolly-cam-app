@@ -1,6 +1,6 @@
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from models.stepper import Stepper
+from models import Stepper
 import os
 import sys
 import time     # Import the sleep function from the time module

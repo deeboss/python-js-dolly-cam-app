@@ -50,4 +50,11 @@ $(function() {
       $.getJSON('/api/v1/rewind', {}, function(data) {});
       return false;
     });
+
+    $('#checkForCamera').on("click", function(){
+      $.getJSON('/api/v1/checkForDevice', {}, function(data) {
+        console.log(data)
+      })
+      return false;
+    })
   });
