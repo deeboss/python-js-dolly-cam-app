@@ -11,9 +11,8 @@ camera = Camera()
 
 @app_views.route('/checkForDevice', methods=['GET'])
 def checkForDevice():
-    device = camera.checkIfDeviceExists()
-    print(device[0])
-    return jsonify({"device": device[0]})
+    cameraData = camera.checkIfDeviceExists()
+    return jsonify(cameraData)
 
 @app_views.route('/captureImage', methods=['GET', 'POST'])
 def captureImage():

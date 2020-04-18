@@ -24,13 +24,17 @@ class Camera:
         callback_obj = gp.check_result(gp.use_python_logging())
         cameras = gp.Camera.autodetect()
 
-        for n, (name, value) in enumerate(cameras):
-            print('camera number', n)
-            print('=================')
-            print(name)
-            print(value)
+        if list(cameras):
+            for n, (name, value) in enumerate(cameras):
+                print('camera number', n)
+                print('=================')
+                print(name)
+                print(value)
+
+            return { "name": name, "port": value }
+        else:
+            return { "name": None, "port": None}
             
-        return name, value
 
     def captureImage(self):
         print("Capturing Image...")
