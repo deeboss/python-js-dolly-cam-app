@@ -54,6 +54,12 @@ $(function() {
     $('#checkForCamera').on("click", function(){
       $.getJSON('/api/v1/checkForDevice', {}, function(data) {
         console.log(data)
+        alert("Camera: " + data.name)
+        if (data.name === null) {
+          $('.camera-controls').hide()
+        } else {
+          $('.camera-controls').show()
+        }
       })
       return false;
     })
