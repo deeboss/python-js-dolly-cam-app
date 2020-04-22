@@ -4,7 +4,7 @@ Camera Class from Models Module
 import os
 import sys
 import logging
-import gphoto2 as gp
+#import gphoto2 as gp
 
 class Camera:
     """
