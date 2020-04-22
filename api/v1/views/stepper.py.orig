@@ -1,0 +1,81 @@
+from views import app_views
+from flask import Flask, jsonify, json, render_template, request
+from models import Stepper
+import os
+import sys
+import time     # Import the sleep function from the time module
+import RPi.GPIO as GPIO
+
+GPIO.cleanup()
+
+# Initialize motor position
+global steps_taken
+steps_taken = 0
+
+# Instantiate a stepper to get its attributes and methods
+stepper = Stepper()
+
+# Initialize pins
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11,GPIO.OUT)
+GPIO.setup(13,GPIO.OUT)
+
+global motorMove
+global stopCommandIssued
+
+motorMove = False
+stopCommandIssued = False
+
+def checkIfMotorShouldMove():
+    global motorMove
+    global stopCommandIssued
+
+    if stopCommandIssued == True:
+        motorMove = False
+
+def startRunningMotor():
+    global motorMove
+    global steps_taken
+
+    while motorMove == True:
+        GPIO.output(11,True)
+        GPIO.output(13,True)
+        GPIO.output(13,False)
+        time.sleep(0.001)
+        steps_taken += 1
+
+        checkIfMotorShouldMove()
+    
+    print("Stopping Motor. Total Steps Taken:")
+    print(steps_taken)
+
+@app_views.route('/forwardStart')
+def forwardStart():
+    global motorMove
+    motorMove = True
+    startRunningMotor()
+    global stopCommandIssued
+    stopCommandIssued = False
+    return jsonify("OK")
+
+@app_views.route('/forwardStop')
+def forwardStop():
+    global stopCommandIssued
+    stopCommandIssued = True
+
+    return jsonify("OK")
+
+@app_views.route('/rewind')
+def rewind():
+    global steps_taken
+    print("Initiating Rewind. Total Steps To Take:")
+    print(steps_taken)
+
+    for i in range(0, steps_taken):
+        GPIO.output(11,False)
+        GPIO.output(13,True)
+        GPIO.output(13,False)
+        time.sleep(0.001)
+
+    steps_taken = 0
+    return jsonify("OK")

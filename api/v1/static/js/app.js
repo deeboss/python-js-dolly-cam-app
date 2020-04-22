@@ -45,6 +45,16 @@ $(function() {
       $.getJSON('/api/v1/forwardStop', {}, function(data) {});
       return false;
     });
+    
+    $('#backward').mousedown(function() {
+      $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+      return false;
+    });
+
+    $('#backward').mouseup(function() {
+      $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+      return false;
+    });
 
     $('#rewind').on("click", function() {
       $.getJSON('/api/v1/rewind', {}, function(data) {});

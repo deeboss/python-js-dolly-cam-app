@@ -8,88 +8,87 @@ import RPi.GPIO as GPIO
 
 GPIO.cleanup()
 
-# Initialize motor position
-global steps_taken
-steps_taken = 0
-
-# Instantiate a stepper to get its attributes and methods
-stepper = Stepper()
-
-# Motor GPIO set up
-step_seq = [
-  [1,0,0,0],
-  [1,1,0,0],
-  [0,1,0,0],
-  [0,1,1,0],
-  [0,0,1,0],
-  [0,0,1,1],
-  [0,0,0,1],
-  [1,0,0,1]
-]
-
+# Initialize pins
 GPIO.setmode(GPIO.BOARD)
-control_pins = [7,11,13,15]
+GPIO.setup(11,GPIO.OUT) # direction
+GPIO.setup(13,GPIO.OUT) # step
 
-for pin in control_pins:
-  GPIO.setup(pin,GPIO.OUT)
-  GPIO.output(pin,0)
-
-global motorMove
-global stopCommandIssued
-
-motorMove = False
-stopCommandIssued = False
-
-def checkIfMotorShouldMove():
-    global motorMove
-    global stopCommandIssued
-
-    if stopCommandIssued == True:
-        motorMove = False
-
-def startRunningMotor():
-    global motorMove
-    global steps_taken
-
-    while motorMove == True:
-        for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
-            for pin in range(4):
-                GPIO.output(control_pins[pin], step_seq[step][pin])
-            time.sleep(0.0025)
-        steps_taken += 1
-
-        checkIfMotorShouldMove()
+## MOTOR CLASS ###
+class motorClass:
     
-    print("Stopping Motor. Total Steps Taken:")
-    print(steps_taken)
+    # Initialize movement
+    def __init__(self):
+        self.motorMove = False
+        self.stepsTaken = 0
+    
+    # Motor move
+    def Move(self):  
+        while self.motorMove == True:
+            GPIO.output(13,True)
+            GPIO.output(13,False)
+            time.sleep(0.001)
+            
+            if GPIO.input(11) == True:
+                self.stepsTaken+=1
+            elif GPIO.input(11) == False:
+                self.stepsTaken-=1
+
+    def Start(self):
+        self.motorMove = True
+    def Stop(self):
+        self.motorMove = False
+        
+# Run class after initializing
+motorClass = motorClass()
+
+
+## BUTTONS ##
 
 @app_views.route('/forwardStart')
 def forwardStart():
-    global motorMove
-    motorMove = True
-    startRunningMotor()
-    global stopCommandIssued
-    stopCommandIssued = False
+    GPIO.output(11,True)
+    motorClass.Start()
+    motorClass.Move()
     return jsonify("OK")
 
 @app_views.route('/forwardStop')
 def forwardStop():
-    global stopCommandIssued
-    stopCommandIssued = True
+    motorClass.Stop()
+    return jsonify("OK")
 
+
+@app_views.route('/backwardStart')
+def backwardStart():
+    GPIO.output(11,False)
+    motorClass.Start()
+    motorClass.Move()
+    return jsonify("OK")
+
+@app_views.route('/backwardStop')
+def backwardStop():
+    motorClass.Stop()
     return jsonify("OK")
 
 @app_views.route('/rewind')
 def rewind():
-    global steps_taken
-    print("Initiating Rewind. Total Steps To Take:")
-    print(steps_taken)
+    if motorClass.stepsTaken > 0:
+        sign = 1
+        direction = False
+    elif motorClass.stepsTaken < 0:
+        sign = -1
+        direction = True
+    else:
+        return jsonify("OK")
+    
+    print(motorClass.stepsTaken)
+    print(sign)
+    
+    for i in range(0,motorClass.stepsTaken,sign):
+        GPIO.output(11,direction)
+        GPIO.output(13,True)
+        GPIO.output(13,False)
+        time.sleep(0.001)
 
-    for i in range(0, steps_taken):
-        for step in range(7,-1,-2): # one full loop through is one rotation of motor (prior to gearing)
-            for pin in range(4):
-                GPIO.output(control_pins[pin], step_seq[step][pin])
-            time.sleep(0.002)
-
-    steps_taken = 0
+    motorClass.stepsTaken = 0
     return jsonify("OK")
+    
