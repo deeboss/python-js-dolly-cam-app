@@ -19,7 +19,7 @@ $(function() {
       var optionValue = splitTarget[1];
       
       target.prop("checked", true);
-      $.getJSON('/changeCameraSettings', {
+      $.getJSON('/api/v1/changeCameraSettings', {
           optionName: optionName,
           optionValue: optionValue
       }, function(data){
@@ -29,17 +29,17 @@ $(function() {
     });
 
     $('#blinkLed').on('click', function() {
-      $.getJSON('/blinkLed', {}, function(data) {});
+      $.getJSON('/api/v1/blinkLed', {}, function(data) {});
       return false;
     });
 
     $('#captureImage').on('click', function() {
-      $.getJSON('/captureImage', {}, function(data) {});
+      $.getJSON('/api/v1/captureImage', {}, function(data) {});
       return false;
     });
 
     // $('#forward').on('click', function(){
-    //   $.getJSON('/forward', {}, function(data) {});
+    //   $.getJSON('/api/v1/forward', {}, function(data) {});
     //   return false;
     // });
     var audioElement = document.createElement('audio');
@@ -95,7 +95,20 @@ $(function() {
     });
 
     $('#rewind').on("click", function() {
-      $.getJSON('/rewind', {}, function(data) {});
+      $.getJSON('/api/v1/rewind', {}, function(data) {});
       return false;
     });
+
+    $('#checkForCamera').on("click", function(){
+      $.getJSON('/api/v1/checkForDevice', {}, function(data) {
+        console.log(data)
+        alert("Camera: " + data.name)
+        if (data.name === null) {
+          $('.camera-controls').hide()
+        } else {
+          $('.camera-controls').show()
+        }
+      })
+      return false;
+    })
   });

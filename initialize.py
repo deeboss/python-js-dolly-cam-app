@@ -7,7 +7,7 @@ import time
 # Create venv and install packages if they do not exist
 if not os.path.exists("/home/pi/venv"):
     os.system("python3 -m venv venv)
-    os.system("pip install -r requirements.rpi.text")
+    os.system("pip install -r requirements.txt")
 '''
 
 GPIO.setmode(GPIO.BCM)
@@ -19,7 +19,7 @@ while True:
       os.system("/home/pi/Documents/python-dolly-cam-app/hotspot.sh")
 
       # Turn on venv and run server
-      os.system("/home/pi/Documents/python-dolly-cam-app/app.py")
+      os.system("/home/pi/Documents/python-dolly-cam-app/api/app.py")
 
       # Turn off hotspot after closing server
       os.system("/home/pi/Documents/python-dolly-cam-app/hotspot.sh")

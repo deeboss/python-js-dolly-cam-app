@@ -1,6 +1,8 @@
 click==7.1.1
 Flask==1.1.2
+gphoto2==2.2.2
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
+RPi.GPIO==0.7.0
 Werkzeug==1.0.1
