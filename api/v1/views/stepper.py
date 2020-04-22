@@ -46,7 +46,8 @@ motorClass = motorClass()
 
 @app_views.route('/forwardStart')
 def forwardStart():
-    GPIO.output(11,True)
+    print("boom")
+    GPIO.output(11,True) # set direction
     motorClass.Start()
     motorClass.Move()
     return jsonify("OK")

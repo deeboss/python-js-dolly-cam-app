@@ -1,3 +1,4 @@
+
 html {
     box-sizing: border-box;
     font-family: "Helvetica", "Arial", sans-serif
@@ -21,79 +22,81 @@ body {
     -webkit-box-direction: normal;
     flex-direction: column;
     overflow-x: hidden;
+    background: #181616;
+    color: white;
+}
+
+body.funmode {
+    animation: colorchange 4s ease-in-out infinite; /* animation-name followed by duration in seconds*/
+    /* you could also use milliseconds (ms) or something like 2.5s */
+    -webkit-animation: colorchange 4s ease-in-out infinite; /* Chrome and Safari */
+}
+
+@keyframes colorchange
+{
+0%   {background: red;}
+25%  {background: yellow;}
+50%  {background: blue;}
+75%  {background: green;}
+100% {background: red;}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+0%   {background: red;}
+25%  {background: yellow;}
+50%  {background: blue;}
+75%  {background: green;}
+100% {background: red;}
 }
 
 .wrapper {
-    padding: 20px;
+    padding: 20px 0 80px;
     height: 100%;
 }
 
+@media only screen and (min-width: 600px) {
+    .wrapper {
+        padding: 20px 0 80px;
+    }
+}
+
+.controls-group {
+    margin-bottom: 50px;
+}
+
 button {
+    font-family: monospace;
+    position: relative;
+    font-size: larger;
+    display: block;
+    font-weight: bold;
     appearance: none;
     -webkit-appearance: none;
-    /* font-size: larger;
     padding: 12px 32px;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 2px;
-    background: blue;
-    color: white;
+    margin: 0 auto 32px;
+    border: none;
     text-transform: uppercase;
+    text-align: center;
+    background: white;
+    border-radius: 3px;
+    color: black;
     outline: none;
-    opacity: 1; */
-    /* transform: translateY(0px); */
-    /* transition: transform 0.12s ease-in-out, opacity 0.12s ease-in-out; */
+    transform: translateY(0px);
+    box-shadow: 0px 8px 0px #ccc;
+    transition: all 0.2s ease-out;
+    cursor: pointer;
 }
 
 button:focus {
     outline: none;
 }
 
-button:active {
-    /* transform: translateY(4px);
-    opacity: 0.8;
-    transition: transform 0.12s ease-in-out, opacity 0.12s ease-in-out; */
-}
-
-nav.other-controls {
-    width: 100%;
-    background: #181616;
-    padding: 10px;
-}
-
-footer.camera-controls {
-    bottom: 0;
-    background: #181616;
-    padding: 16px;
-    z-index: 999;
-}
-
-button.button--capture-image {
-    width: 52px;
-    height: 52px;
-    border-radius: 60px;
-    position: relative;
-    background: #181616;
-    border: 3px solid white;
-    cursor: pointer;
-}
-
-button.button--capture-image span {
-    position: absolute;
-    width: 42px;
-    height: 42px;
-    border-radius: 60px;
-    top: 50%;
-    left: 50%;
-    background: white;
-    transform: translate(-50%, -50%) scale(1);
-    transition: transform 0.12s ease-in-out;
-    cursor: pointer;
-}
-
-button.button--capture-image:active span {
-    transform: translate(-50%, -50%) scale(0.85);
-    transition: transform 0.12s ease-in-out;
+button:active, .ontouchstart {
+    background: rgb(235, 235, 235);
+    box-shadow: 0px 0px 0px #ccc;
+    transform: translateY(8px);
+    transition: all 0.06s ease-in-out;
 }
 
 .container--liveview img {
@@ -133,50 +136,15 @@ button.button--capture-image:active span {
     text-align: right;
 }
 
-.camera-controls ul {
-    padding: 0;
-    margin: 0;
-}
-
-.camera-controls--center-button {
-    margin: 0 32px;
-}
-
-.camera-controls ul li {
-    list-style-type: none;
-    cursor: pointer;
-}
-
-
-img.icon {
-    width: 20px;
-    height: auto;
-}
-
-.icon-row {
-    display: flex;
-    align-items: center;
-}
-
-.icon-row span {
-    color: white;
-    text-transform: uppercase;
-    font-size: smaller;
-    margin-left: 8px;
-}
-
 .drawer {
-    position: absolute;
     bottom: 0;
     overflow: hidden;
     overflow-y: scroll;
     padding-bottom: 120px;
     height: 100%;
-    background: #181616;
     width: 100%;
-    color: white;
     transform: scaleY(0);
-    transform-origin: bottom;
+    transform-origin: top;
     transition: transform 0.2s ease-in-out;
 }
 
@@ -226,7 +194,6 @@ img.icon {
 
 .drawer-list .list-options {
     padding: 20px 0;
-
 }
 
 input[type="radio"] {

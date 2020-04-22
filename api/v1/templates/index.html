@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Dolly Remote</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
@@ -15,38 +15,45 @@
       </div>
     </nav> -->
     <div class='wrapper'>
-      <h1> Dolly Remote </h1>
+      <div></div>
       <div class="container--livefeed">
         <!-- <img src="http://placehold.it/1920x1080"> -->
       </div>
-      <div class="sandbox-controls">
-        <button id="blinkLed">Make Pi Blink</button>
+      <div class="controls-group">
+        <h3>Motor and Stepper Related Controls</h3>
+        <hr/>
         <button id="forward">Forwards</button>
         <button id="rewind">Rewind</button>
+<<<<<<< HEAD
         <button id="backward">Backward</button>
         <button id="checkForCamera">Check If Camera Exists</button>
+=======
+        <button>Test Button 3</button>
+
+        <label for="eggVolume">Enable fun mode</label>
+        <input name="eggVolume" id="eggVolume" type="checkbox" />
+      </div>
+      <div>
+        <h3>Other GPIO Related Controls</h3>
+        <hr/>
+        <button id="blinkLed">
+          Make Pi Blink
+        </button>
+      </div>
+      <div class="controls-group">
+        <h3>Camera Related Controls</h3>
+        <hr/>
+        <button id="captureImage">
+          Capture Image
+        </button>
+        <button id="openSettings">Show/Hide Configs</button>
+        <div class="drawer" style="display: none;">
+          <ul class="drawer-list">
+          </ul>
+        </div>
+>>>>>>> c1712dc82ebd0981f63cc297743640054f4ad047
       </div>
     </div>
-    <footer class="camera-controls" style="display: none">
-      <ul class="flex align-center justify-content-center">
-        <li>
-          <div class="icon-row" style="visibility: hidden">
-            <img class="icon settings" src="{{url_for('static', filename='img/icon-settings.svg') }}">
-          </div>
-        </li>
-        <li class="camera-controls--center-button">
-          <button class="button--capture-image" id="captureImage">
-            <span></span>
-          </button>
-        </li>
-        <li>
-          <div class="icon-row">
-            <img id="openSettings" class="icon settings" src="{{ url_for('static', filename='img/icon-settings.svg') }}"/>
-          </div>
-        </li>
-      </ul>
-    </footer>
-    <div class="drawer"><ul class="drawer-list"></ul></div>
     <script type="text/javascript">
       var configsData = JSON.parse('{{ data | tojson | safe}}');
         // console.log(configsData);

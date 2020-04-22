@@ -1,8 +1,15 @@
 
 $(function() {
     $('#openSettings').on("click", function(){
-      $('.drawer').toggleClass("expand");
+      $('.drawer').toggle().toggleClass("expand");
     });
+
+    $('button').on('touchstart', function(){
+      var that = $(this);
+      that.addClass('ontouchstart');
+    }).bind('touchend', function(){
+      $(this).removeClass('ontouchstart');
+  });
 
     $('input[type="radio"]').on("click", function(event) {
       var target = $(event.target);
@@ -35,14 +42,55 @@ $(function() {
     //   $.getJSON('/api/v1/forward', {}, function(data) {});
     //   return false;
     // });
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', '/static/data/egg.mp3');
+
+    $('#eggVolume').change(function(){
+      if (this.checked) {
+        audioElement.volume = .3;
+      } else {
+        audioElement.volume = 0;
+      }
+    })
 
     $('#forward').mousedown(function() {
-      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+      $.getJSON('/forwardStart', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
+
       return false;
     });
 
+    $('#forward').on('touchstart', function() {
+      $.getJSON('/forwardStart', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
+
+      return false;
+    }).bind('touchend', function(){
+      $.getJSON('/forwardStop', {}, function(data) {});
+      
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
+    });
+
     $('#forward').mouseup(function() {
-      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
+      $.getJSON('/forwardStop', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
       return false;
     });
     
