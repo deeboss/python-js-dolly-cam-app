@@ -12,6 +12,12 @@ make
 sudo make install
 sudo pip3 install --upgrade pip
 
+# Install AutoHotspot
+# cd Downloads/
+# wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/autohotspotN-setup
+# sudo chmod +x autohotspotN-setup
+# sudo ./autohotspotN-setup
+
 # Install NVM
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
