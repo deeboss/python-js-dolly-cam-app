@@ -2,7 +2,7 @@
 
 # Package List: Python3 Dependencies, GPIO, GPhoto2
 
-cd ../../
+cd /home/pi/
 apt-get update  # To get the latest package lists
 apt-get install build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev rpi.gpio gphoto2 -y
 wget https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tgz
@@ -11,6 +11,15 @@ cd Python-3.7.1
 make
 sudo make install
 sudo pip3 install --upgrade pip
+
+
+# Install Python-GPhoto2
+wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
+tar xvfz pkg-config-0.29.2.tar.gz
+cd pkg-config-0.29.2
+./configure --prefix=/usr/local/pkg_config/0_29_2 --with-internal-glib
+make
+make install
 
 # Install AutoHotspot
 # cd Downloads/
