@@ -1,5 +1,8 @@
+SOURCE=/home/pi/Downloads/python-dolly-cam-app
 ORIGINAL=RPiHotspot
 NEW=MAD-Wifi
+
+passwd
 
 # Install AutoHotspot
 cd /home/pi/Downloads/
@@ -9,9 +12,8 @@ sudo ./autohotspotN-setup
 
 sudo sed -i -e "s/${ORIGINAL}/${NEW}/g" /etc/hostapd/hostapd.conf
 
-. ${SOURCE}/2-updater.sh
+rm -rf /home/pi/Downloads/autohotspot-buster
 
-zenity --info --title 'System Reboot Required' --text "The device needs to reboot to save the configurations. Automatic reboot in 5 seconds." --width=500 --height=320 &
-sleep 5
-kill $zpid
-sudo reboot
+# . ${SOURCE}/2-updater.sh
+
+# echo "The device needs to reboot to save the configurations. Automatic reboot in 5 seconds."

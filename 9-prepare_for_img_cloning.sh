@@ -55,10 +55,10 @@ cp -p ${MENU}/run-application.desktop ${DESKTOP}/run-application.desktop
 cp -p ${MENU}/update-application.desktop ${DESKTOP}/update-application.desktop
 
 # Remove networks
-for i in {0..5}
-do
-   wpa_cli remove_network i
-done
+# for i in {0..5}
+# do
+#    wpa_cli remove_network i
+# done
 
 # sudo rm -rf /usr/bin/autohotspotN
 # sudo rm -rf /etc/hostapd/hostapd.conf
