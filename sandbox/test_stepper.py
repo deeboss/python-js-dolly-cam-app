@@ -38,7 +38,9 @@ def forward_full():
 def backward_full():
     step_func(1,7,-1,-2,0.002)
 
+forward_full()
 
+'''
 while True:
     if GPIO.input(35) == True:
         for step in range(0,8,2):
@@ -46,17 +48,17 @@ while True:
                 GPIO.output(control_pins[pin], step_seq[step][pin])
             time.sleep(0.002)
         step_counter+=1
-    '''
+    
     else:
         for i in range(step_counter,-1,-1):
             for step in range(0,8,2):
                 for pin in range(4):
                     GPIO.output(control_pins[pin], step_seq[step][pin])
                 time.sleep(0.002)
-    '''
+    
     time.sleep(0.0001)
 
-'''
+
 while True:
     if GPIO.input(35) == True:
         for step in range(7,-1,-2):

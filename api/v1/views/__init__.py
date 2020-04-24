@@ -4,4 +4,4 @@ app_template_views = Blueprint('app_template_views', __name__, template_folder='
 from views.index import *  # noqa
 from views.gpio import *  # noqa
 from views.stepper import *  # noqa
-#from views.camera import *  # noqa
+# from views.camera import *  # noqa
