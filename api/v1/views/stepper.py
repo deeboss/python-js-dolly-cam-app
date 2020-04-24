@@ -55,7 +55,7 @@ def startRunningMotor():
         for step in range(0,8,2): # one full loop through is one rotation of motor (prior to gearing)
             for pin in range(4):
                 GPIO.output(control_pins[pin], step_seq[step][pin])
-            time.sleep(0.002)
+            time.sleep(0.0025)
         steps_taken += 1
 
         checkIfMotorShouldMove()
