@@ -49,7 +49,7 @@ with open(secondaryFilename) as fh:
         idx+=1
 
 
-output_file = open("config_options.json", "w") 
+output_file = open("api/v1/static/data/config_options.json", "w") 
 json.dump(results, output_file, indent = 4, sort_keys = False) 
 output_file.close() 
 
