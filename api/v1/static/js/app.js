@@ -54,7 +54,7 @@ $(function() {
     })
 
     $('#forward').mousedown(function() {
-      $.getJSON('/forwardStart', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').addClass('funmode')
@@ -65,7 +65,7 @@ $(function() {
     });
 
     $('#forward').on('touchstart', function() {
-      $.getJSON('/forwardStart', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').addClass('funmode')
@@ -74,7 +74,7 @@ $(function() {
 
       return false;
     }).bind('touchend', function(){
-      $.getJSON('/forwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
       
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -84,7 +84,7 @@ $(function() {
     });
 
     $('#forward').mouseup(function() {
-      $.getJSON('/forwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
