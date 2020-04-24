@@ -27,4 +27,4 @@ pip3 install -r requirements.txt
 
 deactivate
 
-zenity --info --title 'Update complete!' --text "Update complete! Application version: ${VERSION}"
+zenity --info --title 'Update complete!' --text "Update complete! Application version: ${VERSION}"  --width=500 --height=200
