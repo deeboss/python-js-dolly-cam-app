@@ -7,5 +7,7 @@ from flask import Flask, jsonify, json, render_template, request
 
 @app_template_views.route('/')
 def home():
-    data = json.load(open('config_options.json'))
+    # data = json.load(open('config_options.json'))
+    # return render_template("index.html", data=data)
+    data = {"hello": "world"}
     return render_template("index.html", data=data)
