@@ -11,3 +11,15 @@ def home():
     # return render_template("index.html", data=data)
     data = {"hello": "world"}
     return render_template("index.html", data=data)
+
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+    
+@app_views.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    return jsonify("OK")

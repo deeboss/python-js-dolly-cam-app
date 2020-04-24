@@ -88,6 +88,17 @@ button {
     cursor: pointer;
 }
 
+button.danger {
+    color: white;
+    background: rgb(210, 60, 60);
+    box-shadow: 0px 8px 0px rgb(157, 42, 42);
+}
+
+button.danger:active, button.ontouchstart {
+    background: rgb(155, 43, 43);
+    box-shadow: 0px 0px 0px rgb(157, 42, 42);
+}
+
 button:focus {
     outline: none;
 }
