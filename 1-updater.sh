@@ -12,7 +12,7 @@ wget https://github.com/deeboss/python-dolly-cam-app/archive/${VERSION}.tar.gz
 
 tar -xzf ${VERSION}.tar.gz -C ${TARGET}
 # Delete the tar zip file to declutter Downloads folder
-# rm -rf ${VERSION}.tar.gz
+rm -rf ${VERSION}.tar.gz
 
 # Renames the app, stripping away the version name and overwriting the existing app.
 # Thereby ensuring only the most updated app remains in the TARGET folder
