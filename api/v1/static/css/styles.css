@@ -93,12 +93,6 @@ button.danger {
     background: rgb(210, 60, 60);
     box-shadow: 0px 8px 0px rgb(157, 42, 42);
 }
-
-button.danger:active, button.ontouchstart {
-    background: rgb(155, 43, 43);
-    box-shadow: 0px 0px 0px rgb(157, 42, 42);
-}
-
 button:focus {
     outline: none;
 }
@@ -109,6 +103,23 @@ button:active, .ontouchstart {
     transform: translateY(8px);
     transition: all 0.06s ease-in-out;
 }
+
+button.success {
+    color: white;
+    background: rgb(60, 210, 65);
+    box-shadow: 0px 8px 0px rgb(42, 157, 96);
+}
+
+button.success:active, .success.ontouchstart {
+    background: rgb(43, 155, 45);
+    box-shadow: 0px 0px 0px rgb(42, 157, 96);
+}
+
+button.danger:active, .danger.ontouchstart {
+    background: rgb(155, 43, 43);
+    box-shadow: 0px 0px 0px rgb(157, 42, 42);
+}
+
 
 .container--liveview img {
     width: 100%;

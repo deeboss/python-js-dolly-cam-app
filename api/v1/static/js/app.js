@@ -126,4 +126,24 @@ $(function() {
       })
       return false;
     })
+
+    $('[data-type="saveWaypoint"]').on("click", function(){
+      var id = this.id.split('wp')[1];
+      var type = $(this).data("type");
+      var wpApiRoute = '/api/v1/' + type + id;
+      $.getJSON(wpApiRoute, {}, function(data){});
+      return false;
+    })
+
+    $('[data-type="runWaypoint"]').on("click", function(){
+      var id = this.id.split('wp')[1];
+      var type = $(this).data("type");
+      var wpApiRoute = '/api/v1/' + type + id;
+      $.getJSON(wpApiRoute, {}, function(data){});
+      return false;
+    })
+
+    // $('[data-type="saveWaypoint"]').each(function(){
+    //   console.log(this.id);
+    // })
   });
