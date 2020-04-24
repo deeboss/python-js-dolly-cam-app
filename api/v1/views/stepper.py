@@ -45,12 +45,16 @@ class motorClass:
         
     # Moving to waypoint
     def gotoWaypoint(self,waypointSteps):
+        print(self.stepsTaken - waypointSteps)
         if (self.stepsTaken - waypointSteps) > 0:
             sign=-1
+            direction=False
         elif (self.stepsTaken - waypointSteps) < 0:
             sign=+1
+            direction=True
             
         for i in range(self.stepsTaken,waypointSteps,sign):
+            GPIO.output(11,direction)
             GPIO.output(13,True)
             GPIO.output(13,False)
             time.sleep(0.001)
@@ -116,16 +120,19 @@ def rewind():
 @app_views.route('/saveWaypointOne')
 def saveWaypointOne():
     motorClass.waypointOneSteps=motorClass.stepsTaken
+    print("Waypoint 1 saved: ",motorClass.waypointOneSteps," steps")
     return jsonify("OK")
 
 @app_views.route('/saveWaypointTwo')
 def saveWaypointTwo():
     motorClass.waypointTwoSteps=motorClass.stepsTaken
+    print("Waypoint 2 saved: ",motorClass.waypointTwoSteps," steps")
     return jsonify("OK")
 
 @app_views.route('/saveWaypointThree')
 def saveWaypointThree():
     motorClass.waypointThreeSteps=motorClass.stepsTaken
+    print("Waypoint 3 saved: ",motorClass.waypointThreeSteps," steps")
     return jsonify("OK")
 
 
