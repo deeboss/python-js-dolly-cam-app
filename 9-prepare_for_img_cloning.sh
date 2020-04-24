@@ -63,7 +63,5 @@ done
 sudo rm -rf /usr/bin/autohotspotN
 sudo rm -rf /etc/hostapd/hostapd.conf
 
-
-
 # Delete developer repo
 sudo rm -rf ${SOURCE}
