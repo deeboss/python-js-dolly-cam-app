@@ -25,3 +25,8 @@ python3 -m venv venv
 source venv/bin/activate
 # Installs necessary packages so the application is good to go
 pip3 install -r requirements.txt
+
+deactivate
+
+
+echo Update complete. Version = ${VERSION}
