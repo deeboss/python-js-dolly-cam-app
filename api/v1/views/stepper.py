@@ -46,7 +46,6 @@ motorClass = motorClass()
 
 @app_views.route('/forwardStart')
 def forwardStart():
-    print("boom")
     GPIO.output(11,True) # set direction
     motorClass.Start()
     motorClass.Move()
