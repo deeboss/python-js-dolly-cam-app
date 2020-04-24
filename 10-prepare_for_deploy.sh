@@ -1,2 +1,2 @@
-cp -p 1-updater.sh Updater.sh
-mv Updater.sh ../../Desktop/Updater.sh
+cp -p /home/pi/Documents/python-dolly-cam-app/1-updater.sh /home/pi/Documents/python-dolly-cam-app/Updater.sh
+mv /home/pi/Documents/python-dolly-cam-app/Updater.sh /home/pi/Desktop/Updater.sh

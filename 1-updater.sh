@@ -2,7 +2,6 @@ VERSION=$(curl --silent https://api.github.com/repos/deeboss/python-dolly-cam-ap
 | grep -m 1 tarball_url \
 | cut -d '"' -f 4 \
 | awk -F'/' '{print $8}')
-
 TARGET=/home/pi/Downloads/
 APP_NAME=python-dolly-cam-app
 
@@ -28,5 +27,4 @@ pip3 install -r requirements.txt
 
 deactivate
 
-
-echo Update complete. Version = ${VERSION}
+zenity --info --title 'Update complete!' --text "Update complete! Application version: ${VERSION}"
