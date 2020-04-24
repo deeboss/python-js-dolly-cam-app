@@ -18,14 +18,8 @@ wget https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
 tar xvfz pkg-config-0.29.2.tar.gz
 cd pkg-config-0.29.2
 ./configure --prefix=/usr/local/pkg_config/0_29_2 --with-internal-glib
-make
-make install
-
-# Install AutoHotspot
-# cd Downloads/
-# wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/autohotspotN-setup
-# sudo chmod +x autohotspotN-setup
-# sudo ./autohotspotN-setup
+sudo make
+sudo make install
 
 # Install NVM
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
