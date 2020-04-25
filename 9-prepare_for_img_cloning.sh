@@ -119,3 +119,4 @@ sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wp
 sudo rm -rf ~/.ssh/*
 # Delete developer repo
 sudo rm -rf ${SOURCE}
+sudo rm -- "$0"
