@@ -55,13 +55,7 @@ cp -p ${MENU}/run-application.desktop ${DESKTOP}/run-application.desktop
 cp -p ${MENU}/update-application.desktop ${DESKTOP}/update-application.desktop
 
 # Remove networks
-# for i in {0..5}
-# do
-#    wpa_cli remove_network i
-# done
-
-# sudo rm -rf /usr/bin/autohotspotN
-# sudo rm -rf /etc/hostapd/hostapd.conf
+sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wpa_supplicant.conf && sudo mv /home/pi/wpa_supplicant.conf /etc/wpa_supplicant/
 
 # Delete developer repo
-# sudo rm -rf ${SOURCE}
+sudo rm -rf ${SOURCE}
