@@ -17,6 +17,10 @@ rm -rf /home/pi/Downloads/autohotspot-buster
 
 . ${SOURCE}/1-updater.sh
 
+# Remove Setup now
+rm -rf /home/pi/Desktop/first-time-setup.desktop
+rm -rf ~/.local/share/applications/first-time-setup.desktop
+
 zenity --info --title 'Setup Complete' --text "1st time setup has been successfully completed. The device will reboot in 5 seconds in order to initialize the settings." --width=500 --height=320 &
 zpid=$!
 sleep 5
