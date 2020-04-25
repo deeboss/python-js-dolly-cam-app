@@ -5,6 +5,9 @@ APPLICATION=/home/pi/Downloads/python-dolly-cam-app
 
 # Delete all content in Downloads folder
 sudo rm -r /home/pi/Downloads/*
+# Delete shortcuts
+sudo rm -r ~/.local/share/applications/* 
+sudo rm -r /home/pi/Desktop/* 
 
 # Get latest release
 . ${SOURCE}/1-updater.sh
