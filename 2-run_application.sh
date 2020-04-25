@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILE=/etc/wpa_supplicant
-HOME=/home/pi/Downloads/python-dolly-cam-app
+HOME=/home/pi/Documents/python-dolly-cam-app
 
 
 # Toggle hotspot
@@ -23,7 +23,7 @@ ToggleHotSpot()
 
 ToggleHotSpot
 
-cd /home/pi/Downloads/python-dolly-cam-app
+cd /home/pi/Documents/python-dolly-cam-app
 source venv/bin/activate
 
 zenity --info --title 'Application Running' --text "MAD-ONE App is successfully running and can be accessed via your Phone or Desktop. Just connect to the Device's Wifi Network and open '10.10.10.10:5000' on your browser of choice." --width=500 --height=320 &
