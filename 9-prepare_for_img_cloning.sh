@@ -7,7 +7,7 @@ APPLICATION=/home/pi/Downloads/python-dolly-cam-app
 sudo rm -r /home/pi/Downloads/*
 
 # Get latest release
-. ${SOURCE}/2-updater.sh
+. ${SOURCE}/1-updater.sh
 
 cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/first-time-setup.desktop
 [Desktop Entry]
@@ -40,7 +40,7 @@ Name=Run MAD
 Comment=Runs MAD application
 Exec=bash -c '. /home/pi/Downloads/python-dolly-cam-app/2-run_application.sh;$SHELL'
 Icon=/usr/share/icons/HighContrast/256x256/apps/gnome-tweak-tool.png
-Terminal=false 
+Terminal=true 
 Type=Application
 Categories=Application;
 EOF
@@ -57,5 +57,7 @@ cp -p ${MENU}/update-application.desktop ${DESKTOP}/update-application.desktop
 # Remove networks
 sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wpa_supplicant.conf && sudo mv /home/pi/wpa_supplicant.conf /etc/wpa_supplicant/
 
+# Remove SSH keys
+sudo rm -rf ~/.ssh/*
 # Delete developer repo
 sudo rm -rf ${SOURCE}
