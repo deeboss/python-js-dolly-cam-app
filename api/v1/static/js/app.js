@@ -101,11 +101,42 @@ $(function() {
     
     $('#backward').mousedown(function() {
       $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
+
       return false;
+    });
+
+    $('#backward').on('touchstart', function() {
+      $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').addClass('funmode')
+        audioElement.play();
+      }
+
+      return false;
+    }).bind('touchend', function(){
+      $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+      
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
     });
 
     $('#backward').mouseup(function() {
       $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+
+      if ($('#eggVolume:checked').length > 0) {
+        $('body').removeClass('funmode')
+        audioElement.pause(); 
+        audioElement.currentTime = 0;
+      }
       return false;
     });
 

@@ -29,7 +29,7 @@ class motorClass:
         while self.motorMove == True:
             GPIO.output(13,True)
             GPIO.output(13,False)
-            time.sleep(0.001)
+            time.sleep(0.003)
             
             # counting steps
             if GPIO.input(11) == True:
@@ -57,7 +57,7 @@ class motorClass:
             GPIO.output(11,direction)
             GPIO.output(13,True)
             GPIO.output(13,False)
-            time.sleep(0.001)
+            time.sleep(0.003)
             
         self.stepsTaken=waypointSteps
         
@@ -110,7 +110,7 @@ def rewind():
         GPIO.output(11,direction)
         GPIO.output(13,True)
         GPIO.output(13,False)
-        time.sleep(0.001)
+        time.sleep(0.003)
 
     motorClass.stepsTaken = 0
     return jsonify("OK")
