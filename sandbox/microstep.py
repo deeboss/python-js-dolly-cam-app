@@ -3,8 +3,6 @@ import sys
 import time
 import RPi.GPIO as GPIO
 
-GPIO.cleanup()
-
 # Initialize pins
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT) # direction
@@ -15,15 +13,25 @@ GPIO.setup(23,GPIO.OUT) # microstep 3
 
 
 GPIO.output(11,True)
-GPIO.output(19,True)
-GPIO.output(21,True)
+GPIO.output(19,False)
+GPIO.output(21,False)
 GPIO.output(23,False)
 
-delay = 0.00006
-
-for i in range(0,6000):
+'''
+delay = [0.128,0.064,0.032,0.016,0.008,0.004,0.002,0.001,0.0005]
+print(delay)
+for i in delay:
     GPIO.output(13,True)
     GPIO.output(13,False)
-    time.sleep(delay)
+    time.sleep(i)
+'''
+
+for j in range(0,3200):
+    GPIO.output(13,True)
+    time.sleep(0.0002)
+    GPIO.output(13,False)
+    time.sleep(0.0008)
+    
+GPIO.cleanup()
     
 

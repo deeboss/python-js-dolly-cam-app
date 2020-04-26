@@ -15,6 +15,9 @@ GPIO.setup(13,GPIO.OUT) # step
 GPIO.setup(19,GPIO.OUT) # microstep 1
 GPIO.setup(21,GPIO.OUT) # microstep 2
 GPIO.setup(23,GPIO.OUT) # microstep 3
+GPIO.output(19,False)
+GPIO.output(21,False)
+GPIO.output(23,False)
 
 
 ################### MOTOR CLASS ####################
@@ -27,19 +30,17 @@ class motorClass:
         self.waypointOneSteps = 0
         self.waypointTwoSteps = 0
         self.waypointThreeSteps = 0
-        self.delay = 0.005
+        self.idelay = 0.0002
+        self.delay = 0.0008
     
     # Manual motor move
     def Move(self):  
         while self.motorMove == True:
             GPIO.output(13,True)
+            time.sleep(self.idelay)
             GPIO.output(13,False)
-<<<<<<< HEAD
             time.sleep(self.delay)
-=======
-            time.sleep(0.003)
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
-            
+
             # counting steps
             if GPIO.input(11) == True:
                 self.stepsTaken+=1
@@ -58,12 +59,9 @@ class motorClass:
         for i in range(self.stepsTaken,waypointSteps,sign):
             GPIO.output(11,direction)
             GPIO.output(13,True)
+            time.sleep(self.idelay)
             GPIO.output(13,False)
-<<<<<<< HEAD
             time.sleep(self.delay)
-=======
-            time.sleep(0.003)
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
             
         self.stepsTaken=waypointSteps
     
@@ -81,6 +79,7 @@ class motorClass:
         for i in range(0,motorClass.stepsTaken,sign):
             GPIO.output(11,direction)
             GPIO.output(13,True)
+            time.sleep(self.idelay)
             GPIO.output(13,False)
             time.sleep(0.001)
 
@@ -122,26 +121,7 @@ def backwardStop():
 
 @app_views.route('/rewind')
 def rewind():
-<<<<<<< HEAD
     motorClass.Rewind()
-=======
-    if motorClass.stepsTaken > 0:
-        sign = 1
-        direction = False
-    elif motorClass.stepsTaken < 0:
-        sign = -1
-        direction = True
-    else:
-        return jsonify("OK")
-
-    for i in range(0,motorClass.stepsTaken,sign):
-        GPIO.output(11,direction)
-        GPIO.output(13,True)
-        GPIO.output(13,False)
-        time.sleep(0.003)
-
-    motorClass.stepsTaken = 0
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
     return jsonify("OK")
 
 
