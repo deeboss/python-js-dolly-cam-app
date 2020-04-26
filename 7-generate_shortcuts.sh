@@ -1,12 +1,12 @@
-. 00-env.sh
+# . 00-env.sh
 
-SOURCE=/home/pi/Documents/python-dolly-cam-app
+SOURCE=/home/pi/Downloads/python-dolly-cam-app
 MENU=~/.local/share/applications
 DESKTOP=/home/pi/Desktop
-APPLICATION=/home/pi/Documents/python-dolly-cam-app
+APPLICATION=/home/pi/Downloads/python-dolly-cam-app
 
 # Delete shortcuts
-sudo rm -r ~/.local/share/applications/* 
+# sudo rm -r ~/.local/share/applications/* 
 # sudo rm -r /home/pi/Desktop/* 
 
 

@@ -12,17 +12,17 @@ sudo rm -r /home/pi/Desktop/*
 # Get latest release
 . ${SOURCE}/1-updater.sh
 
-cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/first-time-setup.desktop
-[Desktop Entry]
-Version=1.0
-Name=Setup        
-Comment=Sets up environment and application for MAD for 1st time use
-Exec=bash -c '. /home/pi/Downloads/python-dolly-cam-app/0-first_time_setup.sh;$SHELL'
-Icon=/usr/share/icons/HighContrast/256x256/categories/preferences-other.png
-Terminal=true 
-Type=Application
-Categories=Application;
-EOF
+# cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/first-time-setup.desktop
+# [Desktop Entry]
+# Version=1.0
+# Name=Setup        
+# Comment=Sets up environment and application for MAD for 1st time use
+# Exec=bash -c '. /home/pi/Downloads/python-dolly-cam-app/0-first_time_setup.sh;$SHELL'
+# Icon=/usr/share/icons/HighContrast/256x256/categories/preferences-other.png
+# Terminal=true 
+# Type=Application
+# Categories=Application;
+# EOF
 
 cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/update-application.desktop
 [Desktop Entry]
@@ -49,12 +49,12 @@ Categories=Application;
 EOF
 
 # Move the generated Desktop Shortcut to the appropriate applications menu
-mv ${APPLICATION}/first-time-setup.desktop ${MENU}/first-time-setup.desktop
+# mv ${APPLICATION}/first-time-setup.desktop ${MENU}/first-time-setup.desktop
 mv ${APPLICATION}/run-application.desktop ${MENU}/run-application.desktop
 mv ${APPLICATION}/update-application.desktop ${MENU}/update-application.desktop
 
 # Create a copy to the desktop to make it more easily accessible
-cp -p ${MENU}/first-time-setup.desktop ${DESKTOP}/first-time-setup.desktop
+# cp -p ${MENU}/first-time-setup.desktop ${DESKTOP}/first-time-setup.desktop
 cp -p ${MENU}/run-application.desktop ${DESKTOP}/run-application.desktop
 cp -p ${MENU}/update-application.desktop ${DESKTOP}/update-application.desktop
 
