@@ -59,7 +59,6 @@ cp -p ${MENU}/run-application.desktop ${DESKTOP}/run-application.desktop
 cp -p ${MENU}/update-application.desktop ${DESKTOP}/update-application.desktop
 
 # Remove networks
-sudo cp -p /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.orig
 sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wpa_supplicant.conf && sudo mv /home/pi/wpa_supplicant.conf /etc/wpa_supplicant/
 
 # Remove SSH keys
