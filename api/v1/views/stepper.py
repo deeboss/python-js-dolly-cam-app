@@ -40,11 +40,7 @@ class motorClass:
             time.sleep(self.idelay)
             GPIO.output(13,False)
             time.sleep(self.delay)
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 890f293876469a3ee4c237343a16c6b337a3a5ce
             # counting steps
             if GPIO.input(11) == True:
                 self.stepsTaken+=1
