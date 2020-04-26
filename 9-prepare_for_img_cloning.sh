@@ -112,14 +112,7 @@ sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wp
 
 # Remove SSH keys
 sudo rm -rf ~/.ssh/*
-# Delete developer repo
-sudo rm -rf ${SOURCE}
 
-# Remove networks
-sudo sed -n '/network/q;p' /etc/wpa_supplicant/wpa_supplicant.conf > /home/pi/wpa_supplicant.conf && sudo mv /home/pi/wpa_supplicant.conf /etc/wpa_supplicant/
-
-# Remove SSH keys
-sudo rm -rf ~/.ssh/*
 # Delete developer repo
 sudo rm -rf ${SOURCE}
 sudo rm -- "$0"

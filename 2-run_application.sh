@@ -1,7 +1,9 @@
 #!/bin/bash
+# Check for ENV
+. 00-env.sh
 
 FILE=/etc/wpa_supplicant
-HOME=/home/pi/Documents/python-dolly-cam-app
+HOME=/home/pi/${ENV_PATH}/python-dolly-cam-app
 
 
 # Toggle hotspot
@@ -21,9 +23,9 @@ ToggleHotSpot()
    fi
 }
 
-ToggleHotSpot
+# ToggleHotSpot
 
-cd /home/pi/Documents/python-dolly-cam-app
+cd /home/pi/${ENV_PATH}/python-dolly-cam-app
 source venv/bin/activate
 
 zenity --info --title 'Application Running' --text "MAD-ONE App is successfully running and can be accessed via your Phone or Desktop. Just connect to the Device's Wifi Network and open '10.10.10.10:5000' on your browser of choice." --width=500 --height=320 &
@@ -34,6 +36,6 @@ kill $zpid
 
 deactivate
 
-ToggleHotSpot
+# ToggleHotSpot
 
 zenity --info --title 'Application Closed' --text "MAD-ONE App has successfully shut down." --width=500 --height=150 --timeout=5

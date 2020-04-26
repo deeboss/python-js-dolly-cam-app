@@ -27,4 +27,7 @@ pip3 install -r requirements.txt
 
 deactivate
 
+# Generate / Update shortcuts
+. 7-generate_shortcuts.sh
+
 zenity --info --title 'Update complete!' --text "Update complete! Application version: ${VERSION}"  --width=500 --height=200 --timeout=3
