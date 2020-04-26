@@ -34,11 +34,7 @@ class motorClass:
         while self.motorMove == True:
             GPIO.output(13,True)
             GPIO.output(13,False)
-<<<<<<< HEAD
             time.sleep(self.delay)
-=======
-            time.sleep(0.003)
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
             
             # counting steps
             if GPIO.input(11) == True:
@@ -59,11 +55,7 @@ class motorClass:
             GPIO.output(11,direction)
             GPIO.output(13,True)
             GPIO.output(13,False)
-<<<<<<< HEAD
             time.sleep(self.delay)
-=======
-            time.sleep(0.003)
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
             
         self.stepsTaken=waypointSteps
     
@@ -122,26 +114,7 @@ def backwardStop():
 
 @app_views.route('/rewind')
 def rewind():
-<<<<<<< HEAD
     motorClass.Rewind()
-=======
-    if motorClass.stepsTaken > 0:
-        sign = 1
-        direction = False
-    elif motorClass.stepsTaken < 0:
-        sign = -1
-        direction = True
-    else:
-        return jsonify("OK")
-
-    for i in range(0,motorClass.stepsTaken,sign):
-        GPIO.output(11,direction)
-        GPIO.output(13,True)
-        GPIO.output(13,False)
-        time.sleep(0.003)
-
-    motorClass.stepsTaken = 0
->>>>>>> 79a7d62ddc956bd906e735b3bd56f27f9bc58e2c
     return jsonify("OK")
 
 
