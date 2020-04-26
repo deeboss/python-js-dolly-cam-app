@@ -2,8 +2,6 @@ SOURCE=/home/pi/Downloads/python-dolly-cam-app
 ORIGINAL=RPiHotspot
 NEW=MAD-Wifi
 
-passwd
-
 # Install AutoHotspot
 # cd /home/pi/Downloads/
 # wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/autohotspotN-setup
