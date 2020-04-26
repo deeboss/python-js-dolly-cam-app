@@ -6,7 +6,7 @@ TARGET=/home/pi/Downloads
 APP_NAME=python-dolly-cam-app
 
 # Ensure we're downloading to the Downloads folder
-cd ${TARGET}
+cd /home/pi/Downloads/
 
 wget https://github.com/deeboss/python-dolly-cam-app/archive/${VERSION}.tar.gz
 
@@ -16,8 +16,8 @@ rm -rf ${VERSION}.tar.gz
 
 # Renames the app, stripping away the version name and overwriting the existing app.
 # Thereby ensuring only the most updated app remains in the TARGET folder
-mv -u ${TARGET}/${APP_NAME}-${VERSION} ${TARGET}/${APP_NAME}
-cd ${TARGET}/${APP_NAME}
+mv -u /home/pi/Downloads/python-dolly-cam-app-${VERSION} /home/pi/Downloads/python-dolly-cam-app
+cd /home/pi/Downloads/python-dolly-cam-app
 
 # Creates and activates virtual environment
 python3 -m venv venv
