@@ -6,6 +6,12 @@ FILE=/etc/wpa_supplicant
 HOME=/home/pi/${ENV_PATH}/python-dolly-cam-app
 
 
+IP=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+
+echo "IP ADDRESS:"
+echo $IP
+echo ${IP}
+
 # Toggle hotspot
 # ToggleHotSpot()
 # {
@@ -28,7 +34,7 @@ HOME=/home/pi/${ENV_PATH}/python-dolly-cam-app
 cd /home/pi/${ENV_PATH}/python-dolly-cam-app
 source venv/bin/activate
 
-zenity --info --title 'Application Running' --text "MAD-ONE App is successfully running and can be accessed via your Phone or Desktop. Just connect to the Device's Wifi Network and open '10.10.10.10:5000' on your browser of choice." --width=500 --height=320 &
+zenity --info --title 'Application Running' --text "MAD-ONE App is successfully running and can be accessed via your Phone or Desktop. Just connect to the same Wifi Network and open ${IP} on your browser of choice." --width=500 --height=320 &
 zpid=$!
 python3 api/v1/app.py
 sleep 1
