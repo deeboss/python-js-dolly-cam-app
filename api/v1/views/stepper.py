@@ -3,7 +3,7 @@ from flask import Flask, jsonify, json, render_template, request
 from models import Stepper
 import os
 import sys
-import time     # Import the sleep function from the time module
+import time
 import RPi.GPIO as GPIO
 
 GPIO.cleanup()
@@ -12,24 +12,29 @@ GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT) # direction
 GPIO.setup(13,GPIO.OUT) # step
+GPIO.setup(19,GPIO.OUT) # microstep 1
+GPIO.setup(21,GPIO.OUT) # microstep 2
+GPIO.setup(23,GPIO.OUT) # microstep 3
 
-## MOTOR CLASS ###
+
+################### MOTOR CLASS ####################
 class motorClass:
     
-    # Initialize movement
+    # Initialize variables
     def __init__(self):
         self.motorMove = False
         self.stepsTaken = 0
         self.waypointOneSteps = 0
         self.waypointTwoSteps = 0
         self.waypointThreeSteps = 0
+        self.delay = 0.005
     
-    # Motor move
+    # Manual motor move
     def Move(self):  
         while self.motorMove == True:
             GPIO.output(13,True)
             GPIO.output(13,False)
-            time.sleep(0.001)
+            time.sleep(self.delay)
             
             # counting steps
             if GPIO.input(11) == True:
@@ -37,15 +42,8 @@ class motorClass:
             elif GPIO.input(11) == False:
                 self.stepsTaken-=1
                 
-    # Manual input forward and backward buttons
-    def Start(self):
-        self.motorMove = True
-    def Stop(self):
-        self.motorMove = False
-        
     # Moving to waypoint
     def gotoWaypoint(self,waypointSteps):
-        print(self.stepsTaken - waypointSteps)
         if (self.stepsTaken - waypointSteps) > 0:
             sign=-1
             direction=False
@@ -57,62 +55,66 @@ class motorClass:
             GPIO.output(11,direction)
             GPIO.output(13,True)
             GPIO.output(13,False)
-            time.sleep(0.001)
+            time.sleep(self.delay)
             
         self.stepsTaken=waypointSteps
-        
     
+    # Rewind to starting point
+    def Rewind(self):
+        if motorClass.stepsTaken > 0:
+            sign = 1
+            direction = False
+        elif motorClass.stepsTaken < 0:
+            sign = -1
+            direction = True
+        else:
+            return jsonify("OK")
+
+        for i in range(0,motorClass.stepsTaken,sign):
+            GPIO.output(11,direction)
+            GPIO.output(13,True)
+            GPIO.output(13,False)
+            time.sleep(0.001)
+
+        motorClass.stepsTaken = 0
         
 # Run class after initializing
 motorClass = motorClass()
+        
+####################################################
 
 
-## BUTTONS ##
+
+#################### BUTTONS #######################
 
 # Manual movement buttons
 @app_views.route('/forwardStart')
 def forwardStart():
     GPIO.output(11,True) # set direction
-    motorClass.Start()
+    motorClass.motorMove = True
     motorClass.Move()
     return jsonify("OK")
 
 @app_views.route('/forwardStop')
 def forwardStop():
-    motorClass.Stop()
+    motorClass.motorMove = False
     return jsonify("OK")
-
 
 @app_views.route('/backwardStart')
 def backwardStart():
     GPIO.output(11,False)
-    motorClass.Start()
+    motorClass.motorMove = True
     motorClass.Move()
     return jsonify("OK")
 
 @app_views.route('/backwardStop')
 def backwardStop():
-    motorClass.Stop()
+    motorClass.motorMove = False
     return jsonify("OK")
 
 @app_views.route('/rewind')
 def rewind():
-    if motorClass.stepsTaken > 0:
-        sign = 1
-        direction = False
-    elif motorClass.stepsTaken < 0:
-        sign = -1
-        direction = True
-    else:
-        return jsonify("OK")
-
-    for i in range(0,motorClass.stepsTaken,sign):
-        GPIO.output(11,direction)
-        GPIO.output(13,True)
-        GPIO.output(13,False)
-        time.sleep(0.001)
-
-    motorClass.stepsTaken = 0
+    motorClass.Rewind()
     return jsonify("OK")
 
 
