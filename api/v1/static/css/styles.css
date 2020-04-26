@@ -86,6 +86,12 @@ button {
     box-shadow: 0px 8px 0px #ccc;
     transition: all 0.2s ease-out;
     cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
 
 button.danger {

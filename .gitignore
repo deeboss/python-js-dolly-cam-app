@@ -16,6 +16,8 @@ lib64
 *.pyc
 .svn
 
+env.sh
+
 # dependencies
 app/node_modules
 app/.pnp

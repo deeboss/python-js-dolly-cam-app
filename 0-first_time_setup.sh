@@ -2,19 +2,18 @@ SOURCE=/home/pi/Downloads/python-dolly-cam-app
 ORIGINAL=RPiHotspot
 NEW=MAD-Wifi
 
-passwd
-
 # Install AutoHotspot
-cd /home/pi/Downloads/
-wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/autohotspotN-setup
-sudo chmod +x autohotspotN-setup
-sudo ./autohotspotN-setup
+# cd /home/pi/Downloads/
+# wget https://raw.githubusercontent.com/km4ack/pi-scripts/master/autohotspotN-setup
+# sudo chmod +x autohotspotN-setup
+# sudo ./autohotspotN-setup
 
-sudo sed -i -e "s/${ORIGINAL}/${NEW}/g" /etc/hostapd/hostapd.conf
+# sudo sed -i -e "s/${ORIGINAL}/${NEW}/g" /etc/hostapd/hostapd.conf
 
 # Remove the downloaded setup file now
-rm -rf /home/pi/Downloads/autohotspot-buster
+# rm -rf /home/pi/Downloads/autohotspot-buster
 
+# Get latest release
 . ${SOURCE}/1-updater.sh
 
 # Remove Setup now
