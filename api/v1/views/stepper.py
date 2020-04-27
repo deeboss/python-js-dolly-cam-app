@@ -161,3 +161,10 @@ def runWaypointThree():
     motorClass.gotoWaypoint(motorClass.waypointThreeSteps)
     return jsonify("OK")
     
+
+
+@app_views.route('/runWaypoint')
+def runWaypoint():
+    targetId = request.args.get('targetId', 0, type=int)
+    print(targetId)
+    return jsonify("OK")

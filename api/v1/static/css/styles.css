@@ -267,3 +267,57 @@ input[type="radio"]:checked+label {
     text-align: center;
     justify-content: center;
 }
+
+.waypoint-list {
+    list-style-type: none;
+    padding-left: 0;
+    position: relative;
+}
+
+.waypoint-list > li {
+    padding: 0 15%;
+    margin: 20px auto;
+    cursor: pointer;
+}
+
+.dragging {
+    cursor: move;
+}
+
+.dragged {
+    position: absolute;
+    background: #181616;
+    margin-left: -16%!important;
+    margin-top: -3%!important;
+}
+
+.waypoint-list > li:hover {
+    background: rgba(255,255,255,.1);
+}
+.waypoint-list > li {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.waypoint-list > li button {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.waypoints-control-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.waypoints-control-center button {
+    margin: 0 20px;
+}
+
+[data-type="id"] {
+    width: 30px;
+    text-align: center;
+}
