@@ -97,17 +97,6 @@
         waypointTarget.empty();
       })
 
-      // $('#run').on("click", function(){
-      //   console.log("clicked");
-      //   console.log(this);
-      //   console.log(this.closest("li"));
-      // })
-
-      // $('[data-button-type="removeThis"]').on("click", function(){
-      //   console.log("clicked");
-      //   console.log(this);
-      //   console.log(this.closest("li"));
-      // })
 
 
       $(function  () {
@@ -118,7 +107,7 @@
 
       $('.waypoint-list').on('click', "button", function(event){
         var targetId = this.id.split('wp')[1];
-        $.getJSON('api/v1/runWaypoint', {targetId}, function(data){});
+        $.getJSON('api/v1/runSingleWaypoint', {targetId}, function(data){});
       });
 
       $('.waypoint-list').on('click', "[data-button-type='remove']", function(event){
@@ -126,14 +115,31 @@
       });
 
       $('#wpRunAll').on("click", function(){
+        var target = $('.waypoint-list li');
+        console.log();
+        if (target.length > 0) {
+          // var data = {};
+          var arr = [];
 
+          for (var i = 0; i < target.length; i++) {
+            console.log("this elements id:")
+            console.log(target[i].id);
+
+            arr.push(target[i].id);
+          }
+
+          console.log(arr);
+          $.getJSON('api/v1/runMultpleWaypoints', {data: JSON.stringify(arr)}, function(data){});
+        } else {
+          console.log("list is empty");
+        }
       });
       
       $('#wpSave').on("click", function(){
 
         var wayPointId = $(".waypoint-list li").length + 1;
         waypointTarget.append(
-          $('<li>')
+          $('<li id="' + wayPointId + '">')
             .append(
               $('<span data-button-type="move">')
                 .append(

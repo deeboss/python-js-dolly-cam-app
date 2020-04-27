@@ -163,8 +163,17 @@ def runWaypointThree():
     
 
 
-@app_views.route('/runWaypoint')
+@app_views.route('/runSingleWaypoint')
 def runWaypoint():
     targetId = request.args.get('targetId', 0, type=int)
     print(targetId)
     return jsonify("OK")
+
+@app_views.route('runMultipleWaypoints')
+def runMultipleWaypoints():
+    data = request.args.get('data', [])
+    print(data)
+    print("yep")
+    
+    return jsonify("OK")
+
