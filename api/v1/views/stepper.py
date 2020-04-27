@@ -162,7 +162,6 @@ def runWaypointThree():
     return jsonify("OK")
     
 
-
 @app_views.route('/runSingleWaypoint')
 def runWaypoint():
     targetId = request.args.get('targetId', 0, type=int)

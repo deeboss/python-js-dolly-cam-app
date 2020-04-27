@@ -31,7 +31,7 @@
         <label for="eggVolume">Enable fun mode</label>
         <input name="eggVolume" id="eggVolume" type="checkbox" />
       </div>
-      <div class="controls-group">
+      <!-- <div class="controls-group">
         <h3>Waypoint Controls</h3>
         <hr />
         <ul class="waypoint-list">
@@ -42,8 +42,8 @@
             <button id="wpSave" class="success">Save Current Spot</button>
             <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
         </div>
-      </div>
-      <!-- <div class="controls-group">
+      </div> -->
+      <div class="controls-group">
         <h3>Waypoint Controls</h3>
         <hr />
         <div class="flex align-center justify-content-evenly">
@@ -61,7 +61,7 @@
           <button data-type="saveWaypoint" id="wpThree" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Save</button>
           <button data-type="runWaypoint" id="wpThree" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
         </div>
-      </div> -->
+      </div>
       <div>
         <h3>Other GPIO Related Controls</h3>
         <hr/>
@@ -129,6 +129,7 @@
           }
 
           console.log(arr);
+          
           $.getJSON('api/v1/runMultpleWaypoints', {data: JSON.stringify(arr)}, function(data){});
         } else {
           console.log("list is empty");
