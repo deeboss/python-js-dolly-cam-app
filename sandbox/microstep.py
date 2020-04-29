@@ -1,5 +1,3 @@
-import os
-import sys
 import time
 import RPi.GPIO as GPIO
 
@@ -7,31 +5,66 @@ import RPi.GPIO as GPIO
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT) # direction
 GPIO.setup(13,GPIO.OUT) # step
-GPIO.setup(19,GPIO.OUT) # microstep 1
-GPIO.setup(21,GPIO.OUT) # microstep 2
-GPIO.setup(23,GPIO.OUT) # microstep 3
-
-
+GPIO.setup(23,GPIO.OUT) # microstep 1
 GPIO.output(11,True)
-GPIO.output(19,False)
-GPIO.output(21,False)
-GPIO.output(23,False)
+GPIO.output(23,True)
+
+# Starting frequencies
+startFreq = 1000
+endFreq = 4000
+
+# Ramp up constants
+rampUpTime = 0.5
+timeSections = 10
+
+
+speeds=[]
+for t in range(0,timeSections+1):
+    t /= timeSections
+    c=endFreq-startFreq
+    b=startFreq
+    speeds.extend([2*c*t*t+b])
+print(speeds)
 
 '''
-delay = [0.128,0.064,0.032,0.016,0.008,0.004,0.002,0.001,0.0005]
-print(delay)
-for i in delay:
-    GPIO.output(13,True)
-    GPIO.output(13,False)
-    time.sleep(i)
+speeds=[]
+for t in range(0,timeSections+1):
+    t /= timeSections
+    c=endFreq-startFreq
+    b=startFreq
+    speeds.extend([-c*t*(t-2)+b])
+print(speeds)
 '''
 
-for j in range(0,3200):
+'''
+speeds=[]
+for t in range(0,timeSections+1):
+    t /= timeSections/2
+    c=endFreq-startFreq
+    b=startFreq
+    if t<1:
+        speeds.extend([c/2*t*t+b])
+    else:
+        t-=1
+        speeds.extend([-c/2*(t*(t-2)-1)+b])
+
+for k in range(0,800):
     GPIO.output(13,True)
-    time.sleep(0.0002)
     GPIO.output(13,False)
-    time.sleep(0.0008)
-    
+    time.sleep(1/startFreq)
+
+for i in speeds:
+    startTime = time.time()
+    while time.time()-startTime < rampUpTime/timeSections:
+        GPIO.output(13,True)
+        GPIO.output(13,False)
+        time.sleep(1/i)
+
+for k in range(0,2400):
+    GPIO.output(13,True)
+    GPIO.output(13,False)
+    time.sleep(1/endFreq)
+'''
 GPIO.cleanup()
     
 
