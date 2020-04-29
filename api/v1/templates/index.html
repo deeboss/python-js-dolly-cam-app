@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script type=text/javascript src="{{url_for('static', filename='js/jquery.js') }}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='js/jquery-sortable.min.js') }}"></script>
   </head>
   <body>
     <!-- <nav class="other-controls">
@@ -22,14 +23,26 @@
       <div class="controls-group">
         <h3>Motor and Stepper Related Controls</h3>
         <hr/>
-        <button id="forward">Forwards</button>
+        <div class="flex align-center justify-content-evenly">
+          <button id="forward">Forwards</button>
+          <button id="backward">Backward</button>
+        </div>
         <button id="rewind">Rewind</button>
-        <button id="backward">Backward</button>
-        <button>Test Button 3</button>
-
         <label for="eggVolume">Enable fun mode</label>
         <input name="eggVolume" id="eggVolume" type="checkbox" />
       </div>
+      <!-- <div class="controls-group">
+        <h3>Waypoint Controls</h3>
+        <hr />
+        <ul class="waypoint-list">
+          
+        </ul>
+        <div class="waypoints-control-center">
+            <button id="wpRunAll">Run all</button>
+            <button id="wpSave" class="success">Save Current Spot</button>
+            <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
+        </div>
+      </div> -->
       <div class="controls-group">
         <h3>Waypoint Controls</h3>
         <hr />
@@ -78,6 +91,84 @@
       </div>
     </div>
     <script type="text/javascript">
+      var waypointTarget = $('.waypoint-list');
+
+      $('#wpDeleteAll').on("click", function(){
+        waypointTarget.empty();
+      })
+
+
+
+      $(function  () {
+        $(".waypoint-list").sortable({
+          handle: '[data-button-type="move"]'
+        });
+      });
+
+      $('.waypoint-list').on('click', "button", function(event){
+        var targetId = this.id.split('wp')[1];
+        $.getJSON('api/v1/runSingleWaypoint', {targetId}, function(data){});
+      });
+
+      $('.waypoint-list').on('click', "[data-button-type='remove']", function(event){
+        this.closest("li").remove();
+      });
+
+      $('#wpRunAll').on("click", function(){
+        var target = $('.waypoint-list li');
+        console.log();
+        if (target.length > 0) {
+          // var data = {};
+          var arr = [];
+
+          for (var i = 0; i < target.length; i++) {
+            console.log("this elements id:")
+            console.log(target[i].id);
+
+            arr.push(target[i].id);
+          }
+
+          console.log(arr);
+          
+          $.getJSON('api/v1/runMultpleWaypoints', {data: JSON.stringify(arr)}, function(data){});
+        } else {
+          console.log("list is empty");
+        }
+      });
+      
+      $('#wpSave').on("click", function(){
+
+        var wayPointId = $(".waypoint-list li").length + 1;
+        waypointTarget.append(
+          $('<li id="' + wayPointId + '">')
+            .append(
+              $('<span data-button-type="move">')
+                .append(
+                  '☰'
+                )
+            )
+            .append(
+              $('<h4 data-type="id">')
+                .append(
+                  wayPointId
+                )
+            )
+            .append(
+              $('<button id="wp' + wayPointId + '">')
+                .append(
+                  'Run'
+                )
+            )
+            .append(
+              $('<span data-button-type="remove">')
+                .append(
+                  '✖'
+                )
+            )
+        )
+      });
+
+
     /**
       var configsData = JSON.parse('{{ data | tojson | safe}}');
         // console.log(configsData);
