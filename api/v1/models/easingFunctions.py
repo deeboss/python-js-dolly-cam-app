@@ -64,29 +64,24 @@ class easeFunctions:
         self.easeOut = [x+round(duration/2) for x in self.easeOut]
         return(self.easeIn+self.easeOut)
 
-'''
-# Testing code
-easeFunctions=easeFunctions()
-# Distance specifications
-startStep = 0 # starting step number
-endStep = 12000 # ending step number
-duration = 6 # duration of ease
-easeType='quadratic'
+
 
 timeArray=easeFunctions.easeInOut(startStep,endStep,duration,easeType)
 
 # Executing timeArray
 startTime = time.time()
 step=1
-while step <= endStep:
+
+if (endStep-startStep) > 0:
+    GPIO.output(11,True)
+elif (endStep-startStep) < 0:
+    GPIO.output(11,False)
+
+while step <= abs(endStep-startStep):
     if timeArray[step-1] <= time.time()-startTime:
         GPIO.output(13,True)
         GPIO.output(13,False)
         step+=1 
-
-
-GPIO.cleanup()
-'''
 
 
 

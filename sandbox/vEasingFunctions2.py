@@ -36,6 +36,9 @@ class easeFunctions:
     
     def __init__(startStep,endStep,duration,easeType):
         
+    # Outputs k-constant value
+    def kConst(self,startStep,endStep,easeType):
+    
         # Linear
         if easeType=0:
             self.degree==1
@@ -62,6 +65,10 @@ class easeFunctions:
             
             # Calculate K
             self.k=(endStep-startStep)/(duration**self.degree)
+            
+    def easeFunctionCall(self):
+        # Initialize k-constant
+        kConst(startStep,endStep,easeType)
         
     '''
     
@@ -86,7 +93,7 @@ class easeFunctions:
 
 
     # Calculate easeIn and easeOut timestamps
-    def easeIn_easeOut(self,startStep,endStep,duration,easeType):
+    def easeInOrEaseOut(self,startStep,endStep,duration,easeType):
         
         # Calculate k constant
         k=self.kConst(startStep,endStep,duration,easeType)
@@ -112,11 +119,11 @@ class easeFunctions:
     # Calculate easeIn and easeOut timestamps
     def easeInOut(self,startStep,endStep,duration,easeType):
         # Call easeIn and easeOut functions at half values
-        self.easeIn_easeOut(startStep,round(endStep/2),round(duration/2),easeType)
+        self.easeInOrEaseOut(startStep,round(endStep/2),round(duration/2),easeType)
         self.easeOut = [x+round(duration/2) for x in self.easeOut]
         return(self.easeIn+self.easeOut)
-
 '''
+
 # Testing code
 easeFunctions=easeFunctions()
 # Distance specifications
@@ -137,9 +144,6 @@ while step <= endStep:
         GPIO.output(13,False)
         step+=1 
 
-
-GPIO.cleanup()
 '''
 
-
-
+GPIO.cleanup()
