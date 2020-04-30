@@ -324,3 +324,12 @@ input[type="radio"]:checked+label {
 [data-button-type="move"] {
     cursor: move;
 }
+
+
+label {
+    display: block;
+}
+
+.route-options > div {
+    margin: 0 15px;
+}

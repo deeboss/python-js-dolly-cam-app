@@ -62,6 +62,44 @@
           <button data-type="runWaypoint" id="wpThree" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
         </div>
       </div>
+      <div class="controls-group">
+        <h3>Route Controls</h3>
+        <hr />
+        <div class="route-options flex align-center justify-content-center">
+          <div>
+            <label for="routeFrom">From</label>
+            <select name="routeFrom" id="routeFrom">
+              <option value="One">Waypoint One</option>
+              <option value="Two">Waypoint Two</option>
+              <option value="Three">Waypoint Three</option>
+            </select>
+          </div>
+          <div>
+            <label for="routeTo">To</label>
+            <select name="routeTo" id="routeTo">
+              <option value="One">Waypoint One</option>
+              <option value="quadratic">Waypoint Two</option>
+              <option value="cubic">Waypoint Three</option>
+            </select>
+          </div>
+          <div>
+            <label for="routeEasing">Easing</label>
+            <select name="routeEasing" id="routeEasing">
+              <option value="linear">LinearInOut</option>
+              <option value="quadratic">QuadraticInOut</option>
+              <option value="cubic">CubicInOut</option>
+              <option value="quartic">QuarticInOut</option>
+              <option value="quintic">QuinticInOut</option>
+            </select>
+          </div>
+          <div>
+            <label for="routeDuration">Duration (Seconds)</label>
+            <input name="routeDuration" id="routeDuration" type="number"/>
+          </div>
+        </div>
+        <button style="margin-top: 30px" id="runRoute" class="success">Run This Route</button>
+
+      </div>
       <div>
         <h3>Other GPIO Related Controls</h3>
         <hr/>

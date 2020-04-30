@@ -177,4 +177,19 @@ $(function() {
     // $('[data-type="saveWaypoint"]').each(function(){
     //   console.log(this.id);
     // })
+
+
+    $('#runRoute').on("click", function(){
+      var routeFrom = $( "#routeFrom option:selected" ).val()
+      var routeTo = $( "#routeTo option:selected" ).val()
+      var routeEasing = $( "#routeEasing option:selected" ).val()
+      var routeDuration = $( "#routeDuration" ).val()
+
+      $.getJSON('/api/v1/runRoute', {
+        routeFrom: routeFrom,
+        routeTo: routeTo,
+        routeEasing: routeEasing,
+        routeDuration: routeDuration
+      }, function(data){});
+    });
   });
