@@ -14,6 +14,56 @@ GPIO.output(23,True)
 
 class easeFunctions:
     
+    '''
+    # easeTyp char:
+    0 - Linear
+    
+    1 - Quadratic In
+    2 - Cubic In
+    3 - Quartic In
+    4 - Quintic In
+    
+    5 - Quadratic Out
+    6 - Cubic Out
+    7 - Quartic Out
+    8 - Quaintic Out
+    
+    9 - Quadratic In Out
+    10 - Cubic In Out
+    11 - Quartic In Out
+    12 - Quintic In Out
+    
+    
+    def __init__(startStep,endStep,duration,easeType):
+        
+        # Linear
+        if easeType=0:
+            self.degree==1
+            self.motion='In'
+        
+        # Polynomial
+        if 1 <= easeType <= 12:
+        
+            if 0 <= easeType <= 4:
+                self.motion='In'
+            elif 5 <= easeType <=8:
+                self.motion='Out'
+            elif 9 <= easeType <= 12:
+                self.motion='InOut'
+                
+            if easeType=1 or easeType=5 or easeType=9:
+                self.degree=2
+            elif easeType=2 or easeType=6 or easeType=10:
+                self.degree=3
+            elif easeType=3 or easeType=7 or easeType=11:
+                self.degree=4
+            elif easeType=4 or easeType=8 or easeType=12:
+                self.degree=5
+            
+            # Calculate K
+            self.k=(endStep-startStep)/(duration**self.degree)
+        
+    '''
     
     # Initialize k-constant for polynomial functions
     def kConst(self,startStep,endStep,duration,easeType):
@@ -25,6 +75,8 @@ class easeFunctions:
             self.degree=3
         elif easeType == 'quartic':
             self.degree=4
+        elif easeType == 'quintic':
+            self.degree=5
         return((endStep-startStep)/(duration**self.degree))
         
         
@@ -74,6 +126,7 @@ duration = 6 # duration of ease
 easeType='quadratic'
 
 timeArray=easeFunctions.easeInOut(startStep,endStep,duration,easeType)
+#timeArray=easeFunctions(startStep,endStep,duration,easeType)
 
 # Executing timeArray
 startTime = time.time()
