@@ -25,6 +25,8 @@ class easeFunctions:
             self.degree=3
         elif easeType == 'quartic':
             self.degree=4
+        elif easeType == 'quintic':
+            self.degree=5
         return((endStep-startStep)/(duration**self.degree))
         
         
@@ -66,6 +68,8 @@ class easeFunctions:
 
 
 
+'''
+
 timeArray=easeFunctions.easeInOut(startStep,endStep,duration,easeType)
 
 # Executing timeArray
@@ -85,3 +89,4 @@ while step <= abs(endStep-startStep):
 
 
 
+'''

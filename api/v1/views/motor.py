@@ -1,6 +1,6 @@
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from models import Motor
+from models import Motor, easeFunctions
 import os
 import sys
 import time
@@ -17,11 +17,11 @@ GPIO.setup(21,GPIO.OUT) # microstep 2
 GPIO.setup(23,GPIO.OUT) # microstep 3
 GPIO.output(19,False)
 GPIO.output(21,False)
-GPIO.output(23,False)
+GPIO.output(23,True)
 
 # Run class after initializing
 motor = Motor()
-        
+easeFunctions = easeFunctions()        
 ####################################################
 
 
@@ -109,3 +109,48 @@ def runMultipleWaypoints():
     print("yep")
     
     return jsonify("OK")
+
+
+@app_views.route('runRoute')
+def runRoute():
+    routeFrom = request.args.get('routeFrom', 0, type=str)
+    routeTo = request.args.get('routeTo', 0, type=str)
+    routeDuration = request.args.get('routeDuration', 0, type=int)
+    routeEasing = request.args.get('routeEasing', 0, type=str)
+    print("received!")
+    print([routeFrom, routeTo, routeEasing, routeDuration])
+
+    lambdaRouteFrom = None
+    lambdaRouteTo = None
+
+    try:
+        lambdaRouteFrom = getattr(motor, routeFrom)
+        lambdaRouteTo = getattr(motor, routeTo)
+
+    except AttributeError:
+        raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
+
+    print(lambdaRouteFrom)
+    print(lambdaRouteTo)
+
+
+    easeArr = easeFunctions.easeInOut(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
+    print(len(easeArr))
+    print(lambdaRouteTo - lambdaRouteFrom)
+
+    # Executing easeArr
+    startTime = time.time()
+    step=1
+
+    if (lambdaRouteTo-lambdaRouteFrom) > 0:
+        GPIO.output(11,True)
+    elif (lambdaRouteTo-lambdaRouteFrom) < 0:
+        GPIO.output(11,False)
+
+    while step <= abs(lambdaRouteTo-lambdaRouteFrom):
+        if easeArr[step-1] <= time.time()-startTime:
+            GPIO.output(13,True)
+            GPIO.output(13,False)
+            step+=1 
+
+    return jsonify(200)
