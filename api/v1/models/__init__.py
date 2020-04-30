@@ -1,3 +1,3 @@
 import os
-from models.stepper import Stepper
+from models.motor import Motor
 # from models.camera import Camera
