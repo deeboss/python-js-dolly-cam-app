@@ -120,37 +120,37 @@ def runRoute():
     print("received!")
     print([routeFrom, routeTo, routeEasing, routeDuration])
 
-    lambdaRouteFrom = None
-    lambdaRouteTo = None
+    # lambdaRouteFrom = None
+    # lambdaRouteTo = None
 
-    try:
-        lambdaRouteFrom = getattr(motor, routeFrom)
-        lambdaRouteTo = getattr(motor, routeTo)
+    # try:
+    #     lambdaRouteFrom = getattr(motor, routeFrom)
+    #     lambdaRouteTo = getattr(motor, routeTo)
 
-    except AttributeError:
-        raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
+    # except AttributeError:
+    #     raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
 
-    print(lambdaRouteFrom)
-    print(lambdaRouteTo)
+    # print(lambdaRouteFrom)
+    # print(lambdaRouteTo)
 
 
-    easeArr = easeFunctions.easeInOut(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
-    print(len(easeArr))
-    print(lambdaRouteTo - lambdaRouteFrom)
+    # easeArr = easeFunctions.easeInOut(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
+    # print(len(easeArr))
+    # print(lambdaRouteTo - lambdaRouteFrom)
 
-    # Executing easeArr
-    startTime = time.time()
-    step=1
+    # # Executing easeArr
+    # startTime = time.time()
+    # step=1
 
-    if (lambdaRouteTo-lambdaRouteFrom) > 0:
-        GPIO.output(11,True)
-    elif (lambdaRouteTo-lambdaRouteFrom) < 0:
-        GPIO.output(11,False)
+    # if (lambdaRouteTo-lambdaRouteFrom) > 0:
+    #     GPIO.output(11,True)
+    # elif (lambdaRouteTo-lambdaRouteFrom) < 0:
+    #     GPIO.output(11,False)
 
-    while step <= abs(lambdaRouteTo-lambdaRouteFrom):
-        if easeArr[step-1] <= time.time()-startTime:
-            GPIO.output(13,True)
-            GPIO.output(13,False)
-            step+=1 
+    # while step <= abs(lambdaRouteTo-lambdaRouteFrom):
+    #     if easeArr[step-1] <= time.time()-startTime:
+    #         GPIO.output(13,True)
+    #         GPIO.output(13,False)
+    #         step+=1 
 
     return jsonify(200)

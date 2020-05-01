@@ -160,6 +160,10 @@ button.danger:active, .danger.ontouchstart {
     align-items: center;
 }
 
+.align-bottom {
+    align-items: flex-end;
+}
+
 .align-right {
     text-align: right;
 }
@@ -330,6 +334,25 @@ label {
     display: block;
 }
 
+.route-options {
+    margin: 2em 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
 .route-options > div {
     margin: 0 15px;
+}
+
+label {
+    text-align: left;
+}
+
+input[type="number"], select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 12px;
+    border-radius: 3px;
 }

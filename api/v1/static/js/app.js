@@ -178,18 +178,21 @@ $(function() {
     //   console.log(this.id);
     // })
 
+    $(document).on("click", "#runThisRoute", function(){
+      var target = $(this).closest(".route-options")
+      var id = target.data("route-id");
+      var routeFrom = target.find("#routeFrom option:selected" ).val();
+      var routeTo = target.find("#routeTo option:selected" ).val();
+      var routeEasing = target.find('#routeEasing option:selected').val();
+      var routeDuration = target.find('#routeDuration').val();
 
-    $('#runRoute').on("click", function(){
-      var routeFrom = $( "#routeFrom option:selected" ).val()
-      var routeTo = $( "#routeTo option:selected" ).val()
-      var routeEasing = $( "#routeEasing option:selected" ).val()
-      var routeDuration = $( "#routeDuration" ).val()
-
-      $.getJSON('/api/v1/runRoute', {
-        routeFrom: routeFrom,
-        routeTo: routeTo,
-        routeEasing: routeEasing,
-        routeDuration: routeDuration
-      }, function(data){});
-    });
+      // $.when().then(function(){
+      //   $.getJSON('/api/v1/runRoute', {
+      //     routeFrom: routeFrom,
+      //     routeTo: routeTo,
+      //     routeEasing: routeEasing,
+      //     routeDuration: routeDuration
+      //   }, function(data){})
+      // });
+    })
   });

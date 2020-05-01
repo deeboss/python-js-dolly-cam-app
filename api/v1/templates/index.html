@@ -65,8 +65,8 @@
       <div class="controls-group">
         <h3>Route Controls</h3>
         <hr />
-        <div class="route-options flex align-center justify-content-center">
-          <div>
+        <div data-route-id="1" class="route-options">
+          <div class="input-row">
             <label for="routeFrom">From</label>
             <select name="routeFrom" id="routeFrom">
               <option value="waypointOneSteps">Waypoint One</option>
@@ -74,15 +74,15 @@
               <option value="waypointThreeSteps">Waypoint Three</option>
             </select>
           </div>
-          <div>
+          <div class="input-row">
             <label for="routeTo">To</label>
             <select name="routeTo" id="routeTo">
               <option value="waypointOneSteps">Waypoint One</option>
-              <option value="waypointTwoSteps">Waypoint Two</option>
+              <option selected value="waypointTwoSteps">Waypoint Two</option>
               <option value="waypointThreeSteps">Waypoint Three</option>
             </select>
           </div>
-          <div>
+          <div class="input-row">
             <label for="routeEasing">Easing</label>
             <select name="routeEasing" id="routeEasing">
               <option value="linear">LinearInOut</option>
@@ -92,13 +92,78 @@
               <option value="quintic">QuinticInOut</option>
             </select>
           </div>
-          <div>
+          <div class="input-row">
             <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" id="routeDuration" type="number"/>
+            <input name="routeDuration" value="1" id="routeDuration" type="number"/>
           </div>
+          <button data-route-id="1" style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
         </div>
-        <button style="margin-top: 30px" id="runRoute" class="success">Run This Route</button>
-
+        <div data-route-id="2" class="route-options">
+          <div class="input-row">
+            <label for="routeFrom">From</label>
+            <select name="routeFrom" id="routeFrom">
+              <option value="waypointOneSteps">Waypoint One</option>
+              <option value="waypointTwoSteps">Waypoint Two</option>
+              <option value="waypointThreeSteps">Waypoint Three</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeTo">To</label>
+            <select name="routeTo" id="routeTo">
+              <option value="waypointOneSteps">Waypoint One</option>
+              <option selected value="waypointTwoSteps">Waypoint Two</option>
+              <option value="waypointThreeSteps">Waypoint Three</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeEasing">Easing</label>
+            <select name="routeEasing" id="routeEasing">
+              <option value="linear">LinearInOut</option>
+              <option value="quadratic">QuadraticInOut</option>
+              <option value="cubic">CubicInOut</option>
+              <option value="quartic">QuarticInOut</option>
+              <option value="quintic">QuinticInOut</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeDuration">Duration (Seconds)</label>
+            <input name="routeDuration" value="1" id="routeDuration" type="number"/>
+          </div>
+          <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
+        </div>
+        <div data-route-id="3" class="route-options">
+          <div class="input-row">
+            <label for="routeFrom">From</label>
+            <select name="routeFrom" id="routeFrom">
+              <option value="waypointOneSteps">Waypoint One</option>
+              <option value="waypointTwoSteps">Waypoint Two</option>
+              <option value="waypointThreeSteps">Waypoint Three</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeTo">To</label>
+            <select name="routeTo" id="routeTo">
+              <option value="waypointOneSteps">Waypoint One</option>
+              <option selected value="waypointTwoSteps">Waypoint Two</option>
+              <option value="waypointThreeSteps">Waypoint Three</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeEasing">Easing</label>
+            <select name="routeEasing" id="routeEasing">
+              <option value="linear">LinearInOut</option>
+              <option value="quadratic">QuadraticInOut</option>
+              <option value="cubic">CubicInOut</option>
+              <option value="quartic">QuarticInOut</option>
+              <option value="quintic">QuinticInOut</option>
+            </select>
+          </div>
+          <div class="input-row">
+            <label for="routeDuration">Duration (Seconds)</label>
+            <input name="routeDuration" value="1" id="routeDuration" type="number"/>
+          </div>
+          <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
+        </div>
       </div>
       <div>
         <h3>Other GPIO Related Controls</h3>
