@@ -82,18 +82,36 @@ def saveWaypointThree():
 # Move to waypoint buttons
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
-    motor.gotoWaypoint(motor.waypointOneSteps)
-    return jsonify("OK")
+    print("Going to Waypoint One")
+    try:
+        motor.gotoWaypoint(motor.waypointOneSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
 
 @app_views.route('/runWaypointTwo')
 def runWaypointTwo():
-    motor.gotoWaypoint(motor.waypointTwoSteps)
-    return jsonify("OK")
+    print("Going to Waypoint Two")
+    try:
+        motor.gotoWaypoint(motor.waypointTwoSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
 
 @app_views.route('/runWaypointThree')
 def runWaypointThree():
-    motor.gotoWaypoint(motor.waypointThreeSteps)
-    return jsonify("OK")
+    print("Going to Waypoint Three")
+    try:
+        motor.gotoWaypoint(motor.waypointThreeSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
     
 
 @app_views.route('/runSingleWaypoint')
@@ -111,14 +129,17 @@ def runMultipleWaypoints():
     return jsonify("OK")
 
 
-@app_views.route('runRoute')
-def runRoute():
+@app_views.route('runSingleRoute')
+def runSingleRoute():
     routeFrom = request.args.get('routeFrom', 0, type=str)
     routeTo = request.args.get('routeTo', 0, type=str)
     routeDuration = request.args.get('routeDuration', 0, type=int)
     routeEasing = request.args.get('routeEasing', 0, type=str)
-    print("received!")
-    print([routeFrom, routeTo, routeEasing, routeDuration])
+    print("==================================================")
+    print("🚗 Executing Run route with the following parameters:")
+    print("        From: {}\n        To: {}\n        Easing: {}\n        Duration: {}"
+    .format(routeFrom, routeTo, routeEasing, routeDuration))
+    print("==================================================")
 
     # lambdaRouteFrom = None
     # lambdaRouteTo = None

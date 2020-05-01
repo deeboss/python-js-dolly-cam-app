@@ -186,13 +186,15 @@ $(function() {
       var routeEasing = target.find('#routeEasing option:selected').val();
       var routeDuration = target.find('#routeDuration').val();
 
-      // $.when().then(function(){
-      //   $.getJSON('/api/v1/runRoute', {
-      //     routeFrom: routeFrom,
-      //     routeTo: routeTo,
-      //     routeEasing: routeEasing,
-      //     routeDuration: routeDuration
-      //   }, function(data){})
-      // });
+      var routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
+
+      $.when($.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){})).then(function(){
+        $.getJSON('/api/v1/runSingleRoute', {
+          routeFrom: routeFrom,
+          routeTo: routeTo,
+          routeEasing: routeEasing,
+          routeDuration: routeDuration
+        }, function(data){})
+      });
     })
   });
