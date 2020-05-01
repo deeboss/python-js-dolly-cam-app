@@ -2,13 +2,17 @@ import time
 import math
 import RPi.GPIO as GPIO
 
+GPIO.cleanup()
+
 # Initialize pins
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 GPIO.setup(11,GPIO.OUT) # direction
 GPIO.setup(13,GPIO.OUT) # step
 GPIO.setup(23,GPIO.OUT) # microstep 1
 GPIO.output(11,True)
 GPIO.output(23,True)
+
 
 ## POLYNOMIALS ###
 
@@ -73,7 +77,7 @@ class easeFunctions:
     '''
     
     # Initialize k-constant for polynomial functions
-    def kConst(self,startStep,endStep,duration,easeType):
+    def kConst(self,difference,duration,easeType):
         if easeType == 'linear':
             self.degree=1
         elif easeType == 'quadratic':
@@ -84,7 +88,7 @@ class easeFunctions:
             self.degree=4
         elif easeType == 'quintic':
             self.degree=5
-        return((endStep-startStep)/(duration**self.degree))
+        return(abs(difference)/(duration**self.degree))
         
         
     # Calculate timestamp of given step
@@ -93,14 +97,14 @@ class easeFunctions:
 
 
     # Calculate easeIn and easeOut timestamps
-    def easeInOrEaseOut(self,startStep,endStep,duration,easeType):
+    def easeInOrEaseOut(self,difference,duration,easeType):
         
         # Calculate k constant
-        k=self.kConst(startStep,endStep,duration,easeType)
+        k=self.kConst(difference,duration,easeType)
         
         # EaseIn
         easeIn=[]
-        for i in range(startStep,endStep):
+        for i in range(0,abs(difference)):
             easeIn.extend([self.polyTimeStep(i,k)])
             
         # EaseOut
@@ -117,33 +121,37 @@ class easeFunctions:
         
         
     # Calculate easeIn and easeOut timestamps
-    def easeInOut(self,startStep,endStep,duration,easeType):
-        # Call easeIn and easeOut functions at half values
-        self.easeInOrEaseOut(startStep,round(endStep/2),round(duration/2),easeType)
-        self.easeOut = [x+round(duration/2) for x in self.easeOut]
-        return(self.easeIn+self.easeOut)
-'''
+    def easeInOut(self,difference,duration,easeType):
+
+        # Call easeIn and easeOut functions at half values, with easeOut one step higher for odd steps
+        self.easeInOrEaseOut(math.ceil(abs(difference)/2),round(duration/2),easeType)
+        self.easeInLambda = self.easeIn
+        self.easeInOrEaseOut(abs(difference)-math.ceil(abs(difference)/2),round(duration/2),easeType)
+        self.easeOutLambda = [x+round(duration/2) for x in self.easeOut]
+
+        return(self.easeInLambda+self.easeOutLambda)
+
+    def runEaseFunctions(self,difference,arr):
+        startTime = time.time()
+        step=1
+        while step <= abs(difference):
+            if arr[step-1] <= time.time()-startTime:
+                GPIO.output(13,True)
+                GPIO.output(13,False)
+                step+=1 
+
 
 # Testing code
 easeFunctions=easeFunctions()
 # Distance specifications
-startStep = 0 # starting step number
-endStep = 12000 # ending step number
-duration = 6 # duration of ease
-easeType='quadratic'
+startStep = -4001 # starting step number
+endStep = 1000 # ending step number
+duration = 4 # duration of ease
+easeType='cubic'
 
-timeArray=easeFunctions.easeInOut(startStep,endStep,duration,easeType)
+timeArray=easeFunctions.easeInOut(endStep-startStep,duration,easeType)
 #timeArray=easeFunctions(startStep,endStep,duration,easeType)
+print(abs(endStep-startStep))
+print(len(timeArray))
 
-# Executing timeArray
-startTime = time.time()
-step=1
-while step <= endStep:
-    if timeArray[step-1] <= time.time()-startTime:
-        GPIO.output(13,True)
-        GPIO.output(13,False)
-        step+=1 
-
-'''
-
-GPIO.cleanup()
+easeFunctions.runEaseFunctions(endStep-startStep,timeArray)

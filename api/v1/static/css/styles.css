@@ -345,7 +345,7 @@ label {
     margin: 0 15px;
 }
 
-label {
+.input-row label {
     text-align: left;
 }
 
