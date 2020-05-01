@@ -93,7 +93,7 @@ class easeFunctions:
 
 
     # Calculate easeIn and easeOut timestamps
-    def easeInOrEaseOut(self,difference,duration,easeType):
+    def easeInOrEaseOut(self,difference,duration,easeType,inOrOut):
         
         # Calculate k constant
         k=self.kConst(difference,duration,easeType)
@@ -112,20 +112,21 @@ class easeFunctions:
                 easeOut.extend([duration-i])
                 
         # Save to class
-        self.easeIn=easeIn
-        self.easeOut=easeOut
+        if inOrOut == 'In':
+            return easeIn
+        elif inOrOut == 'Out':
+            return easeOut
         
         
     # Calculate easeIn and easeOut timestamps
     def easeInOut(self,difference,duration,easeType):
 
         # Call easeIn and easeOut functions at half values, with easeOut one step higher for odd steps
-        self.easeInOrEaseOut(math.ceil(abs(difference)/2),round(duration/2),easeType)
-        self.easeInLambda = self.easeIn
-        self.easeInOrEaseOut(abs(difference)-math.ceil(abs(difference)/2),round(duration/2),easeType)
-        self.easeOutLambda = [x+round(duration/2) for x in self.easeOut]
+        easeIn=self.easeInOrEaseOut(math.ceil(abs(difference)/2),round(duration/2),easeType,'In')
+        easeOut=self.easeInOrEaseOut(abs(difference)-math.ceil(abs(difference)/2),round(duration/2),easeType,'Out')
+        easeOut=[x+round(duration/2) for x in easeOut]
 
-        return(self.easeInLambda+self.easeOutLambda)
+        return(easeIn+easeOut)
 
     def runEaseFunctions(self,difference,arr):
         if difference > 0:

@@ -160,4 +160,15 @@ def runSingleRoute():
     # Run time array
     easeFunctions.runEaseFunctions(lambdaRouteTo-lambdaRouteFrom,arr)
     motor.stepsTaken = lambdaRouteTo
+    print("\n")
+    print("\n")
+    print("\n")
+    print("🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈")
+    print("🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈")
+    print("🌈🌈🌈🌈🌈Nick is gay🌈🌈🌈🌈🌈")
+    print("🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈")
+    print("🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈🌈")
+    print("\n")
+    print("\n")
+    print("\n")
     return jsonify(200)

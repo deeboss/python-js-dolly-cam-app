@@ -196,5 +196,49 @@ $(function() {
           routeDuration: routeDuration
         }, function(data){})
       });
+    });
+
+    $('#runAllRoutes').on("click", function(){
+      // $.when($.getJSON('/api/v1/runWaypointOne', {}, function(data){})).then(function(){
+      //   $.getJSON('/api/v1/runSingleRoute', {
+      //     routeFrom: 'waypointOneSteps',
+      //     routeTo: 'waypointTwoSteps',
+      //     routeEasing: 'quadratic',
+      //     routeDuration: '6'
+      //   }, function(data){})
+      // });
+  
+      function first() {
+        return $.getJSON('/api/v1/runWaypointOne', {}, function(data){});
+      }
+      
+      function second(data, textStatus, jqXHR) {
+        return $.getJSON('/api/v1/runSingleRoute', {
+              routeFrom: 'waypointOneSteps',
+              routeTo: 'waypointTwoSteps',
+              routeEasing: 'quadratic',
+              routeDuration: '6'
+            }, function(data){})
+      }
+
+      function third(data, textStatus, jqXHR) {
+        return $.getJSON('/api/v1/runSingleRoute', {
+          routeFrom: 'waypointTwoSteps',
+          routeTo: 'waypointThreeSteps',
+          routeEasing: 'quadratic',
+          routeDuration: '6'
+        }, function(data){})
+      }
+
+      function fourth(data, textStatus, jqXHR) {
+        return $.getJSON('/api/v1/runSingleRoute', {
+          routeFrom: 'waypointThreeSteps',
+          routeTo: 'waypointOneSteps',
+          routeEasing: 'quadratic',
+          routeDuration: '6'
+        }, function(data){})
+      }
+      
+      first().then(second).then(third).then(fourth);
     })
   });
