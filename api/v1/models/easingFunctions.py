@@ -128,13 +128,18 @@ class easeFunctions:
         return(self.easeInLambda+self.easeOutLambda)
 
     def runEaseFunctions(self,difference,arr):
+        if difference > 0:
+            GPIO.output(11,True)
+        elif difference < 0:
+            GPIO.output(11,False)
         startTime = time.time()
         step=1
         while step <= abs(difference):
             if arr[step-1] <= time.time()-startTime:
                 GPIO.output(13,True)
                 GPIO.output(13,False)
-                step+=1 
+                step+=1
+        
 
 '''
 
