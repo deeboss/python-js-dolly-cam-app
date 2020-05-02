@@ -44,7 +44,7 @@ class Motor:
         elif (self.stepsTaken - waypointSteps) < 0:
             sign = 1
             direction=True
-        elif (self.stepsTaken - waypointSteps) = 0:
+        elif (self.stepsTaken - waypointSteps) == 0:
             print("Already at that waypoint! Dumbass.")
             return jsonify("OK")
             

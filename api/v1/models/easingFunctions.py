@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 # Initialize pins
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 GPIO.setup(11,GPIO.OUT) # direction
 GPIO.setup(13,GPIO.OUT) # step
 GPIO.setup(23,GPIO.OUT) # microstep 1
@@ -13,49 +14,42 @@ GPIO.output(23,True)
 ## POLYNOMIALS ###
 
 class easeFunctions:
-    
-      def __init__(self):
-    
+
+    def __init__(self):
+
         # Linear
-        self.easingDict ={'Linear':['polynomial',1,'In']}
-
-        # Quadratic
-        self.easingDict['QuadraticIn']=['polynomial',2,'In']
-        self.easingDict['QuadraticOut']=['polynomial',2,'Out']
-        self.easingDict['QuadraticInOut']=['polynomial',2,'InOut']
-
-        # Cubic
-        self.easingDict['CubicIn']=['polynomial',3,'In']
-        self.easingDict['CubicOut']=['polynomial',3,'Out']
-        self.easingDict['CubicInOut']=['polynomial',3,'InOut']
-
-        # Quartic
-        self.easingDict['QuarticIn']=['polynomial',4,'In']
-        self.easingDict['QuarticOut']=['polynomial',4,'Out']
-        self.easingDict['QuarticInOut']=['polynomial',4,'InOut']
-
-        # Quintic
-        self.easingDict['QuinticOut']=['polynomial',5,'Out']
-        self.easingDict['QuinticInOut']=['polynomial',5,'InOut']
-        self.easingDict['QuinticIn']=['polynomial',5,'In']
-
-    
+        self.easingDict = {
+            'Linear':['polynomial',1,'In'],
+            'QuadraticIn':['polynomial',2,'In'],
+            'QuadraticIn':['polynomial',2,'Out'],
+            'QuadraticIn':['polynomial',2,'InOut'],
+            'CubicIn':['polynomial',3,'In'],
+            'CubicIn':['polynomial',3,'Out'],
+            'CubicIn':['polynomial',3,'InOut'],
+            'QuarticIn':['polynomial',4,'In'],
+            'QuarticIn':['polynomial',4,'Out'],
+            'QuarticIn':['polynomial',4,'InOut'],
+            'QuinticOut':['polynomial',5,'In'],
+            'QuinticOut':['polynomial',5,'Out'],
+            'QuinticOut':['polynomial',5,'InOut'],
+            }
+        
     # Initialize k-constant for polynomial functions
     def kConst(self,difference,duration,easingType):
         
-        # K-constant for polynomial
+        # Polynomial
         if self.easingDict[easingType][0]=='polynomial':
             self.degree=self.easingDict[easingType][1]
             return(abs(difference)/(duration**self.degree))
         
-        # K-constant for other types of easing functions
-        
-        ###
-        
     # Calculate timestamp of given step
     def timeStep(self,step,k):
+        
+        # Polynomial
         if self.easingDict[easingType][0]=='polynomial':
             return((step/k)**(1/self.degree))
+        
+        # Others
     
     # Calculate easeIn and easeOut timestamps
     def easingFunc(self,difference,duration,easingType):
@@ -65,8 +59,14 @@ class easeFunctions:
 
         # EaseInOut
         if self.easingDict[easingType][2]=='InOut':
-            a=self.easingFunc(math.ceil(abs(difference)/2),round(duration/2),easingType.replace('InOut','In'))
-            b=self.easingFunc(abs(difference)-math.ceil(abs(difference)/2),round(duration/2),easingType.replace('InOut','Out'))
+            
+            # Dividng steps into two halves
+            firstHalf=math.ceil(abs(difference)/2)
+            secondHalf=abs(difference)-math.ceil(abs(difference)/2)
+            
+            # Calculating timing
+            a=self.easingFunc(firstHalf,round(duration/2),easingType.replace('InOut','In'))
+            b=self.easingFunc(secondHalf,round(duration/2),easingType.replace('InOut','Out'))
             b=[x+round(duration/2) for x in b]
             return a+b
         
