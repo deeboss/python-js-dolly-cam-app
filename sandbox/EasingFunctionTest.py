@@ -2,13 +2,17 @@ import time
 import math
 import RPi.GPIO as GPIO
 
+GPIO.cleanup()
+
 # Initialize pins
 GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
 GPIO.setup(11,GPIO.OUT) # direction
 GPIO.setup(13,GPIO.OUT) # step
 GPIO.setup(23,GPIO.OUT) # microstep 1
 GPIO.output(11,True)
 GPIO.output(23,True)
+
 
 ## POLYNOMIALS ###
 
@@ -98,6 +102,18 @@ class easeFunctions:
                 GPIO.output(13,False)
                 step+=1 
 
+# Testing code
+easeFunctions=easeFunctions()
+# Distance specifications
+startStep = -1001 # starting step number
+endStep = 4000 # ending step number
+duration = 4 # duration of ease
+easingType='QuadraticOut'
 
+timeArray=easeFunctions.easingFunc(endStep-startStep,duration,easingType)
+#timeArray=easeFunctions(startStep,endStep,duration,easeType)
+print(abs(endStep-startStep))
+print(len(timeArray))
+print(timeArray)
 
-
+easeFunctions.runEaseFunctions(endStep-startStep,timeArray)
