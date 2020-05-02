@@ -16,7 +16,7 @@ class Motor:
         self.waypointOneSteps = 'N/A'
         self.waypointTwoSteps = 'N/A'
         self.waypointThreeSteps = 'N/A'
-        self.delay = 0.0001
+        self.delay = 0.0003
     
     # Manual motor move
     def Move(self):  
