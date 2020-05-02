@@ -46,7 +46,6 @@ class Motor:
             direction=True
         elif (self.stepsTaken - waypointSteps) == 0:
             print("Already at that waypoint! Dumbass.")
-            return jsonify("OK")
             
         for i in range(self.stepsTaken,waypointSteps,sign):
             GPIO.output(11,direction)
