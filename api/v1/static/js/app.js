@@ -57,9 +57,6 @@ $(function() {
         audioElement.volume = 0;
       }
     })
-
-    var mouseHoldTime = 0;
-
     
     $('#forward').mousedown(function() {
       $.getJSON('/api/v1/forwardStart', {}, function(data) {});
@@ -206,40 +203,13 @@ $(function() {
         return 1 - (((input - min) * 100) / (max - min) / 100);
       }
 
-      console.log(arr);
       for (var i = 0; i < arr.length; i++) {
         minMaxArr = getMinMax(arr);
-        var roundedToMeters = Math.round((arr[i].steps / 800) * 10) / 10;
-        if (arr[i].steps === minMaxArr[0]) {
-          console.log("node " + i + " matches the min range");
-          var percentageFromMax = 1;
-          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
-          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
-          $('[data-node-id="' + i + '"]').text(arr[i].steps);
-
-        } else if (arr[i].steps === minMaxArr[1]) {
-          console.log("node " + i + " matches the MAX range");
-          var percentageFromMax = 0;
-          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
-          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
-          $('[data-node-id="' + i + '"]').text(arr[i].steps);
-
-        } else if (arr[i].steps === null) {
-          // 
-        } else {
-          console.log("node " + i + " matches in between range");
+        if (arr[i].steps !== null) {
+          var roundedToMeters = Math.round((arr[i].steps / 800) * 10) / 10;
           var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
           var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
           var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-          console.log("node " + i + " step is: " + arr[i].steps);
-          console.log("minMaxArr: " + minMaxArr);
-          console.log("stepRange: " + stepRange);
-          console.log('percentageFromMax: ' + percentageFromMax);
-          console.log('node ' + i  + ' goes to ' + placementPosition);
-          console.log(arr[i].steps);
-          console.log('----------------------------------------\n\n');
           $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
           $('[data-node-id="' + i + '"]').text(arr[i].steps);
         }
@@ -267,12 +237,64 @@ $(function() {
       return false;
     })
 
-    // $('[data-type="saveWaypoint"]').each(function(){
-    //   console.log(this.id);
-    // })
+    var easingOptions = {
+      "Linear": "cubic-bezier(0.250, 0.250, 0.750, 0.750)",
+      "QuadraticIn": "cubic-bezier(0.550, 0.085, 0.680, 0.530)",
+      "QuadraticOut": "cubic-bezier(0.250, 0.460, 0.450, 0.940)",
+      "QuadraticInOut": "cubic-bezier(0.455, 0.030, 0.515, 0.955)",
+      "CubicIn": "cubic-bezier(0.550, 0.055, 0.675, 0.190)",
+      "CubicOut": "cubic-bezier(0.215, 0.610, 0.355, 1.000)",
+      "CubicInOut": "cubic-bezier(0.645, 0.045, 0.355, 1.000)",
+      "QuarticIn": "cubic-bezier(0.895, 0.030, 0.685, 0.220)",
+      "QuarticOut": "cubic-bezier(0.165, 0.840, 0.440, 1.000)",
+      "QuarticInOut": "cubic-bezier(0.770, 0.000, 0.175, 1.000)",
+      "QuinticIn": "cubic-bezier(0.755, 0.050, 0.855, 0.060)",
+      "QuinticOut": "cubic-bezier(0.230, 1.000, 0.320, 1.000)",
+      "QuinticInOut": "cubic-bezier(0.860, 0.000, 0.070, 1.000)",
+    }
+
+    function convertStringIdToInt(string) {
+      switch(string) {
+        case "One":
+          return 0;
+          break;
+
+        case "Two":
+          return 1;
+          break;
+
+        case "Three":
+          return 2;
+          break;
+      }
+    }
+
+    var vehicle = $('.route-item.vehicle');
+
+    function setVehicleStartingPosition(id) {
+      var idx = convertStringIdToInt(id);
+      var startingPosition = $('.route-item.node#' + idx).css("transform");
+      vehicle.css("transform", startingPosition);
+      setTimeout(function(){
+        vehicle.removeClass("invisible");
+      }, 200);
+    }
+
+    function animateVehicleToWaypoint(id, t, ease) {
+      var idx = convertStringIdToInt(id);
+      var endPosition = $('.route-item.node#' + idx).css("transform");
+      var cssEaseProperty = easingOptions[ease];
+      console.log(endPosition, t+'s', cssEaseProperty);
+      vehicle.css({
+        "transition-property": "transform",
+        "transition-duration": t + "s",
+        "transition-timing-function": cssEaseProperty,
+        "transform": endPosition
+      });
+    }
 
     $(document).on("click", "#runThisRoute", function(){
-      var target = $(this).closest(".route-options")
+      var target = $(this).closest(".route-options");
       var id = target.data("route-id");
       var routeFrom = target.find("#routeFrom option:selected" ).val();
       var routeTo = target.find("#routeTo option:selected" ).val();
@@ -280,19 +302,33 @@ $(function() {
       var routeDuration = target.find('#routeDuration').val();
 
       var routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
+      var routeToId = routeTo.split('waypoint')[1].split('Steps')[0];
 
-      $.when($.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){})).then(function(){
-        $.getJSON('/api/v1/runSingleRoute', {
-          routeFrom: routeFrom,
-          routeTo: routeTo,
-          routeEasing: routeEasing,
-          routeDuration: routeDuration
-        }, function(data){})
+      $.when($.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){
+        setVehicleStartingPosition(routeFromId);
+      })).then(function(){
+        setTimeout(function(){
+          animateVehicleToWaypoint(routeToId, routeDuration, routeEasing);
+          $.getJSON('/api/v1/runSingleRoute', {
+            routeFrom: routeFrom,
+            routeTo: routeTo,
+            routeEasing: routeEasing,
+            routeDuration: routeDuration
+          }, function(data){
+            setTimeout(function(){
+              vehicle.addClass("invisible");
+              vehicle.css({'transition-property': "", "transition-duration": ""});
+              setTimeout(function(){
+                vehicle.css("transform", "");
+              }, 300);
+            }, 1500);
+          })
+        }, 1000);
       });
     });
 
     $('#runAllRoutes').on("click", function(){
-      var target, id, routeFrom, routeTo, routeEasing, routeDuration, routeFromId;
+      var target, id, routeFrom, routeTo, routeEasing, routeDuration, routeFromId, routeToId;
       
       function getTargetRoute(index) {
         target = $(".route-options:nth-of-type(" + index + ")");
@@ -302,26 +338,29 @@ $(function() {
         routeEasing = target.find('#routeEasing option:selected').val();
         routeDuration = target.find('#routeDuration').val();
         routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
+        routeToId = routeTo.split('waypoint')[1].split('Steps')[0];
       }
       
       getTargetRoute(1);
       
       function first() {
-        return $.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){});
+        return $.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){
+          setVehicleStartingPosition(routeFromId);
+        });
       }
       
       function second() {
-        return $.getJSON('/api/v1/runSingleRoute', {
-              routeFrom: routeFrom,
-          routeTo: routeTo,
-          routeEasing: routeEasing,
-          routeDuration: routeDuration
-            }, function(data){})
+        return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
+            routeFrom: routeFrom,
+            routeTo: routeTo,
+            routeEasing: routeEasing,
+            routeDuration: routeDuration
+        }, function(data){})
       }
 
       function third() {
         getTargetRoute(2);
-        return $.getJSON('/api/v1/runSingleRoute', {
+        return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
           routeFrom: routeFrom,
           routeTo: routeTo,
           routeEasing: routeEasing,
@@ -331,12 +370,20 @@ $(function() {
 
       function fourth() {
         getTargetRoute(3);
-        return $.getJSON('/api/v1/runSingleRoute', {
+        return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
           routeFrom: routeFrom,
           routeTo: routeTo,
           routeEasing: routeEasing,
           routeDuration: routeDuration
-        }, function(data){})
+        }, function(data){
+          setTimeout(function(){
+            vehicle.addClass("invisible");
+            vehicle.css({'transition-property': "", "transition-duration": ""});
+            setTimeout(function(){
+              vehicle.css("transform", "");
+            }, 300);
+          }, 1500);
+        })
       }
       
       first().then(second).then(third).then(fourth);
