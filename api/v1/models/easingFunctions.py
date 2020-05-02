@@ -25,23 +25,28 @@ class easeFunctions:
             
             # Quadratic
             'QuadraticIn':['polynomial',2,'In'],
-            'QuadraticIn':['polynomial',2,'Out'],
-            'QuadraticIn':['polynomial',2,'InOut'],
+            'QuadraticOut':['polynomial',2,'Out'],
+            'QuadraticInOut':['polynomial',2,'InOut'],
             
             # Cubic
             'CubicIn':['polynomial',3,'In'],
-            'CubicIn':['polynomial',3,'Out'],
-            'CubicIn':['polynomial',3,'InOut'],
+            'CubicOut':['polynomial',3,'Out'],
+            'CubicInOut':['polynomial',3,'InOut'],
             
             # Quartic
             'QuarticIn':['polynomial',4,'In'],
-            'QuarticIn':['polynomial',4,'Out'],
-            'QuarticIn':['polynomial',4,'InOut'],
+            'QuarticOut':['polynomial',4,'Out'],
+            'QuarticInOut':['polynomial',4,'InOut'],
             
             # Quintic
-            'QuinticOut':['polynomial',5,'In'],
+            'QuinticIn':['polynomial',5,'In'],
             'QuinticOut':['polynomial',5,'Out'],
-            'QuinticOut':['polynomial',5,'InOut'],
+            'QuinticInOut':['polynomial',5,'InOut'],
+            
+            # Sine
+            'SineIn':['sine',0,'In']
+            'SineOut':['sine',0,'Out']
+            'SineInOut':['sine',0,'InOut']
             }
         
     # Initialize k-constant for polynomial functions
