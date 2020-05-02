@@ -22,8 +22,7 @@
       </div>
       <div class="controls-group">
         <h3>Motor and Stepper Related Controls</h3>
-        <hr/>
-        <div class="flex align-center justify-content-evenly">
+                <div class="flex align-center justify-content-evenly">
           <button id="forward">Forwards</button>
           <button id="backward">Backward</button>
         </div>
@@ -33,7 +32,7 @@
       </div>
       <!-- <div class="controls-group">
         <h3>Waypoint Controls</h3>
-        <hr />
+        
         <ul class="waypoint-list">
           
         </ul>
@@ -45,7 +44,7 @@
       </div> -->
       <div class="controls-group">
         <h3>Waypoint Controls</h3>
-        <hr />
+        
         <div class="flex align-center justify-content-evenly">
           <h4>Waypoint 1</h4>
           <button data-type="saveWaypoint" id="wpOne" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Save</button>
@@ -62,9 +61,18 @@
           <button data-type="runWaypoint" id="wpThree" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
         </div>
       </div>
+      <!-- <div class="route-preview">
+        <div class="route-canvas">
+          <span class="route-vehichle" id="vehicle"></span>
+          <span class="route-node" id="0"></span>
+          <span class="route-node" id="1"></span>
+          <span class="route-node" id="2"></span>
+          <span class="route-length"></span>
+        </div>
+      </div> -->
       <div class="controls-group">
         <h3>Route Controls</h3>
-        <hr />
+        
         <div data-route-id="1" class="route-options">
           <div class="input-row">
             <label for="routeFrom">From</label>
@@ -195,15 +203,13 @@
       </div>
       <div>
         <h3>Other GPIO Related Controls</h3>
-        <hr/>
-        <button id="blinkLed">
+                <button id="blinkLed">
           Make Pi Blink
         </button>
       </div>
       <div class="controls-group">
         <h3>Camera Related Controls</h3>
-        <hr/>
-        <button id="checkForCamera">Check If Camera Exists</button>
+                <button id="checkForCamera">Check If Camera Exists</button>
         <button id="captureImage">
           Capture Image
         </button>
@@ -215,8 +221,7 @@
       </div>
       <div class="controls-group">
         <h3>Other</h3>
-        <hr/>
-        <button class="danger" id="shutdown">
+                <button class="danger" id="shutdown">
           Shutdown Server
         </button>
       </div>
