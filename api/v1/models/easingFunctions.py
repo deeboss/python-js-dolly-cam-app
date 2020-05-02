@@ -14,7 +14,7 @@ GPIO.output(23,True)
 
 class easeFunctions:
     
-    def __init__(self):
+      def __init__(self):
     
         # Linear
         self.easingDict ={'Linear':['polynomial',1,'In']}
@@ -63,7 +63,7 @@ class easeFunctions:
         # Calculate k constant
         k=self.kConst(difference,duration,easingType)
 
-        # Recursive call to In and Out
+        # EaseInOut
         if self.easingDict[easingType][2]=='InOut':
             a=self.easingFunc(math.ceil(abs(difference)/2),round(duration/2),easingType.replace('InOut','In'))
             b=self.easingFunc(abs(difference)-math.ceil(abs(difference)/2),round(duration/2),easingType.replace('InOut','Out'))
@@ -74,21 +74,19 @@ class easeFunctions:
         easeIn=[]
         for i in range(0,abs(difference)):
             easeIn.extend([self.timeStep(i,k)])
-        
         if self.easingDict[easingType][2]=='In':
             return easeIn
         
-        # EaseOut, based on EaseIn calculations
+        # EaseOut (based on EaseIn calculations)
         easeOut=[]
         for i in reversed(easeIn):
             if duration-i < 0:
                 easeOut.extend([0])
             else:
                 easeOut.extend([duration-i])
-                
         return easeOut
                 
-    # Function to run time array
+    # Run easing function on motor
     def runEaseFunctions(self,difference,arr):
         startTime = time.time()
         step=1
@@ -97,7 +95,6 @@ class easeFunctions:
                 GPIO.output(13,True)
                 GPIO.output(13,False)
                 step+=1 
-
 
 
 
