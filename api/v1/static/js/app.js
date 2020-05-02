@@ -158,11 +158,53 @@ $(function() {
       return false;
     })
 
+    var waypointCoordinates = [
+      {name: "", steps: 0},
+      {name: "", steps: 0},
+      {name: "", steps: 0}
+    ]
+    var totalSteps = 0;
+
+    function setRouteNodePosition(id, arr) {
+      var maxCanvasWidth = ($('.route-canvas').width());
+
+      function getMinMax(array) {
+        var data = [];
+        for (var i = 0; i < array.length; i++) {
+          data.push(array[i].steps);
+        }
+
+        var min = Math.min(...data);
+        var max = Math.max(...data);
+
+        return [min, max];
+      }
+
+      function lerp(max, min, percent) {
+        return (max - min) * percent + min;
+      }
+
+      
+      for (var i = 0; i < arr.length; i++) {
+        minMaxArr = getMinMax(arr);
+        var percentageFromMax = arr[i].steps / minMaxArr[1];
+        var placementPosition = -(lerp(-(maxCanvasWidth/2), (maxCanvasWidth/2), percentageFromMax));
+        console.log('percentageFromMax: ' + percentageFromMax);
+        console.log('node ' + i  + ' goes to ' + placementPosition);
+        $('.route-node#' + i).css('transform', 'translateX(' + placementPosition + 'px)');
+      }
+
+    }
+
     $('[data-type="saveWaypoint"]').on("click", function(){
       var id = this.id.split('wp')[1];
       var type = $(this).data("type");
       var wpApiRoute = '/api/v1/' + type + id;
-      $.getJSON(wpApiRoute, {}, function(data){console.log(data)});
+      $.getJSON(wpApiRoute, {}, function(data){
+        waypointCoordinates[data.id].steps = data.steps;
+        setRouteNodePosition(data.id, waypointCoordinates);
+      });
+
       return false;
     })
 
