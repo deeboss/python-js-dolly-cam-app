@@ -199,43 +199,50 @@ $(function() {
     });
 
     $('#runAllRoutes').on("click", function(){
-      // $.when($.getJSON('/api/v1/runWaypointOne', {}, function(data){})).then(function(){
-      //   $.getJSON('/api/v1/runSingleRoute', {
-      //     routeFrom: 'waypointOneSteps',
-      //     routeTo: 'waypointTwoSteps',
-      //     routeEasing: 'quadratic',
-      //     routeDuration: '6'
-      //   }, function(data){})
-      // });
-  
+      var target, id, routeFrom, routeTo, routeEasing, routeDuration, routeFromId;
+      
+      function getTargetRoute(index) {
+        target = $(".route-options:nth-of-type(" + index + ")");
+        id = target.data("route-id");
+        routeFrom = target.find("#routeFrom option:selected" ).val();
+        routeTo = target.find("#routeTo option:selected" ).val();
+        routeEasing = target.find('#routeEasing option:selected').val();
+        routeDuration = target.find('#routeDuration').val();
+        routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
+      }
+      
+      
       function first() {
         return $.getJSON('/api/v1/runWaypointOne', {}, function(data){});
       }
       
-      function second(data, textStatus, jqXHR) {
+      function second() {
+        getTargetRoute(1);
         return $.getJSON('/api/v1/runSingleRoute', {
-              routeFrom: 'waypointOneSteps',
-              routeTo: 'waypointTwoSteps',
-              routeEasing: 'quadratic',
-              routeDuration: '6'
+              routeFrom: routeFrom,
+          routeTo: routeTo,
+          routeEasing: routeEasing,
+          routeDuration: routeDuration
             }, function(data){})
       }
 
-      function third(data, textStatus, jqXHR) {
+      function third() {
+        getTargetRoute(2);
         return $.getJSON('/api/v1/runSingleRoute', {
-          routeFrom: 'waypointTwoSteps',
-          routeTo: 'waypointThreeSteps',
-          routeEasing: 'quadratic',
-          routeDuration: '6'
+          routeFrom: routeFrom,
+          routeTo: routeTo,
+          routeEasing: routeEasing,
+          routeDuration: routeDuration
         }, function(data){})
       }
 
-      function fourth(data, textStatus, jqXHR) {
+      function fourth() {
+        getTargetRoute(3);
         return $.getJSON('/api/v1/runSingleRoute', {
-          routeFrom: 'waypointThreeSteps',
-          routeTo: 'waypointOneSteps',
-          routeEasing: 'quadratic',
-          routeDuration: '6'
+          routeFrom: routeFrom,
+          routeTo: routeTo,
+          routeEasing: routeEasing,
+          routeDuration: routeDuration
         }, function(data){})
       }
       
