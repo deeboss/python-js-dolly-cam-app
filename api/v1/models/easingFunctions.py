@@ -1,3 +1,7 @@
+"""
+Easing Functions Class
+"""
+
 import time
 import math
 import RPi.GPIO as GPIO
@@ -11,24 +15,30 @@ GPIO.setup(23,GPIO.OUT) # microstep 1
 GPIO.output(11,True)
 GPIO.output(23,True)
 
-## POLYNOMIALS ###
-
 class easeFunctions:
 
     def __init__(self):
 
-        # Linear
         self.easingDict = {
+            # Linear
             'Linear':['polynomial',1,'In'],
+            
+            # Quadratic
             'QuadraticIn':['polynomial',2,'In'],
             'QuadraticIn':['polynomial',2,'Out'],
             'QuadraticIn':['polynomial',2,'InOut'],
+            
+            # Cubic
             'CubicIn':['polynomial',3,'In'],
             'CubicIn':['polynomial',3,'Out'],
             'CubicIn':['polynomial',3,'InOut'],
+            
+            # Quartic
             'QuarticIn':['polynomial',4,'In'],
             'QuarticIn':['polynomial',4,'Out'],
             'QuarticIn':['polynomial',4,'InOut'],
+            
+            # Quintic
             'QuinticOut':['polynomial',5,'In'],
             'QuinticOut':['polynomial',5,'Out'],
             'QuinticOut':['polynomial',5,'InOut'],
@@ -41,6 +51,8 @@ class easeFunctions:
         if self.easingDict[easingType][0]=='polynomial':
             self.degree=self.easingDict[easingType][1]
             return(abs(difference)/(duration**self.degree))
+        
+        # Others
         
     # Calculate timestamp of given step
     def timeStep(self,step,k):
