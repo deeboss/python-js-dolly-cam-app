@@ -211,13 +211,13 @@ $(function() {
         routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
       }
       
+      getTargetRoute(1);
       
       function first() {
-        return $.getJSON('/api/v1/runWaypointOne', {}, function(data){});
+        return $.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){});
       }
       
       function second() {
-        getTargetRoute(1);
         return $.getJSON('/api/v1/runSingleRoute', {
               routeFrom: routeFrom,
           routeTo: routeTo,
@@ -248,4 +248,38 @@ $(function() {
       
       first().then(second).then(third).then(fourth);
     })
+
+
+
+    var elToTrack = ".route-options:nth-of-type(1) #routeTo, .route-options:nth-of-type(2) #routeTo";
+    
+    $(document).on("change", elToTrack, function(){
+      var firstRouteToIdx = $('.route-options:nth-of-type(1) #routeTo')[0].selectedIndex;
+      var secondRouteToIdx = $('.route-options:nth-of-type(2) #routeTo')[0].selectedIndex;
+  
+      var secondRouteFrom = $('.route-options:nth-of-type(2) #routeFrom');
+      var thirdRouteFrom = $('.route-options:nth-of-type(3) #routeFrom');
+      if ($('#syncRoutes').prop("checked")) {
+        secondRouteFrom.prop("selectedIndex", firstRouteToIdx);
+        thirdRouteFrom.prop("selectedIndex", secondRouteToIdx);
+      }
+    })
+
+    $('#syncRoutes').on("change", function(){
+      var firstRouteToIdx = $('.route-options:nth-of-type(1) #routeTo')[0].selectedIndex;
+      var secondRouteToIdx = $('.route-options:nth-of-type(2) #routeTo')[0].selectedIndex;
+  
+      var secondRouteFrom = $('.route-options:nth-of-type(2) #routeFrom');
+      var thirdRouteFrom = $('.route-options:nth-of-type(3) #routeFrom');
+
+      if ($(this).prop("checked")) {
+        secondRouteFrom.attr("disabled", true);
+        thirdRouteFrom.attr("disabled", true);
+        secondRouteFrom.prop("selectedIndex", firstRouteToIdx);
+        thirdRouteFrom.prop("selectedIndex", secondRouteToIdx);
+      } else {  
+        secondRouteFrom.attr("disabled", false);
+        thirdRouteFrom.attr("disabled", false);
+      }
+    });
   });
