@@ -64,19 +64,22 @@ def rewind():
 def saveWaypointOne():
     motor.waypointOneSteps=motor.stepsTaken
     print("Waypoint 1 saved: ",motor.waypointOneSteps," steps")
-    return jsonify("OK")
+    data = {"id": 1, "name": "Waypoint 1", "steps": motor.waypointOneSteps}
+    return jsonify(data)
 
 @app_views.route('/saveWaypointTwo')
 def saveWaypointTwo():
     motor.waypointTwoSteps=motor.stepsTaken
     print("Waypoint 2 saved: ",motor.waypointTwoSteps," steps")
-    return jsonify("OK")
+    data = {"id": 2, "name": "Waypoint 2", "steps": motor.waypointTwoSteps}
+    return jsonify(data)
 
 @app_views.route('/saveWaypointThree')
 def saveWaypointThree():
     motor.waypointThreeSteps=motor.stepsTaken
     print("Waypoint 3 saved: ",motor.waypointThreeSteps," steps")
-    return jsonify("OK")
+    data = {"id": 3, "name": "Waypoint 3", "steps": motor.waypointThreeSteps}
+    return jsonify(data)
 
 
 # Move to waypoint buttons

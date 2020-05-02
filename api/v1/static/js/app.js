@@ -162,7 +162,7 @@ $(function() {
       var id = this.id.split('wp')[1];
       var type = $(this).data("type");
       var wpApiRoute = '/api/v1/' + type + id;
-      $.getJSON(wpApiRoute, {}, function(data){});
+      $.getJSON(wpApiRoute, {}, function(data){console.log(data)});
       return false;
     })
 
