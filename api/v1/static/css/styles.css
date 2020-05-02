@@ -412,7 +412,26 @@ input[type="number"], select {
     background: rgb(47, 142, 47);
     position: absolute;
     left: 50%;
-    transform: translateX(-50%) translateY(4px);
+    transform: translateX(-50%) translateY(4px) scaleX(1);
+    transition: transform 0.45s 0.4s ease-in-out;
+}
+
+.route-length + h2 {
+    display: none;
+}
+
+.route-length.empty {
+    transform: translateX(-50%) translateY(4px) scaleX(0);
+    transition: transform 0.45s 0.4s ease-in-out;
+}
+
+.route-length.empty + h2 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    opacity: 0.6;
+    display: block;
 }
 
 .route-item {

@@ -222,6 +222,7 @@ $(function() {
       var type = $(this).data("type");
       var wpApiRoute = '/api/v1/' + type + id;
       $.getJSON(wpApiRoute, {}, function(data){
+        $('.route-length').removeClass("empty");
         waypointCoordinates[data.id].steps = data.steps;
         setRouteNodePosition(data.id, waypointCoordinates);
       });
