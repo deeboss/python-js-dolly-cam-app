@@ -43,10 +43,6 @@ class easeFunctions:
             'QuinticOut':['polynomial',5,'Out'],
             'QuinticInOut':['polynomial',5,'InOut'],
             
-            # Sine
-            'SineIn':['sine',0,'In']
-            'SineOut':['sine',0,'Out']
-            'SineInOut':['sine',0,'InOut']
             }
         
     # Initialize k-constant for polynomial functions
