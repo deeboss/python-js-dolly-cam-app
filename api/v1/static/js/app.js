@@ -189,10 +189,10 @@ $(function() {
         minMaxArr = getMinMax(arr);
         var percentageFromMax = arr[i].steps / minMaxArr[1];
         var placementPosition = -(lerp(-(maxCanvasWidth/2), (maxCanvasWidth/2), percentageFromMax));
-        // console.log("minMaxArr: " + minMaxArr);
-        // console.log('percentageFromMax: ' + (percentageFromMax * 100));
-        // console.log('node ' + i  + ' goes to ' + placementPosition);
-        // $('.route-node#' + i).css('transform', 'translateX(' + placementPosition + 'px)');
+        console.log("minMaxArr: " + minMaxArr);
+        console.log('percentageFromMax: ' + (percentageFromMax * 100));
+        console.log('node ' + i  + ' goes to ' + placementPosition);
+        $('.route-node#' + i).css('transform', 'translateX(' + placementPosition + 'px)');
       }
 
     }
