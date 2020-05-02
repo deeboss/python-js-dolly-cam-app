@@ -142,9 +142,12 @@ class easeFunctions:
                 step+=1
         
 
-'''
+startStep=0
+endStep=4000
+duration=3
+easeType='quadratic'
 
-timeArray=easeFunctions.easeInOut(startStep,endStep,duration,easeType)
+timeArray=easeFunctions.easeInOut((endStep-startStep),duration,easeType)
 
 # Executing timeArray
 startTime = time.time()
@@ -163,4 +166,3 @@ while step <= abs(endStep-startStep):
 
 
 
-'''
