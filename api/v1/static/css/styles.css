@@ -106,6 +106,7 @@ button {
             user-select: none;
 }
 
+
 button.danger {
     color: white;
     background: rgb(210, 60, 60);
@@ -146,6 +147,14 @@ button.danger:active, .danger.ontouchstart {
 
 .flex {
     display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
 }
 
 .justify-content-start {
@@ -284,6 +293,17 @@ input[type="radio"]:checked+label {
     justify-content: center;
 }
 
+.waypoint-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.waypoint-column > button {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
 .waypoint-list {
     list-style-type: none;
     padding-left: 0;
@@ -371,7 +391,7 @@ input[type="number"], select {
 
 
 .route-preview {
-    padding: 4em 0;
+    padding: 8em 0;
     /* background: red; */
 }
 
@@ -395,13 +415,119 @@ input[type="number"], select {
     transform: translateX(-50%) translateY(4px);
 }
 
-.route-node {
+.route-item {
+    text-align: center;
     width: 10px;
     height: 10px;
-    border-radius: 20px;
+    border-radius: 30px;
     background: rgb(62, 196, 62);
     z-index: 55;
     position: absolute;
+    opacity: 1;
     transform: translateX(0px);
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, opacity 0.25s ease-in-out;
+}
+.route-item > * {
+    position: absolute;
+}
+
+.route-item h4, .route-item .tooltip, .route-item p {
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.route-item p {
+    transform: translateX(-50%) translateY(25px);
+}
+
+.route-item.vehicle {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    background: rgb(62, 196, 62);
+    z-index: 100;
+}
+
+.tooltip {
+    background: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    margin-top: -65px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
+.tooltip:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    position: absolute;
+    top: 105%;
+}
+
+.tooltip-secondary {
+    display: block;
+    margin-top: 5px;
+}
+
+.tooltip-secondary span {
+    display: inline-block;
+}
+
+.animation-radar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 160px;
+    -webkit-border-radius: 160px;
+
+    border: 5px solid rgb(62, 196, 62, 0.75);
+    -webkit-animation: pulsate 3s ease-out;
+    animation: pulsate 3s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+    animation-iteration-count: infinite; 
+    opacity: 0.0
+}
+
+@keyframes pulsate {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1, 0.1);
+        -webkit-transform: translate(-50%, -50%) scale(0.1, 0.1);
+        opacity: 0.0;
+    }
+    50% {opacity: 1.0;}
+    100% {
+        transform: translate(-50%, -50%) scale(1.2, 1.2);
+        -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+        opacity: 0.0;
+    }
+}
+@-webkit-keyframes pulsate {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1, 0.1);
+        -webkit-transform: translate(-50%, -50%) scale(0.1, 0.1);
+        opacity: 0.0;
+    }
+    50% {opacity: 1.0;}
+    100% {
+        transform: translate(-50%, -50%) scale(1.2, 1.2);
+        -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+        opacity: 0.0;
+    }
+}
+
+.invisible {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
 }

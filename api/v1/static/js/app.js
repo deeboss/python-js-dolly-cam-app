@@ -58,19 +58,22 @@ $(function() {
       }
     })
 
+    var mouseHoldTime = 0;
+
+    
     $('#forward').mousedown(function() {
       $.getJSON('/api/v1/forwardStart', {}, function(data) {});
-
       if ($('#eggVolume:checked').length > 0) {
         $('body').addClass('funmode')
         audioElement.play();
       }
-
+      
       return false;
     });
-
+    
     $('#forward').on('touchstart', function() {
       $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+      
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').addClass('funmode')
@@ -79,7 +82,10 @@ $(function() {
 
       return false;
     }).bind('touchend', function(){
-      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStop', {}, function(data) {
+        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+        $('#currentSteps').text(data.current_position);
+      });
       
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -89,7 +95,10 @@ $(function() {
     });
 
     $('#forward').mouseup(function() {
-      $.getJSON('/api/v1/forwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/forwardStop', {}, function(data) {
+        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+        $('#currentSteps').text(data.current_position);
+      });
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -120,7 +129,10 @@ $(function() {
 
       return false;
     }).bind('touchend', function(){
-      $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/backwardStop', {}, function(data) {
+        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+        $('#currentSteps').text(data.current_position);
+      });
       
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -130,7 +142,10 @@ $(function() {
     });
 
     $('#backward').mouseup(function() {
-      $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+      $.getJSON('/api/v1/backwardStop', {}, function(data) {
+        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+        $('#currentSteps').text(data.current_position);
+      });
 
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -141,7 +156,10 @@ $(function() {
     });
 
     $('#rewind').on("click", function() {
-      $.getJSON('/api/v1/rewind', {}, function(data) {});
+      $.getJSON('/api/v1/rewind', {}, function(data) {
+        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+        $('#currentSteps').text(data.current_position);
+      });
       return false;
     });
 
@@ -160,8 +178,8 @@ $(function() {
 
     var waypointCoordinates = [
       {name: "", steps: 0},
-      {name: "", steps: 0},
-      {name: "", steps: 0}
+      {name: "", steps: null},
+      {name: "", steps: null}
     ]
     var totalSteps = 0;
 
@@ -184,15 +202,47 @@ $(function() {
         return (max - min) * percent + min;
       }
 
-      
+      function rangePercentage(input, min, max) {
+        return 1 - (((input - min) * 100) / (max - min) / 100);
+      }
+
+      console.log(arr);
       for (var i = 0; i < arr.length; i++) {
         minMaxArr = getMinMax(arr);
-        var percentageFromMax = arr[i].steps / minMaxArr[1];
-        var placementPosition = -(lerp(-(maxCanvasWidth/2), (maxCanvasWidth/2), percentageFromMax));
-        console.log("minMaxArr: " + minMaxArr);
-        console.log('percentageFromMax: ' + (percentageFromMax * 100));
-        console.log('node ' + i  + ' goes to ' + placementPosition);
-        $('.route-node#' + i).css('transform', 'translateX(' + placementPosition + 'px)');
+        var roundedToMeters = Math.round((arr[i].steps / 800) * 10) / 10;
+        if (arr[i].steps === minMaxArr[0]) {
+          console.log("node " + i + " matches the min range");
+          var percentageFromMax = 1;
+          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
+          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
+          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+          $('[data-node-id="' + i + '"]').text(arr[i].steps);
+
+        } else if (arr[i].steps === minMaxArr[1]) {
+          console.log("node " + i + " matches the MAX range");
+          var percentageFromMax = 0;
+          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
+          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
+          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+          $('[data-node-id="' + i + '"]').text(arr[i].steps);
+
+        } else if (arr[i].steps === null) {
+          // 
+        } else {
+          console.log("node " + i + " matches in between range");
+          var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
+          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
+          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
+          console.log("node " + i + " step is: " + arr[i].steps);
+          console.log("minMaxArr: " + minMaxArr);
+          console.log("stepRange: " + stepRange);
+          console.log('percentageFromMax: ' + percentageFromMax);
+          console.log('node ' + i  + ' goes to ' + placementPosition);
+          console.log(arr[i].steps);
+          console.log('----------------------------------------\n\n');
+          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+          $('[data-node-id="' + i + '"]').text(arr[i].steps);
+        }
       }
 
     }
