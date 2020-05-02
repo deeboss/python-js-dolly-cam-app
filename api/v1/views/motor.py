@@ -155,7 +155,7 @@ def runSingleRoute():
         raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
 
     # Compute time array for steps
-    arr=easeFunctions.easeInOut(lambdaRouteTo-lambdaRouteFrom,routeDuration,routeEasing)
+    arr=easeFunctions.easingFunc(lambdaRouteTo-lambdaRouteFrom,routeDuration,routeEasing)
     #timeArray=easeFunctions(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
     print(abs(lambdaRouteTo-lambdaRouteFrom))
     print(len(arr))

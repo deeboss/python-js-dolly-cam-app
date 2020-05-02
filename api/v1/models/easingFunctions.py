@@ -59,13 +59,15 @@ class easeFunctions:
     def timeStep(self,step,k):
         
         # Polynomial
-        if self.easingDict[easingType][0]=='polynomial':
+        if self.easingDict[self.easingType][0]=='polynomial':
             return((step/k)**(1/self.degree))
         
         # Others
     
     # Calculate easeIn and easeOut timestamps
     def easingFunc(self,difference,duration,easingType):
+        
+        self.easingType=easingType
         
         # Calculate k constant
         k=self.kConst(difference,duration,easingType)
