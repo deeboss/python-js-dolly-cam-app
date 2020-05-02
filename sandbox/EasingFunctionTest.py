@@ -108,7 +108,7 @@ easeFunctions=easeFunctions()
 startStep = -1001 # starting step number
 endStep = 4000 # ending step number
 duration = 4 # duration of ease
-easingType='QuadraticInOut'
+easingType='QuadraticOut'
 
 timeArray=easeFunctions.easingFunc(endStep-startStep,duration,easingType)
 #timeArray=easeFunctions(startStep,endStep,duration,easeType)
