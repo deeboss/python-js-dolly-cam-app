@@ -33,7 +33,7 @@ source venv/bin/activate
 zenity --info --title 'Application Running' --text "MAD-ONE App is successfully running and can be accessed via your Phone or Desktop. Just connect to the same Wifi Network and open ${IP}:5000 on your browser of choice." --width=500 --height=320 &
 zpid=$!
 python3 api/v1/app.py
-sleep 1
+sleep 3
 kill $zpid
 
 deactivate
