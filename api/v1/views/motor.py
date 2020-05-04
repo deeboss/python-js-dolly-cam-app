@@ -39,7 +39,8 @@ def forwardStart():
 @app_views.route('/forwardStop')
 def forwardStop():
     motor.motorMove = False
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 @app_views.route('/backwardStart')
 def backwardStart():
@@ -51,12 +52,14 @@ def backwardStart():
 @app_views.route('/backwardStop')
 def backwardStop():
     motor.motorMove = False
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 @app_views.route('/rewind')
 def rewind():
     motor.Rewind()
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 
 # Save waypoint buttons
@@ -64,36 +67,57 @@ def rewind():
 def saveWaypointOne():
     motor.waypointOneSteps=motor.stepsTaken
     print("Waypoint 1 saved: ",motor.waypointOneSteps," steps")
-    return jsonify("OK")
+    data = {"id": 0, "name": "Waypoint 1", "steps": motor.waypointOneSteps}
+    return jsonify(data)
 
 @app_views.route('/saveWaypointTwo')
 def saveWaypointTwo():
     motor.waypointTwoSteps=motor.stepsTaken
     print("Waypoint 2 saved: ",motor.waypointTwoSteps," steps")
-    return jsonify("OK")
+    data = {"id": 1, "name": "Waypoint 2", "steps": motor.waypointTwoSteps}
+    return jsonify(data)
 
 @app_views.route('/saveWaypointThree')
 def saveWaypointThree():
     motor.waypointThreeSteps=motor.stepsTaken
     print("Waypoint 3 saved: ",motor.waypointThreeSteps," steps")
-    return jsonify("OK")
+    data = {"id": 2, "name": "Waypoint 3", "steps": motor.waypointThreeSteps}
+    return jsonify(data)
 
 
 # Move to waypoint buttons
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
-    motor.gotoWaypoint(motor.waypointOneSteps)
-    return jsonify("OK")
+    print("Going to Waypoint One")
+    try:
+        motor.gotoWaypoint(motor.waypointOneSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
 
 @app_views.route('/runWaypointTwo')
 def runWaypointTwo():
-    motor.gotoWaypoint(motor.waypointTwoSteps)
-    return jsonify("OK")
+    print("Going to Waypoint Two")
+    try:
+        motor.gotoWaypoint(motor.waypointTwoSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
 
 @app_views.route('/runWaypointThree')
 def runWaypointThree():
-    motor.gotoWaypoint(motor.waypointThreeSteps)
-    return jsonify("OK")
+    print("Going to Waypoint Three")
+    try:
+        motor.gotoWaypoint(motor.waypointThreeSteps)
+        return jsonify(200)
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+        
     
 
 @app_views.route('/runSingleWaypoint')
@@ -111,14 +135,17 @@ def runMultipleWaypoints():
     return jsonify("OK")
 
 
-@app_views.route('runRoute')
-def runRoute():
+@app_views.route('runSingleRoute')
+def runSingleRoute():
     routeFrom = request.args.get('routeFrom', 0, type=str)
     routeTo = request.args.get('routeTo', 0, type=str)
     routeDuration = request.args.get('routeDuration', 0, type=int)
     routeEasing = request.args.get('routeEasing', 0, type=str)
-    print("received!")
-    print([routeFrom, routeTo, routeEasing, routeDuration])
+    print("==================================================")
+    print("🚗 Executing Run route with the following parameters:")
+    print("        From: {}\n        To: {}\n        Easing: {}\n        Duration: {}"
+    .format(routeFrom, routeTo, routeEasing, routeDuration))
+    print("==================================================")
 
     lambdaRouteFrom = None
     lambdaRouteTo = None
@@ -130,27 +157,13 @@ def runRoute():
     except AttributeError:
         raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
 
-    print(lambdaRouteFrom)
-    print(lambdaRouteTo)
+    # Compute time array for steps
+    arr=easeFunctions.easingFunc(lambdaRouteTo-lambdaRouteFrom,routeDuration,routeEasing)
+    #timeArray=easeFunctions(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
+    print(abs(lambdaRouteTo-lambdaRouteFrom))
+    print(len(arr))
 
-
-    easeArr = easeFunctions.easeInOut(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
-    print(len(easeArr))
-    print(lambdaRouteTo - lambdaRouteFrom)
-
-    # Executing easeArr
-    startTime = time.time()
-    step=1
-
-    if (lambdaRouteTo-lambdaRouteFrom) > 0:
-        GPIO.output(11,True)
-    elif (lambdaRouteTo-lambdaRouteFrom) < 0:
-        GPIO.output(11,False)
-
-    while step <= abs(lambdaRouteTo-lambdaRouteFrom):
-        if easeArr[step-1] <= time.time()-startTime:
-            GPIO.output(13,True)
-            GPIO.output(13,False)
-            step+=1 
-
+    # Run time array
+    easeFunctions.runEaseFunctions(lambdaRouteTo-lambdaRouteFrom,arr)
+    motor.stepsTaken = lambdaRouteTo
     return jsonify(200)

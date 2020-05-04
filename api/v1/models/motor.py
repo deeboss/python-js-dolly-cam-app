@@ -13,17 +13,15 @@ class Motor:
     def __init__(self):
         self.motorMove = False
         self.stepsTaken = 0
-        self.waypointOneSteps = 0
-        self.waypointTwoSteps = 0
-        self.waypointThreeSteps = 0
-        self.idelay = 0.0002
-        self.delay = 0.0008
+        self.waypointOneSteps = 'N/A'
+        self.waypointTwoSteps = 'N/A'
+        self.waypointThreeSteps = 'N/A'
+        self.delay = 0.0003
     
     # Manual motor move
     def Move(self):  
         while self.motorMove == True:
             GPIO.output(13,True)
-            time.sleep(self.idelay)
             GPIO.output(13,False)
             time.sleep(self.delay)
 
@@ -37,17 +35,21 @@ class Motor:
                 
     # Moving to waypoint
     def gotoWaypoint(self,waypointSteps):
-        if (self.stepsTaken - waypointSteps) > 0:
-            sign=-1
+        if waypointSteps == 'N/A':
+            print("Waypoint has not been assigned yet!")
+            return jsonify("OK")
+        elif (self.stepsTaken - waypointSteps) > 0:
+            sign = 1
             direction=False
         elif (self.stepsTaken - waypointSteps) < 0:
-            sign=+1
+            sign = 1
             direction=True
+        elif (self.stepsTaken - waypointSteps) == 0:
+            print("Already at that waypoint! Dumbass.")
             
         for i in range(self.stepsTaken,waypointSteps,sign):
             GPIO.output(11,direction)
             GPIO.output(13,True)
-            time.sleep(self.idelay)
             GPIO.output(13,False)
             time.sleep(self.delay)
             
@@ -62,14 +64,14 @@ class Motor:
             sign = -1
             direction = True
         else:
+            print("Already at origin point!")
             return jsonify("OK")
 
         for i in range(0,self.stepsTaken,sign):
             GPIO.output(11,direction)
             GPIO.output(13,True)
-            time.sleep(self.idelay)
             GPIO.output(13,False)
-            time.sleep(0.001)
+            time.sleep(self.delay)
 
         self.stepsTaken = 0
         

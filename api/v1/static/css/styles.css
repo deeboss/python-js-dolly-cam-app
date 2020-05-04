@@ -1,7 +1,7 @@
 
 html {
     box-sizing: border-box;
-    font-family: "Helvetica", "Arial", sans-serif
+    font-family: monospace;
 }
 
 *, :after, :before {
@@ -22,7 +22,7 @@ body {
     -webkit-box-direction: normal;
     flex-direction: column;
     overflow-x: hidden;
-    background: #181616;
+    background: #141518;
     color: white;
 }
 
@@ -61,12 +61,24 @@ body.funmode {
     }
 }
 
-.controls-group {
+.controls-group, .route-preview {
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+    padding: 8px 20px 40px;
+    background: #25272d;
+    border-radius: 15px;
     margin-bottom: 50px;
+    box-shadow: 2px 6px 0px rgba(0,0,0,.15);
+}
+
+.controls-group > h3 {
+    text-transform: uppercase;
+    font-size: x-large;
 }
 
 button {
-    font-family: monospace;
+    /* font-family: monospace; */
     position: relative;
     font-size: larger;
     display: block;
@@ -93,6 +105,7 @@ button {
         -ms-user-select: none;
             user-select: none;
 }
+
 
 button.danger {
     color: white;
@@ -136,6 +149,14 @@ button.danger:active, .danger.ontouchstart {
     display: flex;
 }
 
+.column {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
 .justify-content-start {
     justify-content: flex-start;
 }
@@ -158,6 +179,10 @@ button.danger:active, .danger.ontouchstart {
 
 .align-center {
     align-items: center;
+}
+
+.align-bottom {
+    align-items: flex-end;
 }
 
 .align-right {
@@ -268,6 +293,17 @@ input[type="radio"]:checked+label {
     justify-content: center;
 }
 
+.waypoint-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.waypoint-column > button {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
 .waypoint-list {
     list-style-type: none;
     padding-left: 0;
@@ -285,7 +321,7 @@ input[type="radio"]:checked+label {
 
 .dragged {
     position: absolute;
-    background: #181616;
+    background: #141518;
     margin-left: -16%!important;
     margin-top: -3%!important;
 }
@@ -330,6 +366,187 @@ label {
     display: block;
 }
 
+.route-options {
+    margin: 2em 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
 .route-options > div {
     margin: 0 15px;
+}
+
+.input-row label {
+    text-align: left;
+}
+
+input[type="number"], select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 12px;
+    border-radius: 3px;
+}
+
+
+.route-preview {
+    padding: 8em 0;
+    /* background: red; */
+}
+
+.route-canvas {
+    position: relative;
+    max-width: 80%;
+    width: 100%;
+    margin: auto;
+}
+
+.route-canvas > * {
+    display: inline-block;
+}
+
+.route-length {
+    width: 100%;
+    height: 1px;
+    background: rgb(47, 142, 47);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px) scaleX(1);
+    transition: transform 0.45s 0.4s ease-in-out;
+}
+
+.route-length + h2 {
+    display: none;
+}
+
+.route-length.empty {
+    transform: translateX(-50%) translateY(4px) scaleX(0);
+    transition: transform 0.45s 0.4s ease-in-out;
+}
+
+.route-length.empty + h2 {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    opacity: 0.6;
+    display: block;
+}
+
+.route-item {
+    text-align: center;
+    width: 10px;
+    height: 10px;
+    border-radius: 30px;
+    background: rgb(62, 196, 62);
+    z-index: 55;
+    position: absolute;
+    opacity: 1;
+    transform: translateX(0px);
+    transition: transform 0.5s ease-in-out, opacity 0.25s ease-in-out;
+}
+.route-item > * {
+    position: absolute;
+}
+
+.route-item h4, .route-item .tooltip, .route-item p {
+    white-space: nowrap;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.route-item p {
+    transform: translateX(-50%) translateY(25px);
+}
+
+.route-item.vehicle {
+    width: 20px;
+    height: 20px;
+    margin-top: -5px;
+    background: rgb(62, 196, 62);
+    z-index: 100;
+}
+
+.tooltip {
+    background: white;
+    padding: 8px 14px;
+    border-radius: 5px;
+    margin-top: -65px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
+.tooltip:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid white;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    position: absolute;
+    top: 105%;
+}
+
+.tooltip-secondary {
+    display: block;
+    margin-top: 5px;
+}
+
+.tooltip-secondary span {
+    display: inline-block;
+}
+
+.animation-radar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 160px;
+    -webkit-border-radius: 160px;
+
+    border: 5px solid rgb(62, 196, 62, 0.75);
+    -webkit-animation: pulsate 3s ease-out;
+    animation: pulsate 3s ease-out;
+    -webkit-animation-iteration-count: infinite; 
+    animation-iteration-count: infinite; 
+    opacity: 0.0
+}
+
+@keyframes pulsate {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1, 0.1);
+        -webkit-transform: translate(-50%, -50%) scale(0.1, 0.1);
+        opacity: 0.0;
+    }
+    50% {opacity: 1.0;}
+    100% {
+        transform: translate(-50%, -50%) scale(1.2, 1.2);
+        -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+        opacity: 0.0;
+    }
+}
+@-webkit-keyframes pulsate {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1, 0.1);
+        -webkit-transform: translate(-50%, -50%) scale(0.1, 0.1);
+        opacity: 0.0;
+    }
+    50% {opacity: 1.0;}
+    100% {
+        transform: translate(-50%, -50%) scale(1.2, 1.2);
+        -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+        opacity: 0.0;
+    }
+}
+
+.invisible {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
 }
