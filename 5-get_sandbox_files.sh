@@ -9,7 +9,7 @@ echo "Remove any incidental changes made to the files so that we can pull proper
 git checkout -- .
 
 echo "Pulling for any changes made to the sandbox files from the Sandbox branch"
-git pull origin sandbox:master
+git pull origin master
 
 cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/update-sandbox.desktop
 [Desktop Entry]
