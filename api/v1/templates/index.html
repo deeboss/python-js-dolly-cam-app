@@ -23,10 +23,10 @@
       <div class="controls-group">
         <h3>Motor and Stepper Related Controls</h3>
                 <div class="flex align-center justify-content-evenly">
-          <button id="forward">Forwards</button>
-          <button id="backward">Backward</button>
+          <button id="forward">← Forwards</button>
+          <button class="success" id="rewind">Rewind ↻</button>
+          <button id="backward">Backward →</button>
         </div>
-        <button id="rewind">Rewind</button>
         <label for="eggVolume">Enable fun mode</label>
         <input name="eggVolume" id="eggVolume" type="checkbox" />
       </div>
@@ -44,32 +44,37 @@
       </div> -->
       <div class="controls-group">
         <h3>Waypoint Controls</h3>
-        
         <div class="flex align-center justify-content-evenly">
-          <h4>Waypoint 1</h4>
-          <button data-type="saveWaypoint" id="wpOne" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Save</button>
-          <button data-type="runWaypoint" id="wpOne" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
-        </div>
-        <div class="flex align-center justify-content-evenly">
-          <h4>Waypoint 2</h4>
-          <button data-type="saveWaypoint" id="wpTwo" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Save</button>
-          <button data-type="runWaypoint" id="wpTwo" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
-        </div>
-        <div class="flex align-center justify-content-evenly">
-          <h4>Waypoint 3</h4>
-          <button data-type="saveWaypoint" id="wpThree" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Save</button>
-          <button data-type="runWaypoint" id="wpThree" class="success" style="margin-bottom: 0; margin-left: 0; margin-right: 0;">Run</button>
+          <div class="waypoint-column">
+            <h3>Waypoint 1</h3>
+            <button data-type="saveWaypoint" id="wpOne">Save As Waypoint</button>
+            <button data-type="runWaypoint" id="wpOne" class="success">Go Here</button>
+          </div>
+          <div class="waypoint-column">
+            <h3>Waypoint 2</h3>
+            <button data-type="saveWaypoint" id="wpTwo">Save As Waypoint</button>
+            <button data-type="runWaypoint" id="wpTwo" class="success">Go Here</button>
+          </div>
+          <div class="waypoint-column">
+            <h3>Waypoint 3</h3>
+            <button data-type="saveWaypoint" id="wpThree">Save As Waypoint</button>
+            <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button>
+          </div>
         </div>
       </div>
-      <!-- <div class="route-preview">
+      <div class="route-preview">
         <div class="route-canvas">
-          <span class="route-vehichle" id="vehicle"></span>
-          <span class="route-node" id="0"></span>
-          <span class="route-node" id="1"></span>
-          <span class="route-node" id="2"></span>
-          <span class="route-length"></span>
+          <span class="route-item vehicle invisible" id="vehicle">
+            <span class="tooltip top">MAD-ONE <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span></span>
+            <span class="animation-radar"></span>
+          </span>
+          <span class="route-item node invisible" id="0"><h4>Waypoint 1</h4><p><span data-node-id="0"></span> steps</p><span></span></span>
+          <span class="route-item node invisible" id="1"><h4>Waypoint 2</h4><p><span data-node-id="1"></span> steps</p><span></span></span>
+          <span class="route-item node invisible" id="2"><h4>Waypoint 3</h4><p><span data-node-id="2"></span> steps</p><span></span></span>
+          <span class="route-length empty"></span>
+          <h2><i>No Waypoints created yet</i></h2>
         </div>
-      </div> -->
+      </div>
       <div class="controls-group">
         <h3>Route Controls</h3>
         
@@ -99,7 +104,7 @@
               <option value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
               <option value="CubicOut">CubicOut</option>
-              <option value="Cubic">CubicInOut</option>
+              <option value="CubicInOut">CubicInOut</option>
               <option value="QuarticIn">QuarticIn</option>
               <option value="QuarticOut">QuarticOut</option>
               <option value="QuarticInOut">QuarticInOut</option>
@@ -140,7 +145,7 @@
               <option value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
               <option selected value="CubicOut">CubicOut</option>
-              <option value="Cubic">CubicInOut</option>
+              <option value="CubicInOut">CubicInOut</option>
               <option value="QuarticIn">QuarticIn</option>
               <option value="QuarticOut">QuarticOut</option>
               <option value="QuarticInOut">QuarticInOut</option>
@@ -181,7 +186,7 @@
               <option value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
               <option value="CubicOut">CubicOut</option>
-              <option value="Cubic">CubicInOut</option>
+              <option value="CubicInOut">CubicInOut</option>
               <option value="QuarticIn">QuarticIn</option>
               <option value="QuarticOut">QuarticOut</option>
               <option selected value="QuarticInOut">QuarticInOut</option>
@@ -201,7 +206,7 @@
           <button style="margin: 18px 0 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
         </div>
       </div>
-      <div>
+      <div class="controls-group">
         <h3>Other GPIO Related Controls</h3>
                 <button id="blinkLed">
           Make Pi Blink

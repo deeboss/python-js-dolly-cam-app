@@ -39,7 +39,8 @@ def forwardStart():
 @app_views.route('/forwardStop')
 def forwardStop():
     motor.motorMove = False
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 @app_views.route('/backwardStart')
 def backwardStart():
@@ -51,12 +52,14 @@ def backwardStart():
 @app_views.route('/backwardStop')
 def backwardStop():
     motor.motorMove = False
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 @app_views.route('/rewind')
 def rewind():
     motor.Rewind()
-    return jsonify("OK")
+    data = {'current_position': motor.stepsTaken}
+    return jsonify(data)
 
 
 # Save waypoint buttons
