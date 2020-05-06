@@ -22,13 +22,9 @@ GPIO.output(23,True)
 # Run class after initializing
 motor = Motor()
 easeFunctions = easeFunctions()        
-####################################################
 
+#################### MANUAL MOVEMENT #######################
 
-
-#################### BUTTONS #######################
-
-# Manual movement buttons
 @app_views.route('/forwardStart')
 def forwardStart():
     GPIO.output(11,True) # set direction
@@ -62,7 +58,7 @@ def rewind():
     return jsonify(data)
 
 
-# Save waypoint buttons
+##################### SAVE WAYPOINTS ########################
 @app_views.route('/saveWaypointOne')
 def saveWaypointOne():
     motor.waypointOneSteps=motor.stepsTaken
@@ -85,7 +81,7 @@ def saveWaypointThree():
     return jsonify(data)
 
 
-# Move to waypoint buttons
+###################### RUN WAYPOINTS #########################
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
     print("Going to Waypoint One")
@@ -96,7 +92,6 @@ def runWaypointOne():
         print(error);
         return jsonify(500)
         
-
 @app_views.route('/runWaypointTwo')
 def runWaypointTwo():
     print("Going to Waypoint Two")
@@ -107,7 +102,6 @@ def runWaypointTwo():
         print(error);
         return jsonify(500)
         
-
 @app_views.route('/runWaypointThree')
 def runWaypointThree():
     print("Going to Waypoint Three")
@@ -157,13 +151,7 @@ def runSingleRoute():
     except AttributeError:
         raise NotImplementedError("Class `{}` does not implement `{}`".format(motor.__class__.__name__, routeTo))
 
-    # Compute time array for steps
-    arr=easeFunctions.easingFunc(lambdaRouteTo-lambdaRouteFrom,routeDuration,routeEasing)
-    #timeArray=easeFunctions(lambdaRouteFrom,lambdaRouteTo,routeDuration,routeEasing)
-    print(abs(lambdaRouteTo-lambdaRouteFrom))
-    print(len(arr))
-
     # Run time array
-    easeFunctions.runEaseFunctions(lambdaRouteTo-lambdaRouteFrom,arr)
+    easeFunctions.runEaseFunctions(lambdaRouteTo-lambdaRouteFrom,routeDuration,routeEasing)
     motor.stepsTaken = lambdaRouteTo
     return jsonify(200)

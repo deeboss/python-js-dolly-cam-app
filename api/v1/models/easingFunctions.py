@@ -102,7 +102,18 @@ class easeFunctions:
         return easeOut
                 
     # Run easing function on motor
-    def runEaseFunctions(self,difference,arr):
+    def runEaseFunctions(self,difference,duration,easingType):
+
+        # Compute time array
+        arr=self.easingFunc(difference,duration,easingType)
+
+        # Set direction
+        if difference > 0:
+            GPIO.output(11,True)
+        elif difference < 0:
+            GPIO.output(11,False)
+
+        # Run time array
         startTime = time.time()
         step=1
         while step <= abs(difference):
