@@ -46,21 +46,21 @@ class easeFunctions:
             }
         
     # Initialize k-constant for polynomial functions
-    def kConst(self,difference,duration,easingType):
+    def kConst(self):
         
         # Polynomial
-        if self.easingDict[easingType][0]=='polynomial':
-            self.degree=self.easingDict[easingType][1]
-            return(abs(difference)/(duration**self.degree))
+        if self.easingDict[self.easingType][0]=='polynomial':
+            self.degree=self.easingDict[self.easingType][1]
+            return(abs(self.difference)/(self.duration**self.degree))
         
         # Others
         
     # Calculate timestamp of given step
-    def timeStep(self,step,k):
+    def timeStep(self,step):
         
         # Polynomial
         if self.easingDict[self.easingType][0]=='polynomial':
-            return((step/k)**(1/self.degree))
+            return((step/self.k)**(1/self.degree))
         
         # Others
     
@@ -68,9 +68,11 @@ class easeFunctions:
     def easingFunc(self,difference,duration,easingType):
         
         self.easingType=easingType
+        self.difference=difference
+        self.duration=duration
         
         # Calculate k constant
-        k=self.kConst(difference,duration,easingType)
+        self.k=self.kConst()
 
         # EaseInOut
         if self.easingDict[easingType][2]=='InOut':
@@ -88,7 +90,7 @@ class easeFunctions:
         # EaseIn
         easeIn=[]
         for i in range(0,abs(difference)):
-            easeIn.extend([self.timeStep(i,k)])
+            easeIn.extend([self.timeStep(i)])
         if self.easingDict[easingType][2]=='In':
             return easeIn
         
@@ -120,7 +122,31 @@ class easeFunctions:
             if arr[step-1] <= time.time()-startTime:
                 GPIO.output(13,True)
                 GPIO.output(13,False)
-                step+=1 
+                step+=1
+
+    def stepsDurationCheck(self,difference,duration,easingType):
+
+        # Max RPM input (can be changed later on)
+        maxRPM=2000
+
+        checkDegree=self.easingDict[self.easingType][1]
+        if self.easingDict[self.easingType][2]=='InOut':
+            duration/=2
+            difference/=2
+
+        # Polynomial
+        if self.easingDict[self.easingType][0]=='polynomial':
+            RPM=(80/6)*(checkDegree/duration)*abs(difference)
+
+        # Others
+
+        # Check RPM
+        if RPM > maxRPM:
+            print('TOO FAST')
+            possibleTime=(80/6)*(checkDegree/maxRPM)*abs(difference)
+            possibleDistance=maxRPM*(6/80)*(duration/checkDegree)
+            print(possibleTime)
+            print(possibleDistance)
 
 
 
