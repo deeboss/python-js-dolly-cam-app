@@ -42,7 +42,7 @@ class Motor:
             print("Already at that waypoint!")
             return
 
-        easeFunctions.runEaseFunctions(waypointSteps-self.stepsTaken,(waypointSteps-self.stepsTaken)/800,'Linear')
+        easeFunctions.runEaseFunctions(waypointSteps-self.stepsTaken,abs(waypointSteps-self.stepsTaken)/800,'Linear')
         self.stepsTaken=waypointSteps
     
     # Rewind to starting point
@@ -51,6 +51,6 @@ class Motor:
             print("Already at origin point!")
             return
 
-        easeFunctions.runEaseFunctions(self.stepsTaken,self.stepsTaken/800,'Linear')
+        easeFunctions.runEaseFunctions(self.stepsTaken,abs(self.stepsTaken)/800,'Linear')
         self.stepsTaken = 0
         
