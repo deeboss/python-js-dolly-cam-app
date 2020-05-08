@@ -12,6 +12,9 @@ sudo rm -r /home/pi/Desktop/*
 # Get latest release
 . ${SOURCE}/1-updater.sh
 
+# Setup Run App On Boot
+. ${SOURCE}/10-setup_run_on_boot.sh
+
 # cat <<EOF > /home/pi/Downloads/python-dolly-cam-app/first-time-setup.desktop
 # [Desktop Entry]
 # Version=1.0

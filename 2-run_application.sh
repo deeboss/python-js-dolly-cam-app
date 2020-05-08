@@ -1,6 +1,6 @@
 #!/bin/bash
 # Check for ENV
-. env.sh
+# . env.sh
 
 FILE=/etc/wpa_supplicant
 HOME=/home/pi/Downloads/python-dolly-cam-app
