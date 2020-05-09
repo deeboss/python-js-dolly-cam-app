@@ -29,7 +29,12 @@ $(function() {
     });
 
     $('#blinkLed').on('click', function() {
-      $.getJSON('/api/v1/blinkLed', {}, function(data) {});
+      $('#status-text').text("Making RPi Blink");
+      $('body').addClass('disable');
+      $.getJSON('/api/v1/blinkLed', {}, function(data) {
+        $('body').removeClass('disable');
+        $('#status-text').text("Idle. Ready for commands");
+      });
       return false;
     });
 
@@ -70,6 +75,7 @@ $(function() {
     })
     
     $('#forward').mousedown(function() {
+      $('#status-text').text("Moving forwards");
       $.getJSON('/api/v1/forwardStart', {}, function(data) {});
       if ($('#eggVolume:checked').length > 0) {
         $('body').addClass('funmode')
@@ -80,6 +86,7 @@ $(function() {
     });
     
     $('#forward').on('touchstart', function() {
+      $('#status-text').text("Moving forwards");
       $.getJSON('/api/v1/forwardStart', {}, function(data) {});
       
 
@@ -93,7 +100,9 @@ $(function() {
       $.getJSON('/api/v1/forwardStop', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
+        $('#status-text').text("Idle. Ready for commands");
       });
+
       
       if ($('#eggVolume:checked').length > 0) {
         $('body').removeClass('funmode')
@@ -106,6 +115,7 @@ $(function() {
       $.getJSON('/api/v1/forwardStop', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
+        $('#status-text').text("Idle. Ready for commands");
       });
 
       if ($('#eggVolume:checked').length > 0) {
@@ -117,6 +127,7 @@ $(function() {
     });
     
     $('#backward').mousedown(function() {
+      $('#status-text').text("Moving backwards");
       $.getJSON('/api/v1/backwardStart', {}, function(data) {});
 
       if ($('#eggVolume:checked').length > 0) {
@@ -128,6 +139,7 @@ $(function() {
     });
 
     $('#backward').on('touchstart', function() {
+      $('#status-text').text("Moving backwards");
       $.getJSON('/api/v1/backwardStart', {}, function(data) {});
 
       if ($('#eggVolume:checked').length > 0) {
@@ -140,6 +152,7 @@ $(function() {
       $.getJSON('/api/v1/backwardStop', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
+        $('#status-text').text("Idle. Ready for commands");
       });
       
       if ($('#eggVolume:checked').length > 0) {
@@ -153,6 +166,7 @@ $(function() {
       $.getJSON('/api/v1/backwardStop', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
+        $('#status-text').text("Idle. Ready for commands");
       });
 
       if ($('#eggVolume:checked').length > 0) {
@@ -164,12 +178,14 @@ $(function() {
     });
 
     $('#rewind').on("click", function() {
+      $('#status-text').text("Returning to start position");
       $('body').addClass("disable");
 
       $.getJSON('/api/v1/rewind', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
         $('body').removeClass("disable");
+        $('#status-text').text("Idle. Ready for commands");
       });
       return false;
     });
@@ -220,12 +236,12 @@ $(function() {
       for (var i = 0; i < arr.length; i++) {
         minMaxArr = getMinMax(arr);
         if (arr[i].steps !== null) {
-          var roundedToMeters = Math.round((arr[i].steps / 800) * 10) / 10;
+          var roundedToMeters = Math.round((arr[i].steps / 3333) * 10) / 10;
           var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
           var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
           var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
           $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
-          $('[data-node-id="' + i + '"]').text(arr[i].steps);
+          $('[data-node-id="' + i + '"]').html(roundedToMeters + ' meters </br> (' + arr[i].steps);
         }
       }
 
@@ -235,10 +251,12 @@ $(function() {
       var id = this.id.split('wp')[1];
       var type = $(this).data("type");
       var wpApiRoute = '/api/v1/' + type + id;
+      $('#status-text').text("Saving Waypoint " + id);
       $.getJSON(wpApiRoute, {}, function(data){
         $('.route-length').removeClass("empty");
         waypointCoordinates[data.id].steps = data.steps;
         setRouteNodePosition(data.id, waypointCoordinates);
+        $('#status-text').text("Idle. ready for commands");
       });
 
       return false;
@@ -289,6 +307,7 @@ $(function() {
     function setVehicleStartingPosition(id) {
       var idx = convertStringIdToInt(id);
       var startingPosition = $('.route-item.node#' + idx).css("transform");
+
       vehicle.css("transform", startingPosition);
       setTimeout(function(){
         vehicle.removeClass("invisible");
@@ -319,23 +338,30 @@ $(function() {
       var routeFromId = routeFrom.split('waypoint')[1].split('Steps')[0];
       var routeToId = routeTo.split('waypoint')[1].split('Steps')[0];
 
+      $('body').addClass("disable");
+      $('#status-text').text("Moving to start position (Waypoint " + routeFromId + ")");
+
       $.when($.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){
         setVehicleStartingPosition(routeFromId);
       })).then(function(){
         setTimeout(function(){
           animateVehicleToWaypoint(routeToId, routeDuration, routeEasing);
+          $('#status-text').text("Running to Waypoint " + routeToId);
           $.getJSON('/api/v1/runSingleRoute', {
             routeFrom: routeFrom,
             routeTo: routeTo,
             routeEasing: routeEasing,
             routeDuration: routeDuration
           }, function(data){
+            $('#status-text').text("Route complete");
             setTimeout(function(){
               vehicle.addClass("invisible");
               vehicle.css({'transition-property': "", "transition-duration": ""});
               setTimeout(function(){
                 vehicle.css("transform", "");
               }, 300);
+              $('body').removeClass("disable");
+              $('#status-text').text("Idle. Ready for commands");
             }, 1500);
           })
         }, 1000);
@@ -344,7 +370,7 @@ $(function() {
 
     $('#runAllRoutes').on("click", function(){
       var target, id, routeFrom, routeTo, routeEasing, routeDuration, routeFromId, routeToId;
-      
+      $('body').addClass("disable");
       function getTargetRoute(index) {
         target = $(".route-options:nth-of-type(" + index + ")");
         id = target.data("route-id");
@@ -359,12 +385,14 @@ $(function() {
       getTargetRoute(1);
       
       function first() {
+        $('#status-text').text("Moving to start position (Waypoint " + routeFromId + ")");
         return $.getJSON('/api/v1/runWaypoint' + routeFromId, {}, function(data){
           setVehicleStartingPosition(routeFromId);
         });
       }
       
       function second() {
+        $('#status-text').text("Going to Waypoint " + routeToId);
         return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
             routeFrom: routeFrom,
             routeTo: routeTo,
@@ -375,6 +403,7 @@ $(function() {
 
       function third() {
         getTargetRoute(2);
+        $('#status-text').text("Going to Waypoint " + routeToId);
         return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
           routeFrom: routeFrom,
           routeTo: routeTo,
@@ -385,18 +414,22 @@ $(function() {
 
       function fourth() {
         getTargetRoute(3);
+        $('#status-text').text("Going to Waypoint " + routeToId);
         return animateVehicleToWaypoint(routeToId, routeDuration, routeEasing), $.getJSON('/api/v1/runSingleRoute', {
           routeFrom: routeFrom,
           routeTo: routeTo,
           routeEasing: routeEasing,
           routeDuration: routeDuration
         }, function(data){
+          $('#status-text').text("Route complete");
           setTimeout(function(){
             vehicle.addClass("invisible");
             vehicle.css({'transition-property': "", "transition-duration": ""});
             setTimeout(function(){
               vehicle.css("transform", "");
             }, 300);
+            $('body').removeClass("disable");
+            $('#status-text').text("Idle. Ready for commands");
           }, 1500);
         })
       }

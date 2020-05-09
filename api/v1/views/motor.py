@@ -87,7 +87,7 @@ def runWaypointOne():
     print("Going to Waypoint One")
     try:
         motor.gotoWaypoint(motor.waypointOneSteps)
-        return jsonify(200)
+        return jsonify('Going to Waypoint One')
     except UnboundLocalError as error:
         print(error);
         return jsonify(500)
@@ -100,7 +100,7 @@ def runWaypointTwo():
         return jsonify(200)
     except UnboundLocalError as error:
         print(error);
-        return jsonify(500)
+        return jsonify('Going to Waypoint Two')
         
 @app_views.route('/runWaypointThree')
 def runWaypointThree():
@@ -110,7 +110,7 @@ def runWaypointThree():
         return jsonify(200)
     except UnboundLocalError as error:
         print(error);
-        return jsonify(500)
+        return jsonify('Going to Waypoint Three')
         
     
 

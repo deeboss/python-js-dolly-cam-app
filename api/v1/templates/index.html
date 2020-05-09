@@ -47,30 +47,35 @@
         <div class="flex align-center justify-content-evenly">
           <h3>Save current position as</h3>
           <div class="waypoint-column">
-            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpOne">Waypoint 1</button>
+            <button data-type="saveWaypoint" id="wpOne">Waypoint 1</button>
             <!-- <button data-type="runWaypoint" id="wpOne" class="success">Go Here</button> -->
           </div>
           <div class="waypoint-column">
-            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpTwo">Waypoint 2</button>
+            <button data-type="saveWaypoint" id="wpTwo">Waypoint 2</button>
             <!-- <button data-type="runWaypoint" id="wpTwo" class="success">Go Here</button> -->
           </div>
           <div class="waypoint-column">
-            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpThree">Waypoint 3</button>
+            <button data-type="saveWaypoint" id="wpThree">Waypoint 3</button>
             <!-- <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button> -->
           </div>
         </div>
         <div class="route-preview">
           <div class="route-canvas">
             <span class="route-item vehicle invisible" id="vehicle">
-              <span class="tooltip top">MAD-ONE <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span></span>
+              <span class="tooltip top">MAD-ONE 
+                <!-- <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span> -->
+              </span>
               <span class="animation-radar"></span>
             </span>
-            <span class="route-item node invisible" id="0"><h4>Waypoint 1</h4><p><span data-node-id="0"></span> steps</p><span></span></span>
-            <span class="route-item node invisible" id="1"><h4>Waypoint 2</h4><p><span data-node-id="1"></span> steps</p><span></span></span>
-            <span class="route-item node invisible" id="2"><h4>Waypoint 3</h4><p><span data-node-id="2"></span> steps</p><span></span></span>
+            <span class="route-item node invisible" id="0"><h4>Waypoint 1</h4><p><span data-node-id="0"></span> steps)</p><span></span></span>
+            <span class="route-item node invisible" id="1"><h4>Waypoint 2</h4><p><span data-node-id="1"></span> steps)</p><span></span></span>
+            <span class="route-item node invisible" id="2"><h4>Waypoint 3</h4><p><span data-node-id="2"></span> steps)</p><span></span></span>
             <span class="route-length empty"></span>
             <h2><i>No waypoints saved yet</i></h2>
           </div>
+        </div>
+        <div class="status-bar">
+          <span>Status: <span id="status-text">Idle. Ready for commands</span></span>
         </div>
       </div>
       <div class="controls-group">
