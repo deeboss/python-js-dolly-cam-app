@@ -40,11 +40,17 @@ $(function() {
 
     $('#restart').on('click', function() {
       $.getJSON('/api/v1/restart', {}, function(data){});
+      setTimeout(function(){
+        window.location.reload();
+      }, 500);
       return false;
     })
 
     $('#shutdown').on('click', function() {
       $.getJSON('/api/v1/shutdown', {}, function(data){});
+      setTimeout(function(){
+        window.location.reload();
+      }, 500);
       return false;
     })
 
@@ -158,9 +164,12 @@ $(function() {
     });
 
     $('#rewind').on("click", function() {
+      $('body').addClass("disable");
+
       $.getJSON('/api/v1/rewind', {}, function(data) {
         var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
         $('#currentSteps').text(data.current_position);
+        $('body').removeClass("disable");
       });
       return false;
     });
@@ -235,13 +244,13 @@ $(function() {
       return false;
     })
 
-    $('[data-type="runWaypoint"]').on("click", function(){
-      var id = this.id.split('wp')[1];
-      var type = $(this).data("type");
-      var wpApiRoute = '/api/v1/' + type + id;
-      $.getJSON(wpApiRoute, {}, function(data){});
-      return false;
-    })
+    // $('[data-type="runWaypoint"]').on("click", function(){
+    //   var id = this.id.split('wp')[1];
+    //   var type = $(this).data("type");
+    //   var wpApiRoute = '/api/v1/' + type + id;
+    //   $.getJSON(wpApiRoute, {}, function(data){});
+    //   return false;
+    // })
 
     var easingOptions = {
       "Linear": "cubic-bezier(0.250, 0.250, 0.750, 0.750)",
@@ -414,7 +423,7 @@ $(function() {
     $('#syncRoutes').on("change", function(){
       var firstRouteToIdx = $('.route-options:nth-of-type(1) #routeTo')[0].selectedIndex;
       var secondRouteToIdx = $('.route-options:nth-of-type(2) #routeTo')[0].selectedIndex;
-  
+      
       var secondRouteFrom = $('.route-options:nth-of-type(2) #routeFrom');
       var thirdRouteFrom = $('.route-options:nth-of-type(3) #routeFrom');
 

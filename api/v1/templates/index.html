@@ -21,7 +21,7 @@
         <!-- <img src="http://placehold.it/1920x1080"> -->
       </div>
       <div class="controls-group">
-        <h3>Motor and Stepper Related Controls</h3>
+        <h3>Motor Controls</h3>
                 <div class="flex align-center justify-content-evenly">
           <button id="forward">← Forwards</button>
           <button class="success" id="rewind">Rewind ↻</button>
@@ -42,35 +42,35 @@
             <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
         </div>
       </div> -->
-      <div class="route-preview">
+      <div class="controls-group">
         <h3>Waypoint Controls</h3>
         <div class="flex align-center justify-content-evenly">
+          <h3>Save current position as</h3>
           <div class="waypoint-column">
-            <h3>Waypoint 1</h3>
-            <button data-type="saveWaypoint" id="wpOne">Save As Waypoint</button>
-            <button data-type="runWaypoint" id="wpOne" class="success">Go Here</button>
+            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpOne">Waypoint 1</button>
+            <!-- <button data-type="runWaypoint" id="wpOne" class="success">Go Here</button> -->
           </div>
           <div class="waypoint-column">
-            <h3>Waypoint 2</h3>
-            <button data-type="saveWaypoint" id="wpTwo">Save As Waypoint</button>
-            <button data-type="runWaypoint" id="wpTwo" class="success">Go Here</button>
+            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpTwo">Waypoint 2</button>
+            <!-- <button data-type="runWaypoint" id="wpTwo" class="success">Go Here</button> -->
           </div>
           <div class="waypoint-column">
-            <h3>Waypoint 3</h3>
-            <button data-type="saveWaypoint" id="wpThree">Save As Waypoint</button>
-            <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button>
+            <button data-type="saveWaypoint" style="margin-bottom: 0" id="wpThree">Waypoint 3</button>
+            <!-- <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button> -->
           </div>
         </div>
-        <div class="route-canvas">
-          <span class="route-item vehicle invisible" id="vehicle">
-            <span class="tooltip top">MAD-ONE <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span></span>
-            <span class="animation-radar"></span>
-          </span>
-          <span class="route-item node invisible" id="0"><h4>Waypoint 1</h4><p><span data-node-id="0"></span> steps</p><span></span></span>
-          <span class="route-item node invisible" id="1"><h4>Waypoint 2</h4><p><span data-node-id="1"></span> steps</p><span></span></span>
-          <span class="route-item node invisible" id="2"><h4>Waypoint 3</h4><p><span data-node-id="2"></span> steps</p><span></span></span>
-          <span class="route-length empty"></span>
-          <h2><i>No Waypoints created yet</i></h2>
+        <div class="route-preview">
+          <div class="route-canvas">
+            <span class="route-item vehicle invisible" id="vehicle">
+              <span class="tooltip top">MAD-ONE <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span></span>
+              <span class="animation-radar"></span>
+            </span>
+            <span class="route-item node invisible" id="0"><h4>Waypoint 1</h4><p><span data-node-id="0"></span> steps</p><span></span></span>
+            <span class="route-item node invisible" id="1"><h4>Waypoint 2</h4><p><span data-node-id="1"></span> steps</p><span></span></span>
+            <span class="route-item node invisible" id="2"><h4>Waypoint 3</h4><p><span data-node-id="2"></span> steps</p><span></span></span>
+            <span class="route-length empty"></span>
+            <h2><i>No waypoints saved yet</i></h2>
+          </div>
         </div>
       </div>
       <div class="controls-group">
@@ -97,9 +97,9 @@
             <label for="routeEasing">Easing</label>
             <select name="routeEasing" id="routeEasing">
               <option value="Linear">Linear</option>
-              <option selected value="QuadraticIn">QuadraticIn</option>
+              <option value="QuadraticIn">QuadraticIn</option>
               <option value="QuadraticOut">QuadraticOut</option>
-              <option value="QuadraticInOut">QuadraticInOut</option>
+              <option selected value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
               <option value="CubicOut">CubicOut</option>
               <option value="CubicInOut">CubicInOut</option>
@@ -138,11 +138,11 @@
             <label for="routeEasing">Easing</label>
             <select name="routeEasing" id="routeEasing">
               <option value="Linear">Linear</option>
-              <option selected value="QuadraticIn">QuadraticIn</option>
+              <option value="QuadraticIn">QuadraticIn</option>
               <option value="QuadraticOut">QuadraticOut</option>
-              <option value="QuadraticInOut">QuadraticInOut</option>
+              <option selected value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
-              <option selected value="CubicOut">CubicOut</option>
+              <option value="CubicOut">CubicOut</option>
               <option value="CubicInOut">CubicInOut</option>
               <option value="QuarticIn">QuarticIn</option>
               <option value="QuarticOut">QuarticOut</option>
@@ -179,15 +179,15 @@
             <label for="routeEasing">Easing</label>
             <select name="routeEasing" id="routeEasing">
               <option value="Linear">Linear</option>
-              <option selected value="QuadraticIn">QuadraticIn</option>
+              <option value="QuadraticIn">QuadraticIn</option>
               <option value="QuadraticOut">QuadraticOut</option>
               <option value="QuadraticInOut">QuadraticInOut</option>
               <option value="CubicIn">CubicIn</option>
               <option value="CubicOut">CubicOut</option>
-              <option value="CubicInOut">CubicInOut</option>
+              <option selected value="CubicInOut">CubicInOut</option>
               <option value="QuarticIn">QuarticIn</option>
               <option value="QuarticOut">QuarticOut</option>
-              <option selected value="QuarticInOut">QuarticInOut</option>
+              <option value="QuarticInOut">QuarticInOut</option>
               <option value="QuinticIn">QuinticIn</option>
               <option value="QuinticOut">QuinticOut</option>
               <option value="QuinticInOut">QuinticInOut</option>
@@ -199,9 +199,9 @@
           </div>
           <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
         </div>
-        <div class="flex align-center justify-content-center" style="text-align: center">
+        <div style="text-align: center">
           <div><input id="syncRoutes" name="syncRoutes" checked="true" type="checkbox">Sync Routes?</input></div>
-          <button style="margin: 18px 0 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
+          <button style="margin: 18px auto 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
         </div>
       </div>
       <div class="controls-group">
