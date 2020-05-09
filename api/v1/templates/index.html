@@ -42,7 +42,7 @@
             <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
         </div>
       </div> -->
-      <div class="controls-group">
+      <div class="route-preview">
         <h3>Waypoint Controls</h3>
         <div class="flex align-center justify-content-evenly">
           <div class="waypoint-column">
@@ -61,8 +61,6 @@
             <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button>
           </div>
         </div>
-      </div>
-      <div class="route-preview">
         <div class="route-canvas">
           <span class="route-item vehicle invisible" id="vehicle">
             <span class="tooltip top">MAD-ONE <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span></span>
@@ -115,14 +113,14 @@
           </div>
           <div class="input-row">
             <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="6" id="routeDuration" type="number"/>
+            <input name="routeDuration" value="6" id="routeDuration" type="number" pattern="[0-9]*"/>
           </div>
           <button data-route-id="1" style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
         </div>
         <div data-route-id="2" class="route-options">
           <div class="input-row">
             <label for="routeFrom">From</label>
-            <select name="routeFrom" id="routeFrom">
+            <select disabled name="routeFrom" id="routeFrom">
               <option value="waypointOneSteps">Waypoint One</option>
               <option selected value="waypointTwoSteps">Waypoint Two</option>
               <option value="waypointThreeSteps">Waypoint Three</option>
@@ -156,14 +154,14 @@
           </div>
           <div class="input-row">
             <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="6" id="routeDuration" type="number"/>
+            <input name="routeDuration" value="6" id="routeDuration" type="number" pattern="[0-9]*"/>
           </div>
           <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
         </div>
         <div data-route-id="3" class="route-options">
           <div class="input-row">
             <label for="routeFrom">From</label>
-            <select name="routeFrom" id="routeFrom">
+            <select disabled name="routeFrom" id="routeFrom">
               <option value="waypointOneSteps">Waypoint One</option>
               <option value="waypointTwoSteps">Waypoint Two</option>
               <option selected value="waypointThreeSteps">Waypoint Three</option>
@@ -197,12 +195,12 @@
           </div>
           <div class="input-row">
             <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="6" id="routeDuration" type="number"/>
+            <input name="routeDuration" value="6" id="routeDuration" type="number" pattern="[0-9]*"/>
           </div>
           <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
         </div>
         <div class="flex align-center justify-content-center" style="text-align: center">
-          <div><input id="syncRoutes" name="syncRoutes" type="checkbox">Sync Routes?</input></div>
+          <div><input id="syncRoutes" name="syncRoutes" checked="true" type="checkbox">Sync Routes?</input></div>
           <button style="margin: 18px 0 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
         </div>
       </div>

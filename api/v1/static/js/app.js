@@ -290,7 +290,7 @@ $(function() {
       var idx = convertStringIdToInt(id);
       var endPosition = $('.route-item.node#' + idx).css("transform");
       var cssEaseProperty = easingOptions[ease];
-      console.log(endPosition, t+'s', cssEaseProperty);
+      // console.log(endPosition, t+'s', cssEaseProperty);
       vehicle.css({
         "transition-property": "transform",
         "transition-duration": t + "s",

@@ -51,7 +51,7 @@ body.funmode {
 }
 
 .wrapper {
-    padding: 20px 0 80px;
+    padding: 20px 20px 80px;
     height: 100%;
 }
 
@@ -152,6 +152,7 @@ button.danger:active, .danger.ontouchstart {
 
 .flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .column {
@@ -374,12 +375,29 @@ label {
 .route-options {
     margin: 2em 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: flex-end;
     justify-content: center;
 }
 
 .route-options > div {
     margin: 0 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .route-options {
+        margin-bottom: 5em;
+        justify-content: space-between;
+    }
+    
+    .route-options button {
+        width: 100%;
+    }
+
+    .route-options > div {
+        width: calc(50% - 15px);
+        margin: 0;
+    }
 }
 
 .input-row label {
@@ -392,15 +410,17 @@ input[type="number"], select {
     appearance: none;
     padding: 12px;
     border-radius: 3px;
+    width: 100%;
 }
 
 
 .route-preview {
-    padding: 8em 0;
+    
     /* background: red; */
 }
 
 .route-canvas {
+    padding: 8em 0;
     position: relative;
     max-width: 80%;
     width: 100%;
