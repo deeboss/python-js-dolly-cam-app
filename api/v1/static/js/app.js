@@ -38,6 +38,11 @@ $(function() {
       return false;
     });
 
+    $('#restart').on('click', function() {
+      $.getJSON('/api/v1/restart', {}, function(data){});
+      return false;
+    })
+
     $('#shutdown').on('click', function() {
       $.getJSON('/api/v1/shutdown', {}, function(data){});
       return false;

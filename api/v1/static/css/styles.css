@@ -72,6 +72,11 @@ body.funmode {
     box-shadow: 2px 6px 0px rgba(0,0,0,.15);
 }
 
+.controls-group:last-of-type {
+    margin-bottom: 10em;
+    padding-bottom: 6em;
+}
+
 .controls-group > h3 {
     text-transform: uppercase;
     font-size: x-large;
