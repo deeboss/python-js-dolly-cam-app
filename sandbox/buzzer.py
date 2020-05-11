@@ -569,26 +569,34 @@ def play(melody,tempo,pause,pace=0.800):
 		pauseBetweenNotes = noteDuration * pause
 		time.sleep(pauseBetweenNotes)
 	
-	
+
+def jukebox(argument):
+	switcher = {
+		1: [final_countdown_melody, final_countdown_tempo, 0.1, 1.2000],
+		2: [crazy_frog_melody, crazy_frog_tempo, 0.30, 0.900],
+		3: [star_wars_melody, star_wars_tempo, 0.05, 1.000],
+		4: [melody, tempo, 1, 0.800],
+		5: [underworld_melody, underworld_tempo, 1.3, 0.800]
+	}
+
+	# print(switcher.get(argument, "Invalid Option"))
+	# melody, tempo, pause, pace
+	a = switcher.get(argument)[0]
+	b = switcher.get(argument)[1]
+	c = switcher.get(argument)[2]
+	d = switcher.get(argument)[3]
+
+	play(a, b, c, d)
 
 if __name__ == '__main__':		# Program start from here
 	try:
 		setup()
-		print("The Final Countdown")
-		play(final_countdown_melody, final_countdown_tempo, 0.1, 1.2000)
-		time.sleep(2)
-		print("Crazy Frog (Axel F) Theme")
-		play(crazy_frog_melody, crazy_frog_tempo, 0.30, 0.900)
-		time.sleep(2)
-		print("Star Wars Theme")
-		play(star_wars_melody, star_wars_tempo, 0.05, 1.000)
-		time.sleep(2)
-		print("Super Mario Theme")
-		play(melody, tempo, 1, 0.800)
-		time.sleep(2)
-		print("Super Mario Underworld Theme")
-		play(underworld_melody, underworld_tempo, 1.3, 0.800)
-		time.sleep(2)
+
+		while True:
+			print("What which song would you like to play?")
+			print("1 - The Final Countdown \n2 - Crazy Frog (Axel F) Theme \n3 - Star Wars Theme \n4 - Super Mario Theme \n5 - Super Mario Underworld Theme")
+			choice = int(input("Select an option between 1 - 5\n"))
+			jukebox(choice)
 		
 		destroy()
 	except KeyboardInterrupt:  	# When 'Ctrl+C' is pressed, the child program destroy() will be  executed.
