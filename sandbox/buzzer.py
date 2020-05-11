@@ -503,6 +503,41 @@ bonnagard_tempo = [
 	1,1,
 ]
 
+
+zelda_treasure_melody = [
+	notes['G3'],notes['A3'],notes['B3'],notes['CS4'],
+	notes['G3'],notes['A3'],notes['B3'],notes['CS4'],
+	notes['GS3'],notes['AS3'],notes['C4'],notes['D4'],
+	notes['GS3'],notes['AS3'],notes['C4'],notes['D4'],
+	notes['A3'],notes['B3'],notes['CS4'],notes['DS4'],
+	notes['A3'],notes['B3'],notes['CS4'],notes['DS4'],
+	notes['AS3'],notes['C4'],notes['D4'],notes['E4'],
+	notes['AS3'],notes['C4'],notes['D4'],notes['E4'],
+	notes['B3'],notes['CS4'],notes['DS4'],notes['F4'],
+	notes['C4'],notes['D4'],notes['E4'],notes['FS4'],
+	notes['CS4'],notes['DS4'],notes['F4'],notes['G4'],
+	notes['D4'],notes['E4'],notes['FS4'],notes['GS4'],
+	0,
+	notes['A4'],notes['AS4'],notes['B4'],notes['C5']
+]
+
+zelda_treasure_tempo = [
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	5, 5, 5, 5,
+	1,
+	5, 5, 5, 1
+]
+
 final_countdown_melody = [
 	notes['A3'],notes['E5'],notes['D5'],notes['E5'],notes['A4'],
 	notes['F3'],notes['F5'],notes['E5'],notes['F5'],notes['E5'],notes['D5'],
@@ -576,7 +611,8 @@ def jukebox(argument):
 		2: [crazy_frog_melody, crazy_frog_tempo, 0.30, 0.900],
 		3: [star_wars_melody, star_wars_tempo, 0.05, 1.000],
 		4: [melody, tempo, 1, 0.800],
-		5: [underworld_melody, underworld_tempo, 1.3, 0.800]
+		5: [underworld_melody, underworld_tempo, 1.3, 0.800],
+		6: [zelda_treasure_melody, zelda_treasure_tempo, 0.1, 0.800],
 	}
 
 	# print(switcher.get(argument, "Invalid Option"))
@@ -594,8 +630,8 @@ if __name__ == '__main__':		# Program start from here
 
 		while True:
 			print("What which song would you like to play?")
-			print("1 - The Final Countdown \n2 - Crazy Frog (Axel F) Theme \n3 - Star Wars Theme \n4 - Super Mario Theme \n5 - Super Mario Underworld Theme")
-			choice = int(input("Select an option between 1 - 5\n"))
+			print("1 - The Final Countdown \n2 - Crazy Frog (Axel F) Theme \n3 - Star Wars Theme \n4 - Super Mario Theme \n5 - Super Mario Underworld Theme \n6 - Zelda Treasure")
+			choice = int(input("Select an option between 1 - 6\n"))
 			jukebox(choice)
 		
 		destroy()
