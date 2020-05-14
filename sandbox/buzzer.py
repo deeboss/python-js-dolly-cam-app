@@ -612,7 +612,7 @@ def jukebox(argument):
 		3: [star_wars_melody, star_wars_tempo, 0.05, 1.000],
 		4: [melody, tempo, 1, 0.800],
 		5: [underworld_melody, underworld_tempo, 1.3, 0.800],
-		6: [zelda_treasure_melody, zelda_treasure_tempo, 0.1, 0.800],
+		6: [zelda_treasure_melody, zelda_treasure_tempo, 0.08, 0.800],
 	}
 
 	# print(switcher.get(argument, "Invalid Option"))
