@@ -470,4 +470,72 @@ $(function() {
         thirdRouteFrom.attr("disabled", false);
       }
     });
+
+  var isUpFired = false;
+  var isDownFired = false;
+
+  $(document).on('keydown', function(e) {
+
+    switch(e.keyCode) {
+      case 32:
+        $.getJSON('/api/v1/shutdown', {}, function(data){});
+        setTimeout(function(){
+          window.location.reload();
+        }, 500);
+        break;
+
+      case 38:
+        if (!isUpFired) {
+          isUpFired = true;
+          $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+          console.log('forwardStart!');
+  
+          return isUpFired
+        }
+        break;
+
+      case 40:
+        if (!isDownFired) {
+          isDownFired = true;
+          $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+          console.log('backwardStart!');
+  
+          return isUpFired
+        }
+        break;
+    }
+  });
+
+  $(document).on('keyup', function(e) {
+    switch(e.keyCode) {
+      case 38:
+        if (isUpFired) {
+          isUpFired = false;
+          $.getJSON('/api/v1/forwardStop', {}, function(data) {});
+          console.log("forwardStop!")
+          return isUpFired;
+        }
+        break;
+
+      case 40:
+        if (isDownFired) {
+          isDownFired = false;
+          $.getJSON('/api/v1/backwardStop', {}, function(data) {});
+          console.log("backwardStop!")
+          return isDownFired;
+        }
+        break;
+    }
+  });
+
+  //  $(document).keydown(function(e){
+  //   if(e.keyCode == 38) {
+  //     console.log("pressed");
+  //   }
+  //  });
+
+  //  $(document).keyup(function(e){
+  //   if(e.keyCode == 38) {
+  //     console.log("let go");
+  //   }
   });
