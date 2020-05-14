@@ -68,11 +68,30 @@ class easeFunctions:
     def easingFunc(self,difference,duration,easingType):
         
         self.easingType=easingType
-        self.difference=difference
+        self.difference=abs(difference)
         self.duration=duration
         
         # Calculate k constant
         self.k=self.kConst()
+
+        # Linear with easing smooth
+        if self.easingType=='Linear':
+            k1=8000
+            t1=(-self.duration+((self.duration**2)-4*(self.difference/(2*k1)))**(1/2))/-2
+            k2=2*t1*k1
+            t2=self.duration-t1
+            d1=k1*(t1**2)
+            d2=self.difference-d1
+
+            arr=[]
+            for i in range(0,self.difference):
+                if i <= d1:
+                    arr.extend([(i/k1)**(1/2)])
+                elif d1 < i < d2:
+                    arr.extend([(i-(k1*(t1**2))+k2*t1)/k2])
+                elif i >= d2:
+                    arr.extend([self.duration-(((self.difference-i)/k1)**(1/2))])
+            return arr
 
         # EaseInOut
         if self.easingDict[easingType][2]=='InOut':
