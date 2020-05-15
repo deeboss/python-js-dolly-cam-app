@@ -1,4 +1,3 @@
-
 html {
     box-sizing: border-box;
     font-family: monospace;
@@ -15,6 +14,7 @@ body, html {
 
 .disable {
     cursor: wait;
+    overflow: hidden;
 }
 
 .disable * {

@@ -1,3 +1,132 @@
+var waypointCoordinates = [
+  {name: "", steps: 0},
+  {name: "", steps: null},
+  {name: "", steps: null}
+]
+var totalSteps = 0;
+
+function setRouteNodePosition(id, arr) {
+  var maxCanvasWidth = ($('.route-canvas').width());
+
+  function getMinMax(array) {
+    var data = [];
+    for (var i = 0; i < array.length; i++) {
+      data.push(array[i].steps);
+    }
+
+    var min = Math.min(...data);
+    var max = Math.max(...data);
+
+    return [min, max];
+  }
+
+  function lerp(max, min, percent) {
+    return (max - min) * percent + min;
+  }
+
+  function rangePercentage(input, min, max) {
+    return 1 - (((input - min) * 100) / (max - min) / 100);
+  }
+
+  for (var i = 0; i < arr.length; i++) {
+    minMaxArr = getMinMax(arr);
+    if (arr[i].steps !== null) {
+      var roundedToMeters = Math.round((arr[i].steps / 3333) * 10) / 10;
+      var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
+      var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
+      var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
+      $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+      $('[data-node-id="' + i + '"]').html(roundedToMeters + ' meters </br> (' + arr[i].steps);
+    }
+  }
+
+}
+
+function shutdownServer() {
+  $.getJSON('/api/v1/shutdown', {}, function(data){});
+  setTimeout(function(){
+    window.location.reload();
+  }, 500);
+  return false;
+}
+
+function moveForwards() {
+  $('#status-text').text("Moving forwards");
+  $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+  if ($('#eggVolume:checked').length > 0) {
+    $('body').addClass('funmode')
+    audioElement.play();
+  }
+  
+  return false;
+}
+
+function stopForwards() {
+  $.getJSON('/api/v1/forwardStop', {}, function(data) {
+    var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+    $('#currentSteps').text(data.current_position);
+    $('#status-text').text("Idle. Ready for commands");
+  });
+
+  if ($('#eggVolume:checked').length > 0) {
+    $('body').removeClass('funmode')
+    audioElement.pause(); 
+    audioElement.currentTime = 0;
+  }
+  return false;
+}
+
+function moveBackwards() {
+  $('#status-text').text("Moving backwards");
+  $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+
+  if ($('#eggVolume:checked').length > 0) {
+    $('body').addClass('funmode')
+    audioElement.play();
+  }
+
+  return false;
+}
+
+function stopBackwards() {
+  $.getJSON('/api/v1/backwardStop', {}, function(data) {
+    var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+    $('#currentSteps').text(data.current_position);
+    $('#status-text').text("Idle. Ready for commands");
+  });
+
+  if ($('#eggVolume:checked').length > 0) {
+    $('body').removeClass('funmode')
+    audioElement.pause(); 
+    audioElement.currentTime = 0;
+  }
+  return false;
+}
+
+function rewind() {
+  $('#status-text').text("Returning to start position");
+  $('body').addClass("disable");
+
+  $.getJSON('/api/v1/rewind', {}, function(data) {
+    var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+    $('#currentSteps').text(data.current_position);
+    $('body').removeClass("disable");
+    $('#status-text').text("Idle. Ready for commands");
+  });
+  return false;
+}
+
+function saveWaypoint(id, route, coordinates) {
+  $('#status-text').text("Saving Waypoint " + id);
+  $.getJSON(route, {}, function(data){
+    $('.route-length').removeClass("empty");
+    coordinates[data.id].steps = data.steps;
+    setRouteNodePosition(data.id, coordinates);
+    $('#status-text').text("Idle. ready for commands");
+  });
+
+  return false;
+}
 
 $(function() {
     $('#openSettings').on("click", function(){
@@ -52,11 +181,7 @@ $(function() {
     })
 
     $('#shutdown').on('click', function() {
-      $.getJSON('/api/v1/shutdown', {}, function(data){});
-      setTimeout(function(){
-        window.location.reload();
-      }, 500);
-      return false;
+      shutdownServer()
     })
 
     // $('#forward').on('click', function(){
@@ -74,120 +199,37 @@ $(function() {
       }
     })
     
-    $('#forward').mousedown(function() {
-      $('#status-text').text("Moving forwards");
-      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').addClass('funmode')
-        audioElement.play();
-      }
-      
-      return false;
+    $('#forward').mousedown(function(event) {
+      event.preventDefault();
+      moveForwards();
     });
     
     $('#forward').on('touchstart', function() {
-      $('#status-text').text("Moving forwards");
-      $.getJSON('/api/v1/forwardStart', {}, function(data) {});
-      
-
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').addClass('funmode')
-        audioElement.play();
-      }
-
-      return false;
+      moveForwards();
     }).bind('touchend', function(){
-      $.getJSON('/api/v1/forwardStop', {}, function(data) {
-        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-        $('#currentSteps').text(data.current_position);
-        $('#status-text').text("Idle. Ready for commands");
-      });
-
-      
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').removeClass('funmode')
-        audioElement.pause(); 
-        audioElement.currentTime = 0;
-      }
+      stopForwards();
     });
 
     $('#forward').mouseup(function() {
-      $.getJSON('/api/v1/forwardStop', {}, function(data) {
-        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-        $('#currentSteps').text(data.current_position);
-        $('#status-text').text("Idle. Ready for commands");
-      });
-
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').removeClass('funmode')
-        audioElement.pause(); 
-        audioElement.currentTime = 0;
-      }
-      return false;
+      stopForwards();
     });
     
-    $('#backward').mousedown(function() {
-      $('#status-text').text("Moving backwards");
-      $.getJSON('/api/v1/backwardStart', {}, function(data) {});
-
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').addClass('funmode')
-        audioElement.play();
-      }
-
-      return false;
+    $('#backward').mousedown(function(event) {
+      moveBackwards();
     });
 
     $('#backward').on('touchstart', function() {
-      $('#status-text').text("Moving backwards");
-      $.getJSON('/api/v1/backwardStart', {}, function(data) {});
-
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').addClass('funmode')
-        audioElement.play();
-      }
-
-      return false;
+      moveBackwards();
     }).bind('touchend', function(){
-      $.getJSON('/api/v1/backwardStop', {}, function(data) {
-        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-        $('#currentSteps').text(data.current_position);
-        $('#status-text').text("Idle. Ready for commands");
-      });
-      
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').removeClass('funmode')
-        audioElement.pause(); 
-        audioElement.currentTime = 0;
-      }
+      stopBackwards();
     });
 
     $('#backward').mouseup(function() {
-      $.getJSON('/api/v1/backwardStop', {}, function(data) {
-        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-        $('#currentSteps').text(data.current_position);
-        $('#status-text').text("Idle. Ready for commands");
-      });
-
-      if ($('#eggVolume:checked').length > 0) {
-        $('body').removeClass('funmode')
-        audioElement.pause(); 
-        audioElement.currentTime = 0;
-      }
-      return false;
+      stopBackwards();
     });
 
     $('#rewind').on("click", function() {
-      $('#status-text').text("Returning to start position");
-      $('body').addClass("disable");
-
-      $.getJSON('/api/v1/rewind', {}, function(data) {
-        var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-        $('#currentSteps').text(data.current_position);
-        $('body').removeClass("disable");
-        $('#status-text').text("Idle. Ready for commands");
-      });
-      return false;
+      rewind();
     });
 
     $('#checkForCamera').on("click", function(){
@@ -203,63 +245,12 @@ $(function() {
       return false;
     })
 
-    var waypointCoordinates = [
-      {name: "", steps: 0},
-      {name: "", steps: null},
-      {name: "", steps: null}
-    ]
-    var totalSteps = 0;
-
-    function setRouteNodePosition(id, arr) {
-      var maxCanvasWidth = ($('.route-canvas').width());
-
-      function getMinMax(array) {
-        var data = [];
-        for (var i = 0; i < array.length; i++) {
-          data.push(array[i].steps);
-        }
-
-        var min = Math.min(...data);
-        var max = Math.max(...data);
-
-        return [min, max];
-      }
-
-      function lerp(max, min, percent) {
-        return (max - min) * percent + min;
-      }
-
-      function rangePercentage(input, min, max) {
-        return 1 - (((input - min) * 100) / (max - min) / 100);
-      }
-
-      for (var i = 0; i < arr.length; i++) {
-        minMaxArr = getMinMax(arr);
-        if (arr[i].steps !== null) {
-          var roundedToMeters = Math.round((arr[i].steps / 3333) * 10) / 10;
-          var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
-          var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
-          var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-          $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
-          $('[data-node-id="' + i + '"]').html(roundedToMeters + ' meters </br> (' + arr[i].steps);
-        }
-      }
-
-    }
-
     $('[data-type="saveWaypoint"]').on("click", function(){
       var id = this.id.split('wp')[1];
       var type = $(this).data("type");
       var wpApiRoute = '/api/v1/' + type + id;
-      $('#status-text').text("Saving Waypoint " + id);
-      $.getJSON(wpApiRoute, {}, function(data){
-        $('.route-length').removeClass("empty");
-        waypointCoordinates[data.id].steps = data.steps;
-        setRouteNodePosition(data.id, waypointCoordinates);
-        $('#status-text').text("Idle. ready for commands");
-      });
 
-      return false;
+      saveWaypoint(id, wpApiRoute, waypointCoordinates);
     })
 
     // $('[data-type="runWaypoint"]').on("click", function(){
@@ -477,31 +468,44 @@ $(function() {
   $(document).on('keydown', function(e) {
 
     switch(e.keyCode) {
-      case 32:
-        $.getJSON('/api/v1/shutdown', {}, function(data){});
-        setTimeout(function(){
-          window.location.reload();
-        }, 500);
+      case 27:
+        shutdownServer();
         break;
 
       case 38:
         if (!isUpFired) {
           isUpFired = true;
-          $.getJSON('/api/v1/forwardStart', {}, function(data) {});
-          console.log('forwardStart!');
+          $("body").addClass("disable");
+          moveForwards();
   
-          return isUpFired
+          return isUpFired;
         }
         break;
 
       case 40:
         if (!isDownFired) {
           isDownFired = true;
-          $.getJSON('/api/v1/backwardStart', {}, function(data) {});
-          console.log('backwardStart!');
+          $("body").addClass("disable");
+          moveBackwards();
   
-          return isUpFired
+          return isDownFired;
         }
+        break;
+      
+      case 82:
+        rewind();
+        break;
+
+      case 90:
+        saveWaypoint('One', '/api/v1/saveWaypointOne', waypointCoordinates);
+        break;
+
+      case 88:
+        saveWaypoint('Two', '/api/v1/saveWaypointTwo', waypointCoordinates);
+        break;
+
+      case 67:
+        saveWaypoint('Three', '/api/v1/saveWaypointThree', waypointCoordinates);
         break;
     }
   });
@@ -511,8 +515,8 @@ $(function() {
       case 38:
         if (isUpFired) {
           isUpFired = false;
-          $.getJSON('/api/v1/forwardStop', {}, function(data) {});
-          console.log("forwardStop!")
+          stopForwards();
+          $("body").removeClass("disable");
           return isUpFired;
         }
         break;
@@ -520,22 +524,11 @@ $(function() {
       case 40:
         if (isDownFired) {
           isDownFired = false;
-          $.getJSON('/api/v1/backwardStop', {}, function(data) {});
-          console.log("backwardStop!")
+          stopBackwards();
+          $("body").removeClass("disable");
           return isDownFired;
         }
         break;
     }
   });
-
-  //  $(document).keydown(function(e){
-  //   if(e.keyCode == 38) {
-  //     console.log("pressed");
-  //   }
-  //  });
-
-  //  $(document).keyup(function(e){
-  //   if(e.keyCode == 38) {
-  //     console.log("let go");
-  //   }
-  });
+});
