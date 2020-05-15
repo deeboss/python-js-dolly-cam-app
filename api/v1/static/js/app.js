@@ -202,7 +202,9 @@ $(function() {
     $('#forward').mousedown(function(event) {
       event.preventDefault();
       moveForwards();
-    });
+    }).bind('mouseleave', function(){
+      stopForwards();
+    })
     
     $('#forward').on('touchstart', function() {
       moveForwards();
@@ -210,13 +212,16 @@ $(function() {
       stopForwards();
     });
 
+
     $('#forward').mouseup(function() {
       stopForwards();
     });
     
     $('#backward').mousedown(function(event) {
       moveBackwards();
-    });
+    }).bind('mouseleave', function(){
+      stopBackwards();
+    })
 
     $('#backward').on('touchstart', function() {
       moveBackwards();
