@@ -18,6 +18,11 @@ def home():
 def restart():
     os.system("sudo reboot")
     return jsonify(200)
+
+@app_views.route('/shutdownDevice', methods=['GET'])
+def shutdownDevice():
+    os.system("sudo poweroff")
+    return jsonify(200)
     
 def shutdown_server():
     func = request.environ.get('werkzeug.server.shutdown')

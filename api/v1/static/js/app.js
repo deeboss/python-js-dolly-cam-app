@@ -180,8 +180,16 @@ $(function() {
       return false;
     })
 
-    $('#shutdown').on('click', function() {
+    $('#killServer').on('click', function() {
       shutdownServer()
+    })
+
+    $('#shutdownDevice').on('click', function() {
+      $.getJSON('/api/v1/shutdownDevice', {}, function(data){});
+      setTimeout(function(){
+        window.location.reload();
+      }, 500);
+      return false;
     })
 
     // $('#forward').on('click', function(){
