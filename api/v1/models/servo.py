@@ -9,7 +9,7 @@ servo link:
 https://www.savoxusa.com/collections/brushless-servos/products/savsb2270sg-hv-bl-digital-servo-12-444#technical-details
 '''
 
-class servo:
+class Servo:
 
 # Note: period is in seconds while minimum/maximum/neutral inputs are in microseconds (10e-6 seconds)
 

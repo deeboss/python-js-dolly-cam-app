@@ -72,7 +72,7 @@ def continuousStop():
     motor.motorMove = False
     motor.delay = 0.001
     motor.stepsTaken = 0
-    return jsonify(data)
+    return jsonify("OK")
 
 ##################### SAVE WAYPOINTS ########################
 @app_views.route('/saveWaypointOne')

@@ -202,7 +202,7 @@ $(function() {
       $('body').addClass("disable");
       $('#status-text').text("Updating Servo parameters...");
 
-      $.getJSON('/api/v1/updateServoParamters', {
+      $.getJSON('/api/v1/updateServoParameters', {
         frequency: frequency,
         minimum: minimum,
         neutral: neutral,

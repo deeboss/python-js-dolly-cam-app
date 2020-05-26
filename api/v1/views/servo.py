@@ -1,9 +1,9 @@
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from models import servo
+from models import Servo
 
 # Default values input
-servo=servo(333,1500,1000,2000)
+servo=Servo(333,1500,1000,2000)
 
 @app_views.route('/updateServoParameters')
 def updateServoParameters():
@@ -13,14 +13,22 @@ def updateServoParameters():
     maximum = request.args.get('maximum', 0, type=int)
     servo.updateValues(frequency,minimum,neutral,maximum)
 
-@app_views.route('runServoMinimum')
+    return jsonify("OK")
+
+@app_views.route('/runServoMinimum')
 def runServoMinimum():
     servo.goMinimum()
 
-@app_views.route('runServoMaximum')
+    return jsonify("OK")
+
+@app_views.route('/runServoMaximum')
 def runServoMaximum():
     servo.goMaximum()
 
-@app_views.route('runServoNeutral')
+    return jsonify("OK")
+
+@app_views.route('/runServoNeutral')
 def runServoNeutral():
     servo.goNeutral()
+
+    return jsonify("OK")
