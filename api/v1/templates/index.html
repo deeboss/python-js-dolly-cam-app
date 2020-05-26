@@ -27,6 +27,27 @@
           <!-- <label for="eggVolume">Enable fun mode</label>
           <input name="eggVolume" id="eggVolume" type="checkbox" /> -->
         </div>
+        <div class="controls-group">
+          <h3>Servo Controls</h3>
+          <div class="flex align-center justify-content-evenly">
+            <div>
+              <h3>Parameters</h3>
+              <div class="">
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="frequency">Frequency</label><input name="frequency" type="number" value="333" id="frequency" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="minimum">Min</label><input name="minimum" type="number" value="1000" id="minimum" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="neutral">Neutral</label><input name="neutral" type="number" value="1500" id="neutral" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="maximum">Max</label><input name="maximum" type="number" value="2000" id="maximum" /></div>
+                <button style="margin: 18px 0 18px auto" class="success" id="updateParameters">Update</button>
+              </div>
+            </div>
+            <div>
+              <button id="servoMinimum">Minimum</button>
+              <button id="servoNeutral">Neutral</button>
+              <button id="servoMaximum">Maximum</button>
+            </div>
+            
+          </div>
+        </div>
         <!-- <div class="controls-group">
           <h3>Waypoint Controls</h3>
           
@@ -221,13 +242,13 @@
           <div class="flex align-center justify-content-evenly">
             <h3>Run motor continuously</h3>
             <label class="rocker">
-              <input type="checkbox">
+              <input type="checkbox" id="moveMotorContinuously">
               <span class="switch-left">On</span>
               <span class="switch-right">Off</span>
             </label>
           </div>
           <div>
-            <h3>Open Code Sandbox</h3>
+            <h3 class="modal-toggler" id="openModal">Open Code Sandbox</h3>
           </div>
         </div>
         <div class="">
@@ -251,7 +272,7 @@
         <h3>Python Code Sandbox</h3>
         <div class="code-snippet-box"><xmp id="codeSnippetContent" contenteditable="true"># Write something here</xmp></div>
         <button class="success" id="runCodeSnippet">Run Code</button>
-        <span class="close-modal-button" id="closeModal">Close</span>
+        <span class="modal-toggler" id="closeModal">Close</span>
       </div>
     </div>
     <script type="text/javascript">

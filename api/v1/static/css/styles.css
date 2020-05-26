@@ -140,6 +140,10 @@ button {
             user-select: none;
 }
 
+button[disabled] {
+    cursor: not-allowed;
+}
+
 button:not(.small) {
     font-size: larger;
 }
@@ -420,7 +424,7 @@ label {
 .route-options {
     margin: 2em 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: flex-end;
     justify-content: flex-end;
     padding-right: 20px;
@@ -479,7 +483,7 @@ input[type="number"], select {
     appearance: none;
     padding: 12px;
     border-radius: 3px;
-    width: 100%;
+    /* width: 100%; */
     background: white;
 }
 
@@ -852,7 +856,7 @@ xmp:focus {
     display: block;
 }
 
-.close-modal-button {
+.modal-toggler {
     cursor: pointer;   
 }
 

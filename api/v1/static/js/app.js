@@ -192,6 +192,43 @@ $(function() {
       return false;
     })
 
+    // Servos Start
+    $(document).on("click", "#updateParameters", function(){
+      var frequency = $('#frequency').val();
+      var minimum = $('#minimum').val();
+      var neutral = $('#neutral').val();
+      var maximum = $('#maximum').val();
+
+      $('body').addClass("disable");
+      $('#status-text').text("Updating Servo parameters...");
+
+      $.getJSON('/api/v1/updateServoParamters', {
+        frequency: frequency,
+        minimum: minimum,
+        neutral: neutral,
+        maximum: maximum
+      }, function(data){
+        $('body').removeClass("disable");
+        $('#status-text').text("Idle. Ready for commands");
+      });
+    })
+
+    $(document).on("click", "#servoMinimum, #servoNeutral, #servoMaximum", function(){
+      var command = this.id.split("servo")[1];
+      var apiRoute = "/api/v1/runServo" + command;
+      console.log(apiRoute);
+
+      $('body').addClass("disable");
+      $('#status-text').text("Moving Servo to " + command);
+
+      $.getJSON(apiRoute, {}, function(data){
+        $('body').removeClass("disable");
+        $('#status-text').text("Idle. Ready for commands");
+      });
+    })
+
+    // Servos End
+
     // $('#forward').on('click', function(){
     //   $.getJSON('/api/v1/forward', {}, function(data) {});
     //   return false;
@@ -551,3 +588,21 @@ $(function() {
     }
   });
 });
+
+$(document).on("click", "#openModal, #closeModal", function(){
+  $(".modal").toggleClass("open");
+})
+
+$(document).on("change", '#moveMotorContinuously', function(){
+  if ($(this).prop("checked")) {
+    $('#status-text').text("Moving at 2x speed");
+    $('.main :button').prop('disabled', true);
+    $.getJSON('/api/v1/continuousStart', {}, function(data) {});
+    return false;
+  } else {
+    $('#status-text').text("Idle. Ready for commands");
+    $('.main :button').prop('disabled', false);
+    $.getJSON('/api/v1/continuousStop', {}, function(data) {});
+    return false;
+  }
+})
