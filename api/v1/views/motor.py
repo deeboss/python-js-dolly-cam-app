@@ -57,6 +57,22 @@ def rewind():
     data = {'current_position': motor.stepsTaken}
     return jsonify(data)
 
+##################### CONTINUOUS RUN ########################
+
+@app_views.route('/continuousStart')
+def continuousStart():
+    GPIO.output(11,True) # set direction
+    motor.motorMove = True
+    motor.delay = 0.0005
+    motor.Move()
+    return jsonify("OK")
+
+@app_views.route('/continuousStop')
+def continuousStop():
+    motor.motorMove = False
+    motor.delay = 0.001
+    motor.stepsTaken = 0
+    return jsonify(data)
 
 ##################### SAVE WAYPOINTS ########################
 @app_views.route('/saveWaypointOne')
