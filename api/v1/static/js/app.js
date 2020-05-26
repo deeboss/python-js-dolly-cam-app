@@ -464,6 +464,8 @@ $(function() {
       var secondRouteFrom = $('.route-options:nth-of-type(2) #routeFrom');
       var thirdRouteFrom = $('.route-options:nth-of-type(3) #routeFrom');
 
+      $('.route-options').toggleClass("unsync");
+
       if ($(this).prop("checked")) {
         secondRouteFrom.attr("disabled", true);
         thirdRouteFrom.attr("disabled", true);
@@ -478,49 +480,53 @@ $(function() {
   var isUpFired = false;
   var isDownFired = false;
 
+  
   $(document).on('keydown', function(e) {
-
-    switch(e.keyCode) {
-      case 27:
-        shutdownServer();
-        break;
-
-      case 38:
-        if (!isUpFired) {
-          isUpFired = true;
-          $("body").addClass("disable");
-          moveForwards();
+    if ($('#codeSnippetBox').is(":focus")) {
+    } else{
+      switch(e.keyCode) {
+        case 27:
+          shutdownServer();
+          break;
   
-          return isUpFired;
-        }
-        break;
-
-      case 40:
-        if (!isDownFired) {
-          isDownFired = true;
-          $("body").addClass("disable");
-          moveBackwards();
+        case 38:
+          if (!isUpFired) {
+            isUpFired = true;
+            $("body").addClass("disable");
+            moveForwards();
+    
+            return isUpFired;
+          }
+          break;
   
-          return isDownFired;
-        }
-        break;
-      
-      case 82:
-        rewind();
-        break;
-
-      case 90:
-        saveWaypoint('One', '/api/v1/saveWaypointOne', waypointCoordinates);
-        break;
-
-      case 88:
-        saveWaypoint('Two', '/api/v1/saveWaypointTwo', waypointCoordinates);
-        break;
-
-      case 67:
-        saveWaypoint('Three', '/api/v1/saveWaypointThree', waypointCoordinates);
-        break;
+        case 40:
+          if (!isDownFired) {
+            isDownFired = true;
+            $("body").addClass("disable");
+            moveBackwards();
+    
+            return isDownFired;
+          }
+          break;
+        
+        case 82:
+          rewind();
+          break;
+  
+        case 90:
+          saveWaypoint('One', '/api/v1/saveWaypointOne', waypointCoordinates);
+          break;
+  
+        case 88:
+          saveWaypoint('Two', '/api/v1/saveWaypointTwo', waypointCoordinates);
+          break;
+  
+        case 67:
+          saveWaypoint('Three', '/api/v1/saveWaypointThree', waypointCoordinates);
+          break;
+      }
     }
+
   });
 
   $(document).on('keyup', function(e) {

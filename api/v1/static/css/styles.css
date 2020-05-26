@@ -397,7 +397,29 @@ label {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.route-options:nth-of-type(n+2) .input-row:first-of-type {
+    display: none;
+}
+
+.route-options:nth-of-type(n+2):before {
+    content: "And then";
+    display: block;
+    position: relative;
+    left: -50px;
+    top: -13px;
+    text-align: center;
+}
+.route-options.unsync:nth-of-type(n+2):before {
+    display: none;
+}
+
+
+.route-options.unsync:nth-of-type(n+2) .input-row:first-of-type {
+    display: block;
 }
 
 .route-options > div {
@@ -622,4 +644,28 @@ input[type="number"], select {
     opacity: 0;
     transition: opacity 0.25s ease-in-out;
     -webkit-transition: opacity 0.25s ease-in-out;
+}
+
+.code-snippet-box {
+    text-align: left;
+    padding: 15px;
+    background: black;
+    color: lime;
+    max-width: 600px;
+    margin: auto;
+    margin-top: 20px;
+    min-height: 300px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.code-snippet-box xmp {
+    padding: 0 15px;
+    width: 100%;
+    line-height: 180%;
+}
+
+xmp:focus {
+    outline: none;
 }
