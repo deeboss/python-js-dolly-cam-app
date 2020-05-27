@@ -6,7 +6,7 @@ var waypointCoordinates = [
 var totalSteps = 0;
 
 function setRouteNodePosition(id, arr) {
-  var maxCanvasWidth = ($('.route-canvas').width());
+  var maxCanvasHeight = ($('.route-canvas').height());
 
   function getMinMax(array) {
     var data = [];
@@ -34,8 +34,8 @@ function setRouteNodePosition(id, arr) {
       var roundedToMeters = Math.round((arr[i].steps / 3333) * 10) / 10;
       var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
       var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
-      var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-      $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+      var placementPosition = lerp((maxCanvasHeight/2), -(maxCanvasHeight/2), percentageFromMax);
+      $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateY(' + placementPosition + 'px)');
       $('[data-node-id="' + i + '"]').html(roundedToMeters + ' meters </br> (' + arr[i].steps);
     }
   }
@@ -118,6 +118,7 @@ function rewind() {
 
 function saveWaypoint(id, route, coordinates) {
   $('#status-text').text("Saving Waypoint " + id);
+
   $.getJSON(route, {}, function(data){
     $('.route-length').removeClass("empty");
     coordinates[data.id].steps = data.steps;
