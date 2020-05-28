@@ -1,9 +1,14 @@
 from views import app_views
 from flask import Flask, jsonify, json, render_template, request
 from models import Servo
+import RPi.GPIO as GPIO
 
 # Default values input
 servo=Servo(333,1500,1000,2000)
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+GPIO.setup(12,GPIO.OUT)
 
 @app_views.route('/updateServoParameters')
 def updateServoParameters():
