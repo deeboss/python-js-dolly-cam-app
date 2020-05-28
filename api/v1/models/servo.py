@@ -23,7 +23,7 @@ class Servo:
         self.pwm.start(0)
         self.period=(1/frequency)*1000000 # in microseconds
 
-    def updateValues(self,frequency,minimum,neutral,maximum)
+    def updateValues(self,frequency,minimum,neutral,maximum):
 
         # Update frequency and period
         self.pwm.ChangeFrequency(self.frequency)
