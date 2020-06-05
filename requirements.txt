@@ -1,8 +1,12 @@
 click==7.1.1
 Flask==1.1.2
-#gphoto2==2.2.2
+Flask-SocketIO==4.3.0
 itsdangerous==1.1.0
 Jinja2==2.11.1
 MarkupSafe==1.1.1
+pkg-resources==0.0.0
+python-engineio==3.13.0
+python-socketio==4.6.0
 RPi.GPIO==0.7.0
+six==1.15.0
 Werkzeug==1.0.1
