@@ -28,5 +28,5 @@ app.register_blueprint(app_template_views)
 # begin flask page rendering
 if __name__ == "__main__":
     # start Flask app
-    # app.run(host=host, port=port)
-    socketio.run(app,host=host, port=port, debug=True)
+    app.run(host=host, port=port)
+    # socketio.run(app,host=host, port=port, debug=True)

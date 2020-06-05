@@ -1,0 +1,117 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Flask_Chat_App</title>
+    <script type=text/javascript src="{{url_for('static', filename='js/jquery.js') }}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='js/socket.io.min.js') }}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='js/app.js') }}"></script>
+    <style>
+      body {
+        background: #0f3459;
+        position: relative;
+        width: auto;
+        overflow: hidden;
+      }
+
+      .yoyo {
+        background: red!important;
+      }
+      .wrapper {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        max-width: 500px;
+        height: 400px;
+        width: 100%;
+        margin: 50px auto;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 8px 15px rgba(0,0,0,0,.03);
+        text-align: center;
+        padding: 20px;
+      }
+
+      .wrapper > * {
+        margin: auto;
+        -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+      }
+
+      button {
+        font-size: 4em;
+        padding: 8px 20px;
+        appearance: none;
+        -webkit-appearance: none;
+        border: 1px solid #ccc;
+        background: white;
+        border-radius: 4px;
+        box-shadow: 0px 5px 12px rgba(0,0,0,.03);
+        cursor: pointer;
+        outline: none;
+        transition: all 0.1s ease-in;
+        -webkit-transition: all 0.1s ease-in;
+        transform: scale(1);
+        -webkit-transform: scale(1);
+      }
+
+      button:hover {
+        background: rgba(0,0,0,0.12);
+        transition: all 0.1s ease-in;
+        -webkit-transition: all 0.1s ease-in;
+      }
+
+      button:active {
+        transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        transition: all 0.1s ease-in;
+        -webkit-transition: all 0.1s ease-in;
+      }
+
+      span[data-type] {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        -webkit-transition: opacity 0.3s ease-in-out;
+      }
+
+      span[data-type].visible {
+        opacity: 1;
+        transition: opacity 0.1s ease-in-out;
+        -webkit-transition: opacity 0.1s ease-in-out;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+        <div style="font-size: 4em; " id="target">
+          <span data-type="peach">🍑</span>
+          <span data-type="banana">🍌</span>
+          <span data-type="eggplant">🍆</span>
+          <span data-type="led">💡</span>
+          <span data-type="servo">🥔</span>
+        </div>
+
+        <p>Banana level: <span id="incrementer">0</span></p>
+  
+        <div style="display: flex; justify-content: space-between">
+          <button id="peach">🍑</button>
+          <button id="banana">🍌</button>
+          <button id="eggplant">🍆</button>
+          <button id="led">💡</button>
+          <button id="servo">🥔</button>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript">
+
+    </script>
+
+  </body>
+  </html>
