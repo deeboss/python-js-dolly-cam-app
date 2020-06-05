@@ -11,7 +11,7 @@ buzzer = Buzzer()
 
 @app_views.route('/blinkLed', methods=['GET'])
 def blinkLed():
-    buzzer.playSuccess()
+    # buzzer.playSuccess()
     os.system("sudo echo gpio | sudo tee /sys/class/leds/led1/trigger")
     for n in range(0, 5):
         os.system("echo 1 | sudo tee /sys/class/leds/led1/brightness")

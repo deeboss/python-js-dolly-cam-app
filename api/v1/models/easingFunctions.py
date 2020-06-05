@@ -76,7 +76,7 @@ class easeFunctions:
 
         # Linear with easing smooth
         if self.easingType=='Linear':
-            k1=8000
+            k1=18000
             t1=(-self.duration+((self.duration**2)-4*(self.difference/(2*k1)))**(1/2))/-2
             k2=2*t1*k1
             t2=self.duration-t1

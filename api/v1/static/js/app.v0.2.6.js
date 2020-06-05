@@ -6,7 +6,7 @@ var waypointCoordinates = [
 var totalSteps = 0;
 
 function setRouteNodePosition(id, arr) {
-  var maxCanvasWidth = ($('.route-canvas').width());
+  var maxCanvasHeight = ($('.route-canvas').height());
 
   function getMinMax(array) {
     var data = [];
@@ -34,8 +34,8 @@ function setRouteNodePosition(id, arr) {
       var roundedToMeters = Math.round((arr[i].steps / 3333) * 10) / 10;
       var percentageFromMax = rangePercentage(arr[i].steps, minMaxArr[0], minMaxArr[1]);
       var stepRange = (Math.abs(minMaxArr[1]) + Math.abs(minMaxArr[0]));
-      var placementPosition = lerp((maxCanvasWidth/2), -(maxCanvasWidth/2), percentageFromMax);
-      $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateX(' + placementPosition + 'px)');
+      var placementPosition = lerp((maxCanvasHeight/2), -(maxCanvasHeight/2), percentageFromMax);
+      $('.route-item.node#' + i).removeClass("invisible").css('transform', 'translateY(' + placementPosition + 'px)');
       $('[data-node-id="' + i + '"]').html(roundedToMeters + ' meters </br> (' + arr[i].steps);
     }
   }
@@ -118,6 +118,7 @@ function rewind() {
 
 function saveWaypoint(id, route, coordinates) {
   $('#status-text').text("Saving Waypoint " + id);
+
   $.getJSON(route, {}, function(data){
     $('.route-length').removeClass("empty");
     coordinates[data.id].steps = data.steps;
@@ -191,6 +192,43 @@ $(function() {
       }, 500);
       return false;
     })
+
+    // Servos Start
+    $(document).on("click", "#updateParameters", function(){
+      var frequency = $('#frequency').val();
+      var minimum = $('#minimum').val();
+      var neutral = $('#neutral').val();
+      var maximum = $('#maximum').val();
+
+      $('body').addClass("disable");
+      $('#status-text').text("Updating Servo parameters...");
+
+      $.getJSON('/api/v1/updateServoParameters', {
+        frequency: frequency,
+        minimum: minimum,
+        neutral: neutral,
+        maximum: maximum
+      }, function(data){
+        $('body').removeClass("disable");
+        $('#status-text').text("Idle. Ready for commands");
+      });
+    })
+
+    $(document).on("click", "#servoMinimum, #servoNeutral, #servoMaximum", function(){
+      var command = this.id.split("servo")[1];
+      var apiRoute = "/api/v1/runServo" + command;
+      console.log(apiRoute);
+
+      $('body').addClass("disable");
+      $('#status-text').text("Moving Servo to " + command);
+
+      $.getJSON(apiRoute, {}, function(data){
+        $('body').removeClass("disable");
+        $('#status-text').text("Idle. Ready for commands");
+      });
+    })
+
+    // Servos End
 
     // $('#forward').on('click', function(){
     //   $.getJSON('/api/v1/forward', {}, function(data) {});
@@ -464,6 +502,8 @@ $(function() {
       var secondRouteFrom = $('.route-options:nth-of-type(2) #routeFrom');
       var thirdRouteFrom = $('.route-options:nth-of-type(3) #routeFrom');
 
+      $('.route-options').toggleClass("unsync");
+
       if ($(this).prop("checked")) {
         secondRouteFrom.attr("disabled", true);
         thirdRouteFrom.attr("disabled", true);
@@ -478,49 +518,53 @@ $(function() {
   var isUpFired = false;
   var isDownFired = false;
 
+  
   $(document).on('keydown', function(e) {
-
-    switch(e.keyCode) {
-      case 27:
-        shutdownServer();
-        break;
-
-      case 38:
-        if (!isUpFired) {
-          isUpFired = true;
-          $("body").addClass("disable");
-          moveForwards();
+    if ($('#codeSnippetBox').is(":focus")) {
+    } else{
+      switch(e.keyCode) {
+        case 27:
+          shutdownServer();
+          break;
   
-          return isUpFired;
-        }
-        break;
-
-      case 40:
-        if (!isDownFired) {
-          isDownFired = true;
-          $("body").addClass("disable");
-          moveBackwards();
+        case 38:
+          if (!isUpFired) {
+            isUpFired = true;
+            $("body").addClass("disable");
+            moveForwards();
+    
+            return isUpFired;
+          }
+          break;
   
-          return isDownFired;
-        }
-        break;
-      
-      case 82:
-        rewind();
-        break;
-
-      case 90:
-        saveWaypoint('One', '/api/v1/saveWaypointOne', waypointCoordinates);
-        break;
-
-      case 88:
-        saveWaypoint('Two', '/api/v1/saveWaypointTwo', waypointCoordinates);
-        break;
-
-      case 67:
-        saveWaypoint('Three', '/api/v1/saveWaypointThree', waypointCoordinates);
-        break;
+        case 40:
+          if (!isDownFired) {
+            isDownFired = true;
+            $("body").addClass("disable");
+            moveBackwards();
+    
+            return isDownFired;
+          }
+          break;
+        
+        case 82:
+          rewind();
+          break;
+  
+        case 90:
+          saveWaypoint('One', '/api/v1/saveWaypointOne', waypointCoordinates);
+          break;
+  
+        case 88:
+          saveWaypoint('Two', '/api/v1/saveWaypointTwo', waypointCoordinates);
+          break;
+  
+        case 67:
+          saveWaypoint('Three', '/api/v1/saveWaypointThree', waypointCoordinates);
+          break;
+      }
     }
+
   });
 
   $(document).on('keyup', function(e) {
@@ -545,3 +589,21 @@ $(function() {
     }
   });
 });
+
+$(document).on("click", "#openModal, #closeModal", function(){
+  $(".modal").toggleClass("open");
+})
+
+$(document).on("change", '#moveMotorContinuously', function(){
+  if ($(this).prop("checked")) {
+    $('#status-text').text("Moving at 2x speed");
+    $('.main :button').prop('disabled', true);
+    $.getJSON('/api/v1/continuousStart', {}, function(data) {});
+    return false;
+  } else {
+    $('#status-text').text("Idle. Ready for commands");
+    $('.main :button').prop('disabled', false);
+    $.getJSON('/api/v1/continuousStop', {}, function(data) {});
+    return false;
+  }
+})

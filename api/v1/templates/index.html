@@ -5,59 +5,258 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Dolly Remote</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+<<<<<<< HEAD
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.0.2.3.css') }}">
     <script type=text/javascript src="{{url_for('static', filename='js/jquery.js') }}"></script>
     <script type=text/javascript src="{{url_for('static', filename='js/jquery-sortable.min.js') }}"></script>
+=======
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.v0.2.6.css') }}">
+    <script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+>>>>>>> 56e4249b632b267f9a78af30c3518d9b31019653
   </head>
   <body>
     <!-- <nav class="other-controls">
       <div class="icon-row">
-        <img class="icon settings" src="{{ url_for('static', filename='img/icon-settings.svg') }}"/>
+        <img class="icon settings" src="/img/icon-settings.svg"/>
       </div>
     </nav> -->
     <div class='wrapper'>
-      <div></div>
-      <div class="container--livefeed">
-        <!-- <img src="http://placehold.it/1920x1080"> -->
-      </div>
-      <div class="controls-group">
-        <h3>Motor Controls</h3>
-                <div class="flex align-center justify-content-evenly">
-          <button id="forward">Forwards (↑)</button>
-          <button class="success" id="rewind">Rewind (r)</button>
-          <button id="backward">Backward (↓)</button>
+      <div class="main">
+        <div class="controls-group">
+          <h3>Motor Controls</h3>
+          <div class="flex align-center justify-content-evenly">
+            <button id="forward">Forwards (↑)</button>
+            <button class="success" id="rewind">Rewind (r)</button>
+            <button id="backward">Backward (↓)</button>
+          </div>
+          <br/><br/><br/><br/>
+          <div class="flex align-center justify-content-evenly">
+            <h3>Run motor continuously</h3>
+            <label class="rocker">
+              <input type="checkbox" id="moveMotorContinuously">
+              <span class="switch-left">On</span>
+              <span class="switch-right">Off</span>
+            </label>
+          </div>
+          <!-- <label for="eggVolume">Enable fun mode</label>
+          <input name="eggVolume" id="eggVolume" type="checkbox" /> -->
         </div>
-        <label for="eggVolume">Enable fun mode</label>
-        <input name="eggVolume" id="eggVolume" type="checkbox" />
-      </div>
-      <!-- <div class="controls-group">
-        <h3>Waypoint Controls</h3>
-        
-        <ul class="waypoint-list">
+        <!-- <div class="controls-group">
+          <h3>Waypoint Controls</h3>
           
-        </ul>
-        <div class="waypoints-control-center">
-            <button id="wpRunAll">Run all</button>
-            <button id="wpSave" class="success">Save Current Spot</button>
-            <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
+          <ul class="waypoint-list">
+            
+          </ul>
+          <div class="waypoints-control-center">
+              <button id="wpRunAll">Run all</button>
+              <button id="wpSave" class="success">Save Current Spot</button>
+              <button id="wpDeleteAll" class="danger" style="margin-left: 40px">Remove all</button>
+          </div>
+        </div> -->
+        <div class="controls-group">
+          <h3>Waypoint Controls</h3>
+          <div class="flex align-center justify-content-evenly">
+            <h3>Save current position as</h3>
+            <div class="waypoint-column">
+              <button data-type="saveWaypoint" id="wpOne">Waypoint 1 (z)</button>
+            </div>
+            <div class="waypoint-column">
+              <button data-type="saveWaypoint" id="wpTwo">Waypoint 2 (x)</button>
+            </div>
+            <div class="waypoint-column">
+              <button data-type="saveWaypoint" id="wpThree">Waypoint 3 (c)</button>
+            </div>
+          </div>
         </div>
-      </div> -->
-      <div class="controls-group">
-        <h3>Waypoint Controls</h3>
-        <div class="flex align-center justify-content-evenly">
-          <h3>Save current position as</h3>
-          <div class="waypoint-column">
-            <button data-type="saveWaypoint" id="wpOne">Waypoint 1 (z)</button>
-            <!-- <button data-type="runWaypoint" id="wpOne" class="success">Go Here</button> -->
+        <div class="controls-group">
+          <h3>Route Controls</h3>
+          
+          <div data-route-id="1" class="route-options">
+            <div class="input-row">
+              <label for="routeFrom">From</label>
+              <select name="routeFrom" id="routeFrom">
+                <option value="waypointOneSteps">Waypoint One</option>
+                <option value="waypointTwoSteps">Waypoint Two</option>
+                <option value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeTo">To</label>
+              <select name="routeTo" id="routeTo">
+                <option value="waypointOneSteps">Waypoint One</option>
+                <option selected value="waypointTwoSteps">Waypoint Two</option>
+                <option value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeEasing">Easing</label>
+              <select name="routeEasing" id="routeEasing">
+                <option selected value="Linear">Linear</option>
+                <option value="QuadraticIn">QuadraticIn</option>
+                <option value="QuadraticOut">QuadraticOut</option>
+                <option value="QuadraticInOut">QuadraticInOut</option>
+                <option value="CubicIn">CubicIn</option>
+                <option value="CubicOut">CubicOut</option>
+                <option value="CubicInOut">CubicInOut</option>
+                <option value="QuarticIn">QuarticIn</option>
+                <option value="QuarticOut">QuarticOut</option>
+                <option value="QuarticInOut">QuarticInOut</option>
+                <option value="QuinticIn">QuinticIn</option>
+                <option value="QuinticOut">QuinticOut</option>
+                <option value="QuinticInOut">QuinticInOut</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeDuration">Duration (Seconds)</label>
+              <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
+            </div>
+            <button data-route-id="1" style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
           </div>
-          <div class="waypoint-column">
-            <button data-type="saveWaypoint" id="wpTwo">Waypoint 2 (x)</button>
-            <!-- <button data-type="runWaypoint" id="wpTwo" class="success">Go Here</button> -->
+          <div data-route-id="2" class="route-options">
+            <div class="input-row">
+              <label for="routeFrom">From</label>
+              <select disabled name="routeFrom" id="routeFrom">
+                <option value="waypointOneSteps">Waypoint One</option>
+                <option selected value="waypointTwoSteps">Waypoint Two</option>
+                <option value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeTo">To</label>
+              <select name="routeTo" id="routeTo">
+                <option value="waypointOneSteps">Waypoint One</option>
+                <option value="waypointTwoSteps">Waypoint Two</option>
+                <option selected value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeEasing">Easing</label>
+              <select name="routeEasing" id="routeEasing">
+                <option selected value="Linear">Linear</option>
+                <option value="QuadraticIn">QuadraticIn</option>
+                <option value="QuadraticOut">QuadraticOut</option>
+                <option value="QuadraticInOut">QuadraticInOut</option>
+                <option value="CubicIn">CubicIn</option>
+                <option value="CubicOut">CubicOut</option>
+                <option value="CubicInOut">CubicInOut</option>
+                <option value="QuarticIn">QuarticIn</option>
+                <option value="QuarticOut">QuarticOut</option>
+                <option value="QuarticInOut">QuarticInOut</option>
+                <option value="QuinticIn">QuinticIn</option>
+                <option value="QuinticOut">QuinticOut</option>
+                <option value="QuinticInOut">QuinticInOut</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeDuration">Duration (Seconds)</label>
+              <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
+            </div>
+            <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
           </div>
-          <div class="waypoint-column">
-            <button data-type="saveWaypoint" id="wpThree">Waypoint 3 (c)</button>
-            <!-- <button data-type="runWaypoint" id="wpThree" class="success">Go Here</button> -->
+          <div data-route-id="3" class="route-options">
+            <div class="input-row">
+              <label for="routeFrom">From</label>
+              <select disabled name="routeFrom" id="routeFrom">
+                <option value="waypointOneSteps">Waypoint One</option>
+                <option value="waypointTwoSteps">Waypoint Two</option>
+                <option selected value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeTo">To</label>
+              <select name="routeTo" id="routeTo">
+                <option selected value="waypointOneSteps">Waypoint One</option>
+                <option value="waypointTwoSteps">Waypoint Two</option>
+                <option value="waypointThreeSteps">Waypoint Three</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeEasing">Easing</label>
+              <select name="routeEasing" id="routeEasing">
+                <option selected value="Linear">Linear</option>
+                <option value="QuadraticIn">QuadraticIn</option>
+                <option value="QuadraticOut">QuadraticOut</option>
+                <option value="QuadraticInOut">QuadraticInOut</option>
+                <option value="CubicIn">CubicIn</option>
+                <option value="CubicOut">CubicOut</option>
+                <option value="CubicInOut">CubicInOut</option>
+                <option value="QuarticIn">QuarticIn</option>
+                <option value="QuarticOut">QuarticOut</option>
+                <option value="QuarticInOut">QuarticInOut</option>
+                <option value="QuinticIn">QuinticIn</option>
+                <option value="QuinticOut">QuinticOut</option>
+                <option value="QuinticInOut">QuinticInOut</option>
+              </select>
+            </div>
+            <div class="input-row">
+              <label for="routeDuration">Duration (Seconds)</label>
+              <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
+            </div>
+            <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
           </div>
+          <div style="text-align: center">
+            <div><input id="syncRoutes" name="syncRoutes" checked="true" type="checkbox">Sync Routes?</input></div>
+            <button style="margin: 18px auto 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
+          </div>
+        </div>
+        <div class="controls-group">
+          <h3>Servo Controls</h3>
+          <div class="flex align-center justify-content-evenly">
+            <div>
+              <h3>Parameters</h3>
+              <div class="">
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="frequency">Frequency</label><input name="frequency" type="number" value="333" id="frequency" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="minimum">Min</label><input name="minimum" type="number" value="1000" id="minimum" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="neutral">Neutral</label><input name="neutral" type="number" value="1500" id="neutral" /></div>
+                <div style="margin-bottom: 6px;" class="flex align-center justify-content-between"><label style="margin-right: 16px; text-align: right;" for="maximum">Max</label><input name="maximum" type="number" value="2000" id="maximum" /></div>
+                <button style="margin: 18px 0 18px auto" class="success" id="updateParameters">Update</button>
+              </div>
+            </div>
+            <div>
+              <button id="servoMinimum">Minimum</button>
+              <button id="servoNeutral">Neutral</button>
+              <button id="servoMaximum">Maximum</button>
+            </div>
+            
+          </div>
+        </div>
+        <div class="controls-group">
+          <h3>Other Controls</h3>
+          <div class="flex align-center justify-space-evenly">
+            <button id="blinkLed">
+              Make Pi Blink
+            </button>
+            <button class="modal-toggler" id="openModal">Open Code Sandbox</button>
+          </div>
+          <br><br><br><br><br><br><br><br>
+          <div class="flex align-center">
+            <button class="small success" id="restart">
+              Restart Server
+            </button>
+            <button class="small danger" id="shutdownDevice">
+              Kill Server & Shutdown Pi
+            </button>
+            <button class="small" id="killServer">
+              Kill Server
+            </button>
+          </div>
+        </div>
+        <!-- <div class="controls-group">
+          <h3>Camera Related Controls</h3>
+                  <button id="checkForCamera">Check If Camera Exists</button>
+          <button id="captureImage">
+            Capture Image
+          </button>
+          <button id="openSettings">Show/Hide Configs</button>
+          <div class="drawer" style="display: none;">
+            <ul class="drawer-list">
+            </ul>
+          </div>
+        </div> -->
+      </div>
+      <div class="sidebar">
+        <div class="status-bar">
+          <span>Status: <span id="status-text">Idle. Ready for commands</span></span>
         </div>
         <div class="route-preview">
           <div class="route-canvas">
@@ -74,170 +273,14 @@
             <h2><i>No waypoints saved yet</i></h2>
           </div>
         </div>
-        <div class="status-bar">
-          <span>Status: <span id="status-text">Idle. Ready for commands</span></span>
-        </div>
       </div>
-      <div class="controls-group">
-        <h3>Route Controls</h3>
-        
-        <div data-route-id="1" class="route-options">
-          <div class="input-row">
-            <label for="routeFrom">From</label>
-            <select name="routeFrom" id="routeFrom">
-              <option value="waypointOneSteps">Waypoint One</option>
-              <option value="waypointTwoSteps">Waypoint Two</option>
-              <option value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeTo">To</label>
-            <select name="routeTo" id="routeTo">
-              <option value="waypointOneSteps">Waypoint One</option>
-              <option selected value="waypointTwoSteps">Waypoint Two</option>
-              <option value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeEasing">Easing</label>
-            <select name="routeEasing" id="routeEasing">
-              <option selected value="Linear">Linear</option>
-              <option value="QuadraticIn">QuadraticIn</option>
-              <option value="QuadraticOut">QuadraticOut</option>
-              <option value="QuadraticInOut">QuadraticInOut</option>
-              <option value="CubicIn">CubicIn</option>
-              <option value="CubicOut">CubicOut</option>
-              <option value="CubicInOut">CubicInOut</option>
-              <option value="QuarticIn">QuarticIn</option>
-              <option value="QuarticOut">QuarticOut</option>
-              <option value="QuarticInOut">QuarticInOut</option>
-              <option value="QuinticIn">QuinticIn</option>
-              <option value="QuinticOut">QuinticOut</option>
-              <option value="QuinticInOut">QuinticInOut</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
-          </div>
-          <button data-route-id="1" style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
-        </div>
-        <div data-route-id="2" class="route-options">
-          <div class="input-row">
-            <label for="routeFrom">From</label>
-            <select disabled name="routeFrom" id="routeFrom">
-              <option value="waypointOneSteps">Waypoint One</option>
-              <option selected value="waypointTwoSteps">Waypoint Two</option>
-              <option value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeTo">To</label>
-            <select name="routeTo" id="routeTo">
-              <option value="waypointOneSteps">Waypoint One</option>
-              <option value="waypointTwoSteps">Waypoint Two</option>
-              <option selected value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeEasing">Easing</label>
-            <select name="routeEasing" id="routeEasing">
-              <option selected value="Linear">Linear</option>
-              <option value="QuadraticIn">QuadraticIn</option>
-              <option value="QuadraticOut">QuadraticOut</option>
-              <option value="QuadraticInOut">QuadraticInOut</option>
-              <option value="CubicIn">CubicIn</option>
-              <option value="CubicOut">CubicOut</option>
-              <option value="CubicInOut">CubicInOut</option>
-              <option value="QuarticIn">QuarticIn</option>
-              <option value="QuarticOut">QuarticOut</option>
-              <option value="QuarticInOut">QuarticInOut</option>
-              <option value="QuinticIn">QuinticIn</option>
-              <option value="QuinticOut">QuinticOut</option>
-              <option value="QuinticInOut">QuinticInOut</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
-          </div>
-          <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
-        </div>
-        <div data-route-id="3" class="route-options">
-          <div class="input-row">
-            <label for="routeFrom">From</label>
-            <select disabled name="routeFrom" id="routeFrom">
-              <option value="waypointOneSteps">Waypoint One</option>
-              <option value="waypointTwoSteps">Waypoint Two</option>
-              <option selected value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeTo">To</label>
-            <select name="routeTo" id="routeTo">
-              <option selected value="waypointOneSteps">Waypoint One</option>
-              <option value="waypointTwoSteps">Waypoint Two</option>
-              <option value="waypointThreeSteps">Waypoint Three</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeEasing">Easing</label>
-            <select name="routeEasing" id="routeEasing">
-              <option selected value="Linear">Linear</option>
-              <option value="QuadraticIn">QuadraticIn</option>
-              <option value="QuadraticOut">QuadraticOut</option>
-              <option value="QuadraticInOut">QuadraticInOut</option>
-              <option value="CubicIn">CubicIn</option>
-              <option value="CubicOut">CubicOut</option>
-              <option value="CubicInOut">CubicInOut</option>
-              <option value="QuarticIn">QuarticIn</option>
-              <option value="QuarticOut">QuarticOut</option>
-              <option value="QuarticInOut">QuarticInOut</option>
-              <option value="QuinticIn">QuinticIn</option>
-              <option value="QuinticOut">QuinticOut</option>
-              <option value="QuinticInOut">QuinticInOut</option>
-            </select>
-          </div>
-          <div class="input-row">
-            <label for="routeDuration">Duration (Seconds)</label>
-            <input name="routeDuration" value="1" id="routeDuration" type="number" pattern="[0-9]*"/>
-          </div>
-          <button style="margin: 18px 0px 2px;" id="runThisRoute" class="success">Run This Route</button>
-        </div>
-        <div style="text-align: center">
-          <div><input id="syncRoutes" name="syncRoutes" checked="true" type="checkbox">Sync Routes?</input></div>
-          <button style="margin: 18px auto 2px; font-size: larger;" id="runAllRoutes" class="success">🚀 Run All Routes</button>
-        </div>
-      </div>
-      <div class="controls-group">
-        <h3>Other GPIO Related Controls</h3>
-                <button id="blinkLed">
-          Make Pi Blink
-        </button>
-      </div>
-      <!-- <div class="controls-group">
-        <h3>Camera Related Controls</h3>
-                <button id="checkForCamera">Check If Camera Exists</button>
-        <button id="captureImage">
-          Capture Image
-        </button>
-        <button id="openSettings">Show/Hide Configs</button>
-        <div class="drawer" style="display: none;">
-          <ul class="drawer-list">
-          </ul>
-        </div>
-      </div> -->
-      <div class="controls-group">
-        <h3>Other</h3>
-        <button id="restart">
-          Restart Server
-        </button>
-        <button class="danger" id="shutdownDevice">
-          Kill Server & Shutdown Pi
-        </button>
-        <button id="killServer">
-          Kill Server
-        </button>
+    </div>
+    <div class="modal">
+      <div class="modal-content">
+        <h3>Python Code Sandbox</h3>
+        <div class="code-snippet-box"><xmp id="codeSnippetContent" contenteditable="true"># Write something here</xmp></div>
+        <button class="success" id="runCodeSnippet">Run Code</button>
+        <span class="modal-toggler" id="closeModal">Close</span>
       </div>
     </div>
     <script type="text/javascript">
@@ -304,6 +347,10 @@
         }
         **/
     </script>
+<<<<<<< HEAD
     <script type=text/javascript src="{{url_for('static', filename='js/app.0.2.3.js') }}"></script>
+=======
+    <script type=text/javascript src="{{ url_for('static', filename='js/app.v0.2.6.js') }}"></script>
+>>>>>>> 56e4249b632b267f9a78af30c3518d9b31019653
   </body>
 </html>

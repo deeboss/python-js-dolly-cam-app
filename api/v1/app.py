@@ -4,11 +4,14 @@ Flask App that integrates with static HTML Template
 """
 from views import app_views, app_template_views
 from flask import Flask, jsonify, json, render_template, request
+from flask_socketio import SocketIO
 # from models import filename_of_models
 import os
 
 # Global Flask Application Variable: app
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'blueberriesRcool'
+socketio = SocketIO(app)
 
 # flask server environmental setup
 host = os.getenv('API_HOST', '0.0.0.0')
@@ -25,4 +28,5 @@ app.register_blueprint(app_template_views)
 # begin flask page rendering
 if __name__ == "__main__":
     # start Flask app
-    app.run(host=host, port=port)
+    # app.run(host=host, port=port)
+    socketio.run(app,host=host, port=port, debug=True)
