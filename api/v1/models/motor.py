@@ -16,20 +16,56 @@ class Motor:
         self.waypointOneSteps = 'N/A'
         self.waypointTwoSteps = 'N/A'
         self.waypointThreeSteps = 'N/A'
-        self.delay = 0.001
+        self.defaultDelay = 0.001
     
     # Manual motor move
-    def Move(self):  
+    def Move(self):
+
+        delay=self.defaultDelay+0.001
+        count = 1
+
+        # ramp up and continuous motion portion
         while self.motorMove == True:
+
+            # motor step
             GPIO.output(13,True)
             GPIO.output(13,False)
-            time.sleep(self.delay)
+            time.sleep(delay)
 
             # counting steps
             if GPIO.input(11) == True:
                 self.stepsTaken+=1
             elif GPIO.input(11) == False:
                 self.stepsTaken-=1
+
+            # decrementing delay time for ramp up, 10 steps per ramp up delay increment
+            # for loop not used in case false signal sent in between 10 steps
+            if count == 10:
+                if delay > self.defaultDelay:
+                    delay -= 0.0001
+                else:
+                    delay = self.defaultDelay
+                count = 1
+            else:
+                count += 1
+
+        # ramp down portion
+        while delay < self.defaultDelay:
+
+            # incrementing delay time for ramp down, 10 steps per ramp down delay increment
+            for i in range(0,10):
+
+                # motor step
+                GPIO.output(13,True)
+                GPIO.output(13,False)
+                time.sleep(delay)
+
+                # counting steps
+                if GPIO.input(11) == True:
+                    self.stepsTaken+=1
+                elif GPIO.input(11) == False:
+                    self.stepsTaken-=1
+            delay += 0.0001
 
         print(self.stepsTaken)
                 
