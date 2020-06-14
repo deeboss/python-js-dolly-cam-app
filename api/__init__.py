@@ -11,8 +11,8 @@ def create_app(debug=False, host='0.0.0.0'):
     app.host = host
     app.config['SECRET_KEY'] = 'gjr39dkjn344_!67#'
 
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from .v1 import app_template_views as app_template_views
+    app.register_blueprint(app_template_views)
 
     socketio.init_app(app)
     return app

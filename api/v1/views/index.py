@@ -1,9 +1,9 @@
 from flask import session, redirect, url_for, render_template, request
-from . import main
+from . import app_template_views
 # from .forms import LoginForm
 
 
-@main.route('/', methods=['GET', 'POST'])
+@app_template_views.route('/', methods=['GET', 'POST'])
 def index():
     """Login form to enter a room."""
     # form = LoginForm()
