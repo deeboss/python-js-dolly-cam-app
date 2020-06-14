@@ -3,13 +3,11 @@ from flask_socketio import SocketIO
 
 socketio = SocketIO()
 
-
-def create_app(debug=False, host='0.0.0.0'):
+def create_app(debug=False):
     """Create an application."""
     app = Flask(__name__)
     app.debug = debug
-    app.host = host
-    app.config['SECRET_KEY'] = 'gjr39dkjn344_!67#'
+    app.config['SECRET_KEY'] = '2spooky4u'
 
     from .v1 import app_template_views as app_template_views
     app.register_blueprint(app_template_views)
