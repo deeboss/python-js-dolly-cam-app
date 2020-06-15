@@ -7,7 +7,7 @@ $('#socketTest').on("mousedown", function(e){
 })
 
 socket.on( 'my response', function( data ) {
-  console.log(data.response);
+  console.log(data);
 })
 
 var waypointCoordinates = [
@@ -64,7 +64,8 @@ function shutdownServer() {
 
 function moveForwards() {
   $('#status-text').text("Moving forwards");
-  $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+  // $.getJSON('/api/v1/forwardStart', {}, function(data) {});
+  emitEvent('forward', {shouldMove: true})
   if ($('#eggVolume:checked').length > 0) {
     $('body').addClass('funmode')
     audioElement.play();
@@ -74,11 +75,13 @@ function moveForwards() {
 }
 
 function stopForwards() {
-  $.getJSON('/api/v1/forwardStop', {}, function(data) {
-    var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-    $('#currentSteps').text(data.current_position);
-    $('#status-text').text("Idle. Ready for commands");
-  });
+  // $.getJSON('/api/v1/forwardStop', {}, function(data) {
+  //   var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
+  //   $('#currentSteps').text(data.current_position);
+  //   $('#status-text').text("Idle. Ready for commands");
+  // });
+    
+  emitEvent('forward', {shouldMove: false})
 
   if ($('#eggVolume:checked').length > 0) {
     $('body').removeClass('funmode')

@@ -22,12 +22,11 @@ GPIO.output(23,True)
 # Run class after initializing
 motor = Motor()
 easeFunctions = easeFunctions()        
-
 #################### MANUAL MOVEMENT #######################
 
 @app_views.route('/forwardStart')
 def forwardStart():
-    GPIO.output(11,True) # set direction
+    # GPIO.output(11,True) # set direction
     motor.motorMove = True
     motor.Move()
     return jsonify("OK")

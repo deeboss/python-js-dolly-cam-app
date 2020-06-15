@@ -26,7 +26,6 @@ class Motor:
 
         # ramp up and continuous motion portion
         while self.motorMove == True:
-
             # motor step
             GPIO.output(13,True)
             GPIO.output(13,False)
