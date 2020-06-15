@@ -1,3 +1,15 @@
+var socket = io.connect('http://' + document.domain + ':' + location.port);
+function emitEvent(name, object) {
+  socket.emit(name, object);
+}
+$('#socketTest').on("mousedown", function(e){
+  emitEvent('acknowledge', {message: "Hello from client!"});
+})
+
+socket.on( 'my response', function( data ) {
+  console.log(data.response);
+})
+
 var waypointCoordinates = [
   {name: "", steps: 0},
   {name: "", steps: null},
