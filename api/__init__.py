@@ -9,8 +9,9 @@ def create_app(debug=False):
     app.debug = debug
     app.config['SECRET_KEY'] = '2spooky4u'
 
-    from .v1 import app_template_views as app_template_views
+    from .v1 import app_template_views, app_views
     app.register_blueprint(app_template_views)
+    app.register_blueprint(app_views)
 
     socketio.init_app(app)
     return app

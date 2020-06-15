@@ -1,1 +1,1 @@
-from .views import app_template_views
+from .views import app_template_views, app_views
