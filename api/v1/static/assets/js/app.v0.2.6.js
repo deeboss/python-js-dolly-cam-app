@@ -85,6 +85,19 @@ function moveBackwards() {
   return false;
 }
 
+function move(shouldMoveForwards) {
+  var direction = shouldMoveForwards ? 'forwards' : 'backwards';
+  $('#status-text').text("Moving " + direction);
+  emitEvent('control vehicle', {shouldMoveForwards: shouldMoveForwards, motorMove: true})
+
+  if ($('#eggVolume:checked').length > 0) {
+    $('body').addClass('funmode')
+    audioElement.play();
+  }
+
+  return false;
+}
+
 function stop() {
   // $.getJSON('/api/v1/forwardStop', {}, function(data) {
   // });
@@ -250,13 +263,13 @@ $(function() {
     
     $('#forward').mousedown(function(event) {
       event.preventDefault();
-      moveForwards();
+      move(true);
     }).bind('mouseleave', function(){
       stop();
     })
     
     $('#forward').on('touchstart', function() {
-      moveForwards();
+      move(true);
     }).bind('touchend', function(){
       stop();
     });
@@ -267,13 +280,13 @@ $(function() {
     });
     
     $('#backward').mousedown(function(event) {
-      moveBackwards();
+      move(false);
     }).bind('mouseleave', function(){
       stop();
     })
 
     $('#backward').on('touchstart', function() {
-      moveBackwards();
+      move(false);
     }).bind('touchend', function(){
       stop();
     });
@@ -534,7 +547,7 @@ $(function() {
           if (!isUpFired) {
             isUpFired = true;
             $("body").addClass("disable");
-            moveForwards();
+            move(true);
     
             return isUpFired;
           }
@@ -544,7 +557,7 @@ $(function() {
           if (!isDownFired) {
             isDownFired = true;
             $("body").addClass("disable");
-            moveBackwards();
+            move(false);
     
             return isDownFired;
           }
