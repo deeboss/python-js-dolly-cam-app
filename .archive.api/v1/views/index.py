@@ -1,16 +1,18 @@
+"""
+Flask route that returns json status response
+"""
 import os
 import time     # Import the sleep function from the time module
-from flask import Flask, jsonify, json, session, redirect, url_for, render_template, request
-from . import app_template_views, app_views
+from views import app_views, app_template_views
+from flask import Flask, jsonify, json, render_template, request
+# from models import filename_of_model
 
-
-@app_template_views.route('/', methods=['GET', 'POST'])
-def index():
-    return render_template('index.html')
-
-@app_template_views.route('/app', methods=['GET', 'POST'])
-def app():
-    return render_template('app.html')
+@app_template_views.route('/')
+def home():
+    # data = json.load(open('config_options.json'))
+    # return render_template("index.html", data=data)
+    data = {"hello": "world"}
+    return render_template("index.html", data=data)
 
 @app_views.route('/restart', methods=['GET'])
 def restart():

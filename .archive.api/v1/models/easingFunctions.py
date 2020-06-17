@@ -4,7 +4,6 @@ Easing Functions Class
 
 import time
 import math
-import eventlet
 import RPi.GPIO as GPIO
 
 # Initialize pins
@@ -143,7 +142,6 @@ class easeFunctions:
                 GPIO.output(13,True)
                 GPIO.output(13,False)
                 step+=1
-                eventlet.sleep(0)
 
     def stepsDurationCheck(self,difference,duration,easingType):
 

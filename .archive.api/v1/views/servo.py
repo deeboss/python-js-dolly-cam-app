@@ -1,6 +1,6 @@
-from . import app_views
+from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from ..models import Servo
+from models import Servo
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)

@@ -3,9 +3,9 @@ Flask route that returns json status response
 """
 import os
 import time     # Import the sleep function from the time module
-from . import app_views
+from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from ..models import Buzzer
+from models import Buzzer
 
 buzzer = Buzzer()
 

@@ -4,12 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>Dolly Remote</title>
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/styles.v0.2.6.css">
-    <script type=text/javascript src="assets/js/jquery.js"></script>
-    <script type=text/javascript src="assets/js/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.v0.2.6.css') }}">
+    <script type=text/javascript src="{{ url_for('static', filename='js/jquery.js') }}"></script>
   </head>
   <body>
+    <!-- <nav class="other-controls">
+      <div class="icon-row">
+        <img class="icon settings" src="/img/icon-settings.svg"/>
+      </div>
+    </nav> -->
     <div class='wrapper'>
       <div class="main">
         <div class="controls-group">
@@ -216,10 +220,19 @@
             <button id="blinkLed">
               Make Pi Blink
             </button>
-            <button id="socketTest">
-              Test Socket Connection
-            </button>
             <button class="modal-toggler" id="openModal">Open Code Sandbox</button>
+          </div>
+          <br><br><br><br><br><br><br><br>
+          <div class="flex align-center">
+            <button class="small success" id="restart">
+              Restart Server
+            </button>
+            <button class="small danger" id="shutdownDevice">
+              Kill Server & Shutdown Pi
+            </button>
+            <button class="small" id="killServer">
+              Kill Server
+            </button>
           </div>
         </div>
         <!-- <div class="controls-group">
@@ -235,19 +248,6 @@
           </div>
         </div> -->
       </div>
-      <nav>
-        <div class="flex justify-content-start">
-          <button class="no-style" id="restart">
-            Restart Server
-          </button>
-          <button class="no-style" id="shutdownDevice">
-            Kill Server & Shutdown Pi
-          </button>
-          <button class="no-style" id="killServer">
-            Kill Server
-          </button>
-        </div>
-      </nav>
       <div class="sidebar">
         <div class="status-bar">
           <span>Status: <span id="status-text">Idle. Ready for commands</span></span>
@@ -256,7 +256,7 @@
           <div class="route-canvas">
             <span class="route-item vehicle invisible" id="vehicle">
               <span class="tooltip top">MAD-ONE 
-                <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span>
+                <!-- <span class="tooltip-secondary"><span id="currentSteps">0</span> steps</span> -->
               </span>
               <span class="animation-radar"></span>
             </span>
@@ -277,6 +277,70 @@
         <span class="modal-toggler" id="closeModal">Close</span>
       </div>
     </div>
-    <script type=text/javascript src="assets/js/app.v0.2.6.js"></script>
+    <script type="text/javascript">
+    /**
+      var configsData = JSON.parse('{{ data | tojson | safe}}');
+        // console.log(configsData);
+        var target = $('.drawer-list');
+
+        for (var i = configsData.length - 1; i >= 0; i--) {
+          var configId = configsData[i].id;
+          var optionName = configsData[i].Label;
+          var optionsDiv = $('<div class="flex">');
+
+          if (configsData[i].Choice) {
+            target.append(
+              $('<li>')
+              .append(
+                $('<div class="list-title">')
+                  .append(
+                    optionName
+                  )
+              )
+              .append(
+                  $('<div class="list-options">')
+                    .append(
+                      optionsDiv
+                    )
+              )
+            )
+
+            
+            for (var j = 0; j < configsData[i].Choice.length; j++) {
+              var optionsName = configsData[i].Choice[j]
+
+              if (configsData[i].Choice.length > 10) {
+                optionsDiv.addClass("options--x-scroll-view");
+              } else if (configsData[i].Choice.length < 4) {
+                optionsDiv.addClass("options--centered-view");
+              } else {
+                optionsDiv.addClass("options--list-view");
+              }
+              
+
+              optionsDiv.append($('<div>')
+                .append(
+                  $('<input type="radio">').attr({
+                    id: configId + '_' + j,
+                    name: configId
+                  })
+                )
+                .append(
+                  $('<label>').attr({
+                    for: configId + '_' + j
+                  })
+                    .append(
+                      optionsName
+                    )
+                )
+              )
+            }
+          }
+          
+          
+        }
+        **/
+    </script>
+    <script type=text/javascript src="{{ url_for('static', filename='js/app.v0.2.6.js') }}"></script>
   </body>
 </html>

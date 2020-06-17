@@ -2,7 +2,6 @@
 Stepper Class from Models Module
 """
 import time
-import eventlet
 import RPi.GPIO as GPIO
 from .easingFunctions import easeFunctions
 easeFunctions=easeFunctions()
@@ -27,11 +26,11 @@ class Motor:
 
         # ramp up and continuous motion portion
         while self.motorMove == True:
+
             # motor step
             GPIO.output(13,True)
             GPIO.output(13,False)
             time.sleep(delay)
-            eventlet.sleep(0)
 
             # counting steps
             if GPIO.input(11) == True:
@@ -67,7 +66,6 @@ class Motor:
                 elif GPIO.input(11) == False:
                     self.stepsTaken-=1
             delay += 0.0001
-            eventlet.sleep(0)
 
         print(self.stepsTaken)
                 

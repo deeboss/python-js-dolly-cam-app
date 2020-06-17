@@ -1,6 +1,6 @@
 import os
-from models.motor import Motor
-from models.servo import Servo
-from models.easingFunctions import easeFunctions
-from models.buzzer import Buzzer
-# from models.camera import Camera
+from .motor import Motor
+from .servo import Servo
+from .easingFunctions import easeFunctions
+from .buzzer import Buzzer
+from .camera import Camera

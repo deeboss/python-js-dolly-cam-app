@@ -2,9 +2,9 @@
 Flask route that returns json status response
 """
 import os
+from views import app_views
 from flask import Flask, jsonify, json, render_template, request
-from . import app_views
-from ..models import Camera
+from models import Camera
 
 camera = Camera()
 
