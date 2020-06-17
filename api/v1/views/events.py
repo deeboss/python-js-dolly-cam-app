@@ -23,19 +23,6 @@ GPIO.output(23,True)
 motor = Motor()
 easeFunctions = easeFunctions()        
 
-# @app_views.route('/forwardStart')
-# def forwardStart():
-#     # GPIO.output(11,True) # set direction
-#     motor.motorMove = True
-#     motor.Move()
-#     return jsonify("OK")
-
-# @app_views.route('/forwardStop')
-# def forwardStop():
-#     motor.motorMove = False
-#     data = {'current_position': motor.stepsTaken}
-#     return jsonify(data)
-
 @socketio.on('joined')
 def joined(message):
     """Sent by clients when they enter a room.
@@ -44,26 +31,22 @@ def joined(message):
     join_room(room)
     emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
+def socketCallback(methods=['GET', 'POST']):
+    print('message was received')
 
-def messageReceived(methods=['GET', 'POST']):
-    print('message was received!!!')
-
-@socketio.on('forward')
-def forward(json, methods=['GET','POST']):
-    print(str(json))
-    if json['shouldMove'] == True:
-        print("gogogog")
+@socketio.on('control vehicle')
+def motorMove(json, methods=['GET','POST']):
+    # set movement start or stop
+    if json['motorMove'] == True:
+        # set direction forwards or backwards
+        GPIO.output(11,json['shouldMoveForwards']) # 'shouldMoveForwards' will return True or False
         motor.motorMove = True
         motor.Move()
-        json['motorMoveStatus'] = motor.motorMove
-        emit('my response', json, callback=messageReceived)
+        emit('my response', json, callback=socketCallback)
     else:
-        print('nonono')
         motor.motorMove = False
-        json['motorMoveStatus'] = motor.motorMove
-        json['currentPosition'] = {'current_position': motor.stepsTaken}
-        emit('my response', json, callback=messageReceived)
-
+        json['current_position'] = motor.stepsTaken
+        emit('vehicle position data', json, callback=socketCallback)
 
 
 @socketio.on('compute')
@@ -72,11 +55,11 @@ def yellow(json, methods=['GET', 'POST']):
     json['net'] = int(json['value1']) * int(json['value2'])
     
     print(str(json))
-    emit('my response', json, callback=messageReceived)
+    emit('my response', json, callback=socketCallback)
 
 @socketio.on('acknowledge')
 def acknowledge(json, methods=['GET', 'POST']):
     # print('received eggplant: ' + str(json))    
     print(str(json))
     json['response'] = 'And hello from server!'
-    emit('my response', json, callback=messageReceived)
+    emit('my response', json, callback=socketCallback)

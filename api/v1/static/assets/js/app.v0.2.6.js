@@ -64,8 +64,7 @@ function shutdownServer() {
 
 function moveForwards() {
   $('#status-text').text("Moving forwards");
-  // $.getJSON('/api/v1/forwardStart', {}, function(data) {});
-  emitEvent('forward', {shouldMove: true})
+  emitEvent('control vehicle', {shouldMoveForwards: true, motorMove: true})
   if ($('#eggVolume:checked').length > 0) {
     $('body').addClass('funmode')
     audioElement.play();
@@ -74,26 +73,9 @@ function moveForwards() {
   return false;
 }
 
-function stopForwards() {
-  // $.getJSON('/api/v1/forwardStop', {}, function(data) {
-  //   var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
-  //   $('#currentSteps').text(data.current_position);
-  //   $('#status-text').text("Idle. Ready for commands");
-  // });
-    
-  emitEvent('forward', {shouldMove: false})
-
-  if ($('#eggVolume:checked').length > 0) {
-    $('body').removeClass('funmode')
-    audioElement.pause(); 
-    audioElement.currentTime = 0;
-  }
-  return false;
-}
-
 function moveBackwards() {
   $('#status-text').text("Moving backwards");
-  $.getJSON('/api/v1/backwardStart', {}, function(data) {});
+  emitEvent('control vehicle', {shouldMoveForwards: false, motorMove: true})
 
   if ($('#eggVolume:checked').length > 0) {
     $('body').addClass('funmode')
@@ -103,12 +85,18 @@ function moveBackwards() {
   return false;
 }
 
-function stopBackwards() {
-  $.getJSON('/api/v1/backwardStop', {}, function(data) {
+function stop() {
+  // $.getJSON('/api/v1/forwardStop', {}, function(data) {
+  // });
+  
+  emitEvent('control vehicle', {motorMove: false})
+  $('#status-text').text("Idle. Ready for commands");
+
+  socket.on('vehicle position data', function(data) {
+    console.log(data.current_position);
     var roundedToMeters = Math.round((data.current_position / 800) * 10) / 10;
     $('#currentSteps').text(data.current_position);
-    $('#status-text').text("Idle. Ready for commands");
-  });
+  })
 
   if ($('#eggVolume:checked').length > 0) {
     $('body').removeClass('funmode')
@@ -264,34 +252,34 @@ $(function() {
       event.preventDefault();
       moveForwards();
     }).bind('mouseleave', function(){
-      stopForwards();
+      stop();
     })
     
     $('#forward').on('touchstart', function() {
       moveForwards();
     }).bind('touchend', function(){
-      stopForwards();
+      stop();
     });
 
 
     $('#forward').mouseup(function() {
-      stopForwards();
+      stop();
     });
     
     $('#backward').mousedown(function(event) {
       moveBackwards();
     }).bind('mouseleave', function(){
-      stopBackwards();
+      stop();
     })
 
     $('#backward').on('touchstart', function() {
       moveBackwards();
     }).bind('touchend', function(){
-      stopBackwards();
+      stop();
     });
 
     $('#backward').mouseup(function() {
-      stopBackwards();
+      stop();
     });
 
     $('#rewind').on("click", function() {
@@ -587,7 +575,7 @@ $(function() {
       case 38:
         if (isUpFired) {
           isUpFired = false;
-          stopForwards();
+          stop();
           $("body").removeClass("disable");
           return isUpFired;
         }
@@ -596,7 +584,7 @@ $(function() {
       case 40:
         if (isDownFired) {
           isDownFired = false;
-          stopBackwards();
+          stop();
           $("body").removeClass("disable");
           return isDownFired;
         }
