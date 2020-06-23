@@ -1,0 +1,168 @@
+.align-center {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.hide-overflow {
+	overflow: hidden;
+}
+
+.hide-overflow-x {
+	overflow-x: hidden;
+}
+
+.hide-overflow-y {
+	overflow-y: hidden;
+}
+
+
+// Flex Utilities
+
+.flex {
+	@include flex;
+	@include flexJustify(space-between);
+}
+
+.wrap {
+	@include flexWrap(wrap);
+}
+
+.justify-content-between {
+	@include flexJustify(space-between);
+}
+
+.justify-content-start {
+	@include flexJustify(flex-start);
+}
+
+.justify-content-around {
+	@include flexJustify(space-around);
+}
+
+.justify-content-end {
+	@include flexJustify(flex-end);
+}
+
+.justify-content-center {
+	@include flexJustify(center);
+}
+
+.align-items-center {
+	@include flexAlign(center);
+}
+
+.align-items-top {
+	@include flexAlign(top);
+}
+
+
+@include xs-to-md {
+	.hidden-xs {
+		display: none;
+	}
+}
+
+
+@for $i from 1 to 13 {
+	@if $i == 12 {
+		.xs-#{$i} {	
+			display: block;
+			width: 100%;
+		}
+	} @else {
+
+		.xs-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+
+			width: calc(#{$percentage}% - 10px);
+		}
+	}
+}
+
+@include sm {
+	.hidden-sm {
+		display: none;
+	}
+	
+	@for $i from 1 to 13 {
+		@if $i == 12 {
+			.sm-#{$i} {	
+				display: block;
+				width: 100%;
+			}
+		} @else {
+	
+			.sm-#{$i} {
+				display: block;
+				$percentage: $i/12 * 100;
+	
+				width: calc(#{$percentage}% - 10px);
+			}
+		}
+	}
+}
+
+
+
+@include md {
+	.hidden-md {
+		display: none;
+	}
+	
+	@for $i from 1 to 13 {
+		@if $i == 12 {
+			.md-#{$i} {	
+				display: block;
+				width: 100%;
+			}
+		} @else {
+
+			.md-#{$i} {
+				display: block;
+				$percentage: $i/12 * 100;
+	
+				width: calc(#{$percentage}% - 15px);
+			}
+		}
+	}
+}
+
+@include lg {
+	.hidden-lg {
+		display: none;
+	}
+	
+	
+	@for $i from 1 to 13 {
+		@if $i == 12 {
+			.lg-#{$i} {	
+				display: block;
+				width: 100%;
+			}
+		} @else {
+
+			.lg-#{$i} {
+				display: block;
+				$percentage: $i/12 * 100;
+	
+				width: calc(#{$percentage}% - 15px);
+			}
+		}
+	}
+}
+
+@for $i from 1 to 10 {
+	[data-transition-delay="#{$i}"] {
+		@include transitionDelay($i * 0.2s);
+	}
+}

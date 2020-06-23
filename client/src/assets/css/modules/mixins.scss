@@ -1,0 +1,134 @@
+@mixin box-shadow($args...) {
+	-webkit-box-shadow: $args;
+	-moz-box-shadow:    $args;
+	box-shadow:         $args;
+} 
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+		-moz-transition: $transition;
+			-o-transition: $transition;
+				transition: $transition;
+}
+
+@mixin transitionDelay($duration) {
+  -webkit-transition-delay: $duration!important;
+		-moz-transition-delay: $duration!important;
+			-o-transition-delay: $duration!important;
+				transition-delay: $duration!important;
+}
+
+@mixin filter($filter) {
+  -webkit-filter: $filter;
+				filter: $filter;
+}
+
+@mixin animation($animation) {
+	-webkit-animation: $animation; /* Safari 4+ */
+	-moz-animation:    $animation; /* Fx 5+ */
+	-o-animation:      $animation; /* Opera 12+ */
+	animation:         $animation; /* IE 10+, Fx 29+ */
+}
+
+@mixin animationDelay($delay) {
+	-webkit-animation-delay: $delay!important; /* Safari 4+ */
+	-moz-animation-delay:    $delay!important; /* Fx 5+ */
+	-o-animation-delay:      $delay!important; /* Opera 12+ */
+	animation-delay:         $delay!important; /* IE 10+, Fx 29+ */
+}
+
+@mixin animationDuration($duration) {
+	-webkit-animation-duration: $duration!important; /* Safari 4+ */
+	-moz-animation-duration:    $duration!important; /* Fx 5+ */
+	-o-animation-duration:      $duration!important; /* Opera 12+ */
+	animation-duration:         $duration!important; /* IE 10+, Fx 29+ */
+}
+
+@mixin appearance($appearance) {
+  -webkit-appearance: $appearance;
+	-moz-appearance: $appearance;
+	-ms-appearance: $appearance;
+	-o-appearance: $appearance;
+	// appearance: $appearance;
+}
+
+@mixin pull($direction) {
+	float: $direction;
+}
+
+/************************************************
+            Flexbox Mixins
+************************************************
+************************************************/
+
+@mixin flex {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	@content;
+}
+
+@mixin flexDirection($direction) {
+	-moz-flex-direction: $direction;
+	-webkit-flex-direction: $direction;
+	flex-direction: $direction;
+}
+
+@mixin flexJustify($justify) {
+	-webkit-justify-content: $justify;
+	-moz-justify-content: $justify;
+	justify-content: $justify;
+}
+
+@mixin flexWrap($wrap) {
+	-webkit-flex-wrap: $wrap;
+	-moz-flex-wrap: $wrap;
+	flex-wrap: $wrap;
+}
+
+@mixin flexAlign($alignment) {
+	-webkit-align-items: $alignment;
+	-moz-align-items: $alignment;
+	align-items: $alignment;
+}
+
+/************************************************
+ ************************************************
+							Media Queries Mixins
+ ************************************************
+ ************************************************/
+
+
+@mixin xs-only {
+  @media only screen and (max-width: 599px) { @content; }
+}
+
+@mixin sm {
+  @media only screen and (min-width: 600px) { @content; }
+}
+
+@mixin xs-to-md {
+  @media only screen and (max-width: 999px) { @content; }
+}
+
+@mixin xs-to-lg {
+	@media only screen and (max-width: 1199px) {@content;}
+}
+
+@mixin sm-to-lg {
+	@media only screen and (min-width: 600px) and (max-width: 1200px) {@content;}
+}
+
+@mixin md {
+	@media only screen and (min-width: 1000px) {@content;}
+}
+
+@mixin lg {
+  @media only screen and (min-width: 1200px) { @content; }
+}
+
+@mixin xl {
+  @media only screen and (min-width: 1600px) { @content; }
+}
