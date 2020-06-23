@@ -1,9 +1,16 @@
-import axios from 'axios';
-import { baseURL } from './request';
+import { request, parseErrorResponse } from "./request";
 
 export const makePiBlink = () =>
-  axios.get(`${baseURL}/blinkLed`)
-    .then(res => {
-      const persons = res.data;
-      this.setState({ persons });
-    })
+  new Promise((resolve, reject) => {
+    request()
+      .get(`/blinkLed`)
+      .then((res) => {
+        const { data } = res.data;
+        if (data) resolve(data);
+        else {
+          reject(new Error("Something went wrong!"));
+        }
+      })
+      .catch(parseErrorResponse)
+      .then(reject);
+  });
