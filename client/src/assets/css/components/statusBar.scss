@@ -1,0 +1,10 @@
+nav.status-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: $black;
+    color: $white;
+    padding: 4px;
+    z-index: $ceiling;
+    text-transform: uppercase;
+}

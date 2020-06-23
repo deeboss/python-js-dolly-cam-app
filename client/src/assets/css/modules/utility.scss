@@ -1,0 +1,148 @@
+.align-center {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.hide-overflow {
+	overflow: hidden;
+}
+
+.hide-overflow-x {
+	overflow-x: hidden;
+}
+
+.hide-overflow-y {
+	overflow-y: hidden;
+}
+
+
+// Flex Utilities
+
+.flex {
+	@include flex;
+	@include flexJustify(space-between);
+}
+
+.wrap {
+	@include flexWrap(wrap);
+}
+
+.justify-content-between {
+	@include flexJustify(space-between);
+}
+
+.justify-content-start {
+	@include flexJustify(flex-start);
+}
+
+.justify-content-around {
+	@include flexJustify(space-around);
+}
+
+.justify-content-end {
+	@include flexJustify(flex-end);
+}
+
+.justify-content-center {
+	@include flexJustify(center);
+}
+
+.align-items-center {
+	@include flexAlign(center);
+}
+
+.align-items-top {
+	@include flexAlign(top);
+}
+
+@include xs-to-md {
+	.hidden-xs {
+		display: none;
+	}
+}
+
+/* Spacings */
+$elementSpacing: 10px;
+
+.row {
+	margin-left: -$elementSpacing;
+	margin-right: -$elementSpacing;
+}
+
+@for $i from 1 to 13 {
+	.xs-#{$i} {
+		display: block;
+		width: 100%;
+		$percentage: $i/12 * 100%;
+		width: $percentage;
+		padding: 0 $elementSpacing;
+		margin-bottom: $elementSpacing * 2;
+	}
+}
+
+@include sm {
+	.hidden-sm {
+		display: none;
+	}
+	
+	@for $i from 1 to 13 {
+		.sm-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+	
+			width: calc(#{$percentage}% - #{$elementSpacing});
+			// margin-right: $elementSpacing;
+			margin-bottom: $elementSpacing * 2 * 2;
+		}
+	}
+}
+
+
+
+@include md {
+	.hidden-md {
+		display: none;
+	}
+	
+	@for $i from 1 to 13 {
+		.md-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+			width: $percentage;
+			padding: 0 $elementSpacing;
+			margin-bottom: $elementSpacing * 2;
+		}
+	}
+}
+
+@include lg {
+	.hidden-lg {
+		display: none;
+	}
+	
+	
+	@for $i from 1 to 13 {
+		.lg-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+			width: $percentage;
+			padding: 0 $elementSpacing;
+			margin-bottom: $elementSpacing * 2;
+		}
+	}
+}
+
+@for $i from 1 to 10 {
+	[data-transition-delay="#{$i}"] {
+		@include transitionDelay($i * 0.2s);
+	}
+}
