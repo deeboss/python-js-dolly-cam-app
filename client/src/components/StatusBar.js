@@ -2,14 +2,16 @@ import React, { Fragment, useState, useContext } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
-const DevCanvas = () => {
+const StatusBar = () => {
     const { user }  = useContext(AppSettingsContext);
 
     return (
         <Fragment>
-            <h2>Test</h2>
+            <nav className="status-bar">
+                hello
+            </nav>
         </Fragment>
     )
 }
 
-export default DevCanvas;
+export default StatusBar;
