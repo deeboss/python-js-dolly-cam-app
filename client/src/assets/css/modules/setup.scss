@@ -78,7 +78,7 @@ $bolder: 800;
   *,
   :after,
   :before {
-    box-sizing: inherit;
+    box-sizing: border-box;
   }
   
   /* Sections

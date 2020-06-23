@@ -64,7 +64,6 @@
 	@include flexAlign(top);
 }
 
-
 @include xs-to-md {
 	.hidden-xs {
 		display: none;
@@ -74,23 +73,19 @@
 /* Spacings */
 $elementSpacing: 10px;
 
+.row {
+	margin-left: -$elementSpacing;
+	margin-right: -$elementSpacing;
+}
+
 @for $i from 1 to 13 {
-	@if $i == 12 {
-		.xs-#{$i} {	
-			display: block;
-			width: 100%;
-			margin-bottom: $elementSpacing * 2;
-		}
-	} @else {
-
-		.xs-#{$i} {
-			display: block;
-			$percentage: $i/12 * 100;
-
-			width: calc(#{$percentage}% - #{$elementSpacing});
-			// margin-right: $elementSpacing;
-			margin-bottom: $elementSpacing * 2;
-		}
+	.xs-#{$i} {
+		display: block;
+		width: 100%;
+		$percentage: $i/12 * 100%;
+		width: $percentage;
+		padding: 0 $elementSpacing;
+		margin-bottom: $elementSpacing * 2;
 	}
 }
 
@@ -100,22 +95,13 @@ $elementSpacing: 10px;
 	}
 	
 	@for $i from 1 to 13 {
-		@if $i == 12 {
-			.sm-#{$i} {	
-				display: block;
-				width: 100%;
-				margin-bottom: $elementSpacing * 2;
-			}
-		} @else {
+		.sm-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
 	
-			.sm-#{$i} {
-				display: block;
-				$percentage: $i/12 * 100;
-	
-				width: calc(#{$percentage}% - #{$elementSpacing});
-				// margin-right: $elementSpacing;
-				margin-bottom: $elementSpacing * 2;
-			}
+			width: calc(#{$percentage}% - #{$elementSpacing});
+			// margin-right: $elementSpacing;
+			margin-bottom: $elementSpacing * 2 * 2;
 		}
 	}
 }
@@ -128,22 +114,12 @@ $elementSpacing: 10px;
 	}
 	
 	@for $i from 1 to 13 {
-		@if $i == 12 {
-			.md-#{$i} {	
-				display: block;
-				width: 100%;
-				margin-bottom: $elementSpacing * 2;
-			}
-		} @else {
-
-			.md-#{$i} {
-				display: block;
-				$percentage: $i/12 * 100;
-	
-				width: calc(#{$percentage}% - #{$elementSpacing});
-				// margin-right: $elementSpacing;
-				margin-bottom: $elementSpacing * 2;
-			}
+		.md-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+			width: $percentage;
+			padding: 0 $elementSpacing;
+			margin-bottom: $elementSpacing * 2;
 		}
 	}
 }
@@ -155,22 +131,12 @@ $elementSpacing: 10px;
 	
 	
 	@for $i from 1 to 13 {
-		@if $i == 12 {
-			.lg-#{$i} {	
-				display: block;
-				width: 100%;
-				margin-bottom: $elementSpacing * 2;
-			}
-		} @else {
-
-			.lg-#{$i} {
-				display: block;
-				$percentage: $i/12 * 100;
-	
-				width: calc(#{$percentage}% - #{$elementSpacing});
-				// margin-right: $elementSpacing;
-				margin-bottom: $elementSpacing * 2;
-			}
+		.lg-#{$i} {
+			display: block;
+			$percentage: $i/12 * 100;
+			width: $percentage;
+			padding: 0 $elementSpacing;
+			margin-bottom: $elementSpacing * 2;
 		}
 	}
 }

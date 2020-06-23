@@ -12,16 +12,6 @@ const ControllerCanvas = () => {
             <div className="wrapper">     
                 <div className="controller-canvas">
                     <div className="row">
-                        <div className="xs-2"><Joystick /></div>
-                        <div className="xs-2"><Joystick /></div>
-                        <div className="xs-8"><Joystick /></div>
-                    </div>
-                    <div className="row">
-                        <div className="xs-4"><Joystick /></div>
-                        <div className="xs-6"><Joystick /></div>
-                        <div className="xs-2"><Joystick /></div>
-                    </div>
-                    <div className="row">
                         <div className="xs-10"><Joystick /></div>
                         <div className="xs-2"><Joystick /></div>
                     </div>
