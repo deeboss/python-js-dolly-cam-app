@@ -5,6 +5,9 @@ import sys
 import time
 from ... import socketio
 
+def socketCallback(methods=['GET', 'POST']):
+    print('message was received')
+
 @socketio.on('compute')
 def yellow(json, methods=['GET', 'POST']):
     # print('received eggplant: ' + str(json))
