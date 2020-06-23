@@ -2,6 +2,7 @@ import React, { Fragment, useState, useContext } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 import Joystick from './Joystick';
+import Sandbox from './Sandbox';
 
 const ControllerCanvas = () => {
     const { user }  = useContext(AppSettingsContext);
@@ -10,7 +11,23 @@ const ControllerCanvas = () => {
         <Fragment>
             <div className="wrapper">     
                 <div className="controller-canvas">
-                    <Joystick />
+                    <div className="row">
+                        <div className="xs-2"><Joystick /></div>
+                        <div className="xs-2"><Joystick /></div>
+                        <div className="xs-8"><Joystick /></div>
+                    </div>
+                    <div className="row">
+                        <div className="xs-4"><Joystick /></div>
+                        <div className="xs-6"><Joystick /></div>
+                        <div className="xs-2"><Joystick /></div>
+                    </div>
+                    <div className="row">
+                        <div className="xs-10"><Joystick /></div>
+                        <div className="xs-2"><Joystick /></div>
+                    </div>
+                    <div className="row">
+                        <div className="xs-12"><Sandbox /></div>
+                    </div>
                 </div>
             </div>
         </Fragment>

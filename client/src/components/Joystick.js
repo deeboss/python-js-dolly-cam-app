@@ -9,15 +9,14 @@ const Joystick = () => {
 
     return (
         <Fragment>
-            <div>
-                <h2>Test</h2>
+            <div className="module-container">
+                <h4>Joystick</h4>
                 <ReactNipple
                     // supports all nipplejs options
                     // see https://github.com/yoannmoinet/nipplejs#options
                     options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
                     // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
                     style={{
-                        outline: '1px dashed red',
                         width: 150,
                         height: 150
                         // if you pass position: 'relative', you don't need to import the stylesheet

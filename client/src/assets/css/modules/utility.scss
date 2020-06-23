@@ -71,12 +71,15 @@
 	}
 }
 
+/* Spacings */
+$elementSpacing: 10px;
 
 @for $i from 1 to 13 {
 	@if $i == 12 {
 		.xs-#{$i} {	
 			display: block;
 			width: 100%;
+			margin-bottom: $elementSpacing * 2;
 		}
 	} @else {
 
@@ -84,7 +87,9 @@
 			display: block;
 			$percentage: $i/12 * 100;
 
-			width: calc(#{$percentage}% - 10px);
+			width: calc(#{$percentage}% - #{$elementSpacing});
+			// margin-right: $elementSpacing;
+			margin-bottom: $elementSpacing * 2;
 		}
 	}
 }
@@ -99,6 +104,7 @@
 			.sm-#{$i} {	
 				display: block;
 				width: 100%;
+				margin-bottom: $elementSpacing * 2;
 			}
 		} @else {
 	
@@ -106,7 +112,9 @@
 				display: block;
 				$percentage: $i/12 * 100;
 	
-				width: calc(#{$percentage}% - 10px);
+				width: calc(#{$percentage}% - #{$elementSpacing});
+				// margin-right: $elementSpacing;
+				margin-bottom: $elementSpacing * 2;
 			}
 		}
 	}
@@ -124,6 +132,7 @@
 			.md-#{$i} {	
 				display: block;
 				width: 100%;
+				margin-bottom: $elementSpacing * 2;
 			}
 		} @else {
 
@@ -131,7 +140,9 @@
 				display: block;
 				$percentage: $i/12 * 100;
 	
-				width: calc(#{$percentage}% - 15px);
+				width: calc(#{$percentage}% - #{$elementSpacing});
+				// margin-right: $elementSpacing;
+				margin-bottom: $elementSpacing * 2;
 			}
 		}
 	}
@@ -148,6 +159,7 @@
 			.lg-#{$i} {	
 				display: block;
 				width: 100%;
+				margin-bottom: $elementSpacing * 2;
 			}
 		} @else {
 
@@ -155,7 +167,9 @@
 				display: block;
 				$percentage: $i/12 * 100;
 	
-				width: calc(#{$percentage}% - 15px);
+				width: calc(#{$percentage}% - #{$elementSpacing});
+				// margin-right: $elementSpacing;
+				margin-bottom: $elementSpacing * 2;
 			}
 		}
 	}
