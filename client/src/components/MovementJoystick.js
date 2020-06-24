@@ -9,12 +9,12 @@ const Joystick = () => {
 
     return (
         <Fragment>
-            <div className="module-container">
+            <div className="module">
                 <h4>Joystick</h4>
                 <ReactNipple
                     // supports all nipplejs options
                     // see https://github.com/yoannmoinet/nipplejs#options
-                    options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
+                    options={{ mode: 'static', position: { top: '50%', left: '50%' }, lockY: true}}
                     // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
                     style={{
                         width: 150,

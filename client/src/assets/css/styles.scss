@@ -10,7 +10,7 @@ body {
     height: 100%;
     position: relative;
 
-    .controller-canvas {
+    .app-container {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -22,13 +22,13 @@ body {
         width: 1600px;
         margin: auto;
 
-        .controller-canvas {
+        .app-container {
             padding-top: 50px
         }
     }
 }
 
-.controller-canvas {
+.app-container {
     @include transform(translate(-50%, -50%));
     
     > .row {
@@ -39,7 +39,7 @@ body {
     }
 }
 
-.module-container {
+.module {
     height: 100%;
     width: 100%;
     padding: 12px;
@@ -56,6 +56,7 @@ body {
     cursor: pointer;
     position: relative;
     opacity: 0.4;
+    box-shadow: 2px 4px 0px 2px rgba($black, 0.08);
     width: 40px;
     height: 40px;
     @include flex;
@@ -78,16 +79,6 @@ body {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-
-    // &:before {
-    //     content: "";
-    //     position: absolute;
-    //     z-index: -5;
-    //     bottom: -5px;
-    //     left: -2.5px;
-    //     width: calc(100% + 5px);
-    //     height: 100%;
-    // }
 }
 
 .keyboard-group-container {

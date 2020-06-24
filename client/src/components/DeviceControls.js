@@ -2,12 +2,12 @@ import React, { Fragment, useState, useContext } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
-const Sandbox = () => {
+const DeviceControls = () => {
     const { blinkLed, testSocketConnection, shutdownServer, restartServer, closeServer }  = useContext(AppSettingsContext);
 
     return (
         <Fragment>
-            <div className="module-container">
+            <div className="module">
                 <button onClick={blinkLed}>Make Pi Blink</button>
                 <button onClick={testSocketConnection}>Test Socket Connection</button>
                 <button onClick={shutdownServer}>Shutdown Server</button>
@@ -18,4 +18,4 @@ const Sandbox = () => {
     )
 }
 
-export default Sandbox;
+export default DeviceControls;

@@ -48,7 +48,9 @@ $radius: 4px;
 ***************************************************************************************
 **************************************************************************************/
 
-$bodyFont: 'Proxima Nova', system-ui, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,300;0,400;0,700;1,900&display=swap');
+
+$bodyFont: 'Chivo', system-ui, sans-serif;
 
 /* Font Weight */
 $light: 100;
