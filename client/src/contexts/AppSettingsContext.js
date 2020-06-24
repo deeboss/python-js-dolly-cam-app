@@ -12,51 +12,42 @@ const AppSettingsContextProvider = ({ children }) => {
     });
 
     const [activeKeystroke, setActiveKeystroke] = useState({
-        key: '',
+        key: null,
         isReleased: true,
     });
 
     const handleKeyDown = (e) => {
         switch(e.key) {
             case "ArrowUp":
-                console.log("Pressed: ArrowUp!");
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
                 break;
             case "ArrowDown":
-                console.log("Pressed: ArrowDown!");
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
                 break;
             case "ArrowLeft":
-                console.log("Pressed: ArrowLeft!");
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
                 break;
             case "ArrowRight":
-                console.log("Pressed: ArrowRight!");
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: false});
                 break;
 
             case "Escape":
-                console.log("Pressed: Escape!");
                 setActiveKeystroke({ key: 'Escape', isReleased: false});
                 break;
 
             case "z":
-                console.log("Pressed: z");
                 setActiveKeystroke({ key: 'z', isReleased: false});
                 break;
 
             case "x":
-                console.log("Pressed: x");
                 setActiveKeystroke({ key: 'x', isReleased: false});
                 break;
 
             case "c":
-                console.log("Pressed: c");
                 setActiveKeystroke({ key: 'c', isReleased: false});
                 break;
 
             case "r":
-                console.log("Pressed: r");
                 setActiveKeystroke({ key: 'r', isReleased: false});
                 break;
                 
@@ -68,44 +59,35 @@ const AppSettingsContextProvider = ({ children }) => {
     const handleKeyUp = (e) => {
         switch(e.key) {
             case "ArrowUp":
-                console.log("Released: ArrowUp!");
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: true});
                 break;
             case "ArrowDown":
-                console.log("Released: ArrowDown!");
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: true});
                 break;
             case "ArrowLeft":
-                console.log("Released: ArrowLeft!");
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: true});
                 break;
             case "ArrowRight":
-                console.log("Released: ArrowRight!");
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: true});
                 break;
 
             case "Escape":
-                console.log("Released: Escape!");
                 setActiveKeystroke({ key: 'Escape', isReleased: true});
                 break;
 
             case "z":
-                console.log("Released: z");
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
-                console.log("Released: x");
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
-                console.log("Released: c");
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
             case "r":
-                console.log("Released: r");
                 setActiveKeystroke({ key: 'r', isReleased: true});
                 break;
                 
