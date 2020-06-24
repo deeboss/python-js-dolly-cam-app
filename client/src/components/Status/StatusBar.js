@@ -5,7 +5,7 @@ import StatusIndicator from './StatusIndicator';
 
 const StatusBar = () => {
     const { status }  = useContext(AppSettingsContext);
-    console.log(status);
+
     return (
         <Fragment>
             <nav className="status-bar">

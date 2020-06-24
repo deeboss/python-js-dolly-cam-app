@@ -5,9 +5,6 @@ import { AppSettingsContext } from '../../contexts/AppSettingsContext';
 const StatusIndicator = () => {
     const { status, setStatus }  = useContext(AppSettingsContext);
 
-    useEffect(() => {
-    }, []);
-
     return (
         <Fragment>
             <span className="status-indicator">
