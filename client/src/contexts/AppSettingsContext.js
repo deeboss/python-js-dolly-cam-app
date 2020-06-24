@@ -96,7 +96,15 @@ const AppSettingsContextProvider = ({ children }) => {
         }
     }
 
-    const [ status, setStatus ] = useState([
+    const [ statusList ] = useState([
+        {
+            message: "Disconnected",
+            type: 0
+        },
+        {
+            message: "Connected",
+            type: 1
+        },
         {
             message: "Idle, waiting for commands",
             type: 1
@@ -107,9 +115,7 @@ const AppSettingsContextProvider = ({ children }) => {
         }
     ]);
 
-
-    // useEffect(() => {
-    // });
+    const [ status, setStatus ] = useState(statusList[0]);
 
     const closeServer = () => {
         async function fetchData() {
@@ -168,7 +174,7 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     return (
-        <AppSettingsContext.Provider value={{ apiRoutes, blinkLed, testSocketConnection, status, activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp }}>
+        <AppSettingsContext.Provider value={{ apiRoutes, blinkLed, testSocketConnection, statusList, status, setStatus, activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp }}>
             {children}
         </AppSettingsContext.Provider>
     )

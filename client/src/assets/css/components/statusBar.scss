@@ -7,4 +7,30 @@ nav.status-bar {
     padding: 4px;
     z-index: $ceiling;
     text-transform: uppercase;
+
+    ul {
+        margin: 0;
+    }
+}
+
+.status-indicator {
+    @include flex;
+    @include flexAlign(center);
+
+    h4 {
+        margin: 0;
+        margin-left: 8px;
+    }
+}
+
+[data-status] {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background: transparent;
+}
+
+[data-status="0"] {
+    background: red;
 }
