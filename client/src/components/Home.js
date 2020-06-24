@@ -43,62 +43,65 @@ function Home() {
                         </div>
                     </div>
                     <div className="xs-12 md-7">
-                      <div className="module__list">
-                        <h3>Operator</h3>
-                        <ul>
-                          <li>
-                            <button>
-                              <div><img src={Debug} /></div>
-                              Dev tools
-                            </button>
-                          </li>
-                          <li><button disabled="true">
-                            <div><img src={FreeMove} /></div>
-                            Free move
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={RouteEditor} /></div>
-                            Route editor
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={LinearMode} /></div>
-                            Linear mode
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={DittoMode} /></div>
-                            Ditto mode
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={CrewMode} /></div>
-                            Crew mode
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={SkillsLibrary} /></div>
-                            Skills library
-                            </button></li>
-                        </ul>
-                      </div>
-                      <hr />
-                      <div className="module__list">
-                        <h3>Settings</h3>
-                        <ul>
-                          <li><button disabled="true">
-                            <div><img src={TuneParameters} /></div>
-                            Tune parameters
-                            </button></li>
-                          <li><button disabled="true">
-                            <div><img src={Updates} /></div>
-                            Check for updates
-                            </button></li>
-                          <li><button>
-                            <div><img src={Restart} /></div>
-                            Restart
-                            </button></li>
-                          <li><button>
-                            <div><img src={PowerOff} /></div>
-                            Shutdown
-                            </button></li>
-                        </ul>
+                      <div className="left-spacer">
+                        <div className="module__list">
+                          <h3>Operator</h3>
+                          <ul>
+                            <li>
+                              <Link to="/dev">
+                                <button>
+                                  <div><img src={Debug} /></div>
+                                  Dev tools
+                                </button>
+                              </Link>
+                            </li>
+                            <li><button disabled="true">
+                              <div><img src={FreeMove} /></div>
+                              <span>Free move</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={RouteEditor} /></div>
+                              <span>Route editor</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={LinearMode} /></div>
+                              <span>Linear mode</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={DittoMode} /></div>
+                              <span>Ditto mode</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={CrewMode} /></div>
+                              <span>Crew mode</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={SkillsLibrary} /></div>
+                              <span>Skills library</span>
+                              </button></li>
+                          </ul>
+                        </div>
+                        <div className="module__list">
+                          <h3>Settings</h3>
+                          <ul>
+                            <li><button disabled="true">
+                              <div><img src={TuneParameters} /></div>
+                              <span>Tune parameters</span>
+                              </button></li>
+                            <li><button disabled="true">
+                              <div><img src={Updates} /></div>
+                              <span>Check for updates</span>
+                              </button></li>
+                            <li><button>
+                              <div><img src={Restart} /></div>
+                              Restart
+                              </button></li>
+                            <li><button>
+                              <div><img src={PowerOff} /></div>
+                              Shutdown
+                              </button></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>

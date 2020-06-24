@@ -107,6 +107,7 @@ body #root {
 
 
 .module__device-info {
+    margin-top: 20px;
     .img-device {
         width: 100%;
         padding: 15px;
@@ -119,7 +120,9 @@ body #root {
 }
 
 .module__list {
-    margin-bottom: 20px;    
+    &:not(:last-of-type) {
+        margin-bottom: 40px;    
+    }
 
     ul {
         @include flex;
@@ -141,7 +144,6 @@ body #root {
             background: transparent;
             border: none;
             border-radius: $radius;
-            // box-shadow: 0px 0px 0px 1px rgba($white, 0.12);
             cursor: pointer;
             text-decoration: none;
             width: calc(100% - 12px);
@@ -150,6 +152,13 @@ body #root {
             text-transform: uppercase;
             font-weight: $bolder;
             font-size: smaller;
+
+            &[disabled] {
+                cursor: not-allowed;
+                * {
+                    opacity: 0.4;
+                }
+            }
 
             img {
                 height: 32px;
@@ -161,5 +170,14 @@ body #root {
                 background: darken($themeBackground, 4%);
             }
         }
+    }
+}
+
+.left-spacer {
+    @include lg {
+        margin-top: 20px;
+        border-left: 1px solid $white;
+        margin-left: 20px;
+        padding-left: 50px;
     }
 }
