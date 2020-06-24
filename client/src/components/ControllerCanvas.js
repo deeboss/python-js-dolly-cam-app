@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
-import Joystick from './Joystick';
+import Joystick from './MovementJoystick';
 import Sandbox from './Sandbox';
 
 const ControllerCanvas = () => {

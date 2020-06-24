@@ -4,6 +4,7 @@ import './assets/css/styles.scss';
 import AppSettingsContextProvider from './contexts/AppSettingsContext';
 import ControllerCanvas from './components/ControllerCanvas';
 import StatusBar from './components/StatusBar';
+import KeyboardControlsCanvas from './components/KeyboardControlsCanvas';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         {/* This text is from App.js */}
         <StatusBar/>
         <ControllerCanvas/>
+        <KeyboardControlsCanvas />
       </AppSettingsContextProvider>
     </div>
   );
