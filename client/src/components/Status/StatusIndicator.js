@@ -3,8 +3,12 @@ import '../../assets/css/styles.scss';
 import { AppSettingsContext } from '../../contexts/AppSettingsContext';
 
 const StatusIndicator = () => {
-    const { status, setStatus }  = useContext(AppSettingsContext);
+    const { status, setStatus, hasSocketConnection, setHasSocketConnection, checkSocketConnection }  = useContext(AppSettingsContext);
 
+    useEffect(() => {
+        checkSocketConnection();
+        return() => {}
+    }, [hasSocketConnection])
     return (
         <Fragment>
             <span className="status-indicator">

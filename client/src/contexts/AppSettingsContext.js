@@ -120,6 +120,18 @@ const AppSettingsContextProvider = ({ children }) => {
         }
     }
 
+    const [ hasSocketConnection, setHasSocketConnection ] = useState(false);
+
+    const checkSocketConnection = () => {
+        if (socket.connected) {
+            setHasSocketConnection(socket.connected);
+            setStatus(statusList[1])
+        } else {
+            setHasSocketConnection(socket.connected);
+            setStatus(statusList[0])
+        }
+    }
+
     const [ statusList ] = useState([
         {
             message: "Disconnected",
@@ -189,6 +201,16 @@ const AppSettingsContextProvider = ({ children }) => {
         fetchData();
     }
 
+    socket.on('connect', function(){
+        console.log("server connection detected");
+        setHasSocketConnection(true);
+    });
+
+    socket.on('disconnect', function(){
+        console.log("server disconnection detected");
+        setHasSocketConnection(false);
+    });
+
     const testSocketConnection = () => {        
         emit('acknowledge', {message: "Hello from client!"});
         
@@ -198,7 +220,7 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     return (
-        <AppSettingsContext.Provider value={{ apiRoutes, blinkLed, testSocketConnection, statusList, status, setStatus, activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp }}>
+        <AppSettingsContext.Provider value={{ apiRoutes, blinkLed, testSocketConnection, statusList, status, setStatus, activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp, hasSocketConnection, setHasSocketConnection, checkSocketConnection }}>
             {children}
         </AppSettingsContext.Provider>
     )
