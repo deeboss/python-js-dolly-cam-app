@@ -6,28 +6,100 @@ import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 const Joystick = () => {
     const { moveVehicle, stopVehicle }  = useContext(AppSettingsContext);
+    const [ verticalPosition, setVerticalPosition ] = useState(0);
+    const [ horizontalPosition, setHorizontalPosition ] = useState(0);
+    const [ zoneForVerticalPosition, setZoneForVerticalPosition ] = useState(0);
+    const [ zoneForHorizontalPosition, setZoneForHorizontalPosition ] = useState(0);
+
+    const handleVerticalJoystickThresholding = (current) => {
+        const thresholdArr = [0, 20, 40, 60, 80, 100];
+
+        let shouldTriggerSocket = false;
+        let currentPosition = Math.floor(current);
+        let currentZone = zoneForVerticalPosition;
+        let newZoneCandidate = 0;
+
+        if (currentPosition === 0) {
+            newZoneCandidate = 0;
+        } else if (currentPosition < thresholdArr[0]) {
+            newZoneCandidate = 1;
+        } else if (currentPosition < thresholdArr[1]) {
+            newZoneCandidate = 2;
+        } else if (currentPosition < thresholdArr[2]) {
+            newZoneCandidate = 3;
+        } else if (currentPosition < thresholdArr[3]) {
+            newZoneCandidate = 4;
+        } else {
+            newZoneCandidate = 5;
+        }
+
+        if (newZoneCandidate !== currentZone) {
+            setZoneForVerticalPosition(newZoneCandidate);
+            shouldTriggerSocket = true;   
+        }
+
+        return shouldTriggerSocket;
+    }
+
+    const handleHorizontalJoystickThresholding = (current) => {
+        const thresholdArr = [0, 20, 40, 60, 80, 100];
+
+        let shouldTriggerSocket = false;
+        let currentPosition = Math.floor(current);
+        let currentZone = zoneForHorizontalPosition;
+        let newZoneCandidate = 0;
+
+        if (currentPosition === 0) {
+            newZoneCandidate = 0;
+        } else if (currentPosition < thresholdArr[0]) {
+            newZoneCandidate = 1;
+        } else if (currentPosition < thresholdArr[1]) {
+            newZoneCandidate = 2;
+        } else if (currentPosition < thresholdArr[2]) {
+            newZoneCandidate = 3;
+        } else if (currentPosition < thresholdArr[3]) {
+            newZoneCandidate = 4;
+        } else {
+            newZoneCandidate = 5;
+        }
+
+        if (newZoneCandidate !== currentZone) {
+            setZoneForHorizontalPosition(newZoneCandidate);
+            shouldTriggerSocket = true;   
+        }
+
+        return shouldTriggerSocket;
+    }
 
     const handleYJoystickMove = (evt, data) => {
-        // console.log(evt, data);
+
         if (data.direction !== undefined) {
-            // console.log(data.direction.y);
+            const currentDistance = data.distance;
             if (data.direction.y === 'up') {
-                console.log("go up!")
-                moveVehicle(true, true);
+                let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
+                setTimeout(function(){
+                    if (shouldFireSocketEvent) {
+                        moveVehicle(true, true);
+                    }
+                }, 500);
             } else {
-                console.log("go down!")
-                moveVehicle(false, true);
+                let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
+                setTimeout(function(){
+                    if (shouldFireSocketEvent) {
+                        moveVehicle(false, true);
+                    }
+                }, 500);
             }
         }
     }
 
     const handleYJoystickEnd = (evt, data) => {
-        console.log("stop!")
+        console.log("stop!");
+        setVerticalPosition(0);
         stopVehicle(false);
     }
 
     const handleXJoystickMove = (evt, data) => {
-        // console.log(evt, data);
         if (data.direction !== undefined) {
             console.log(data.direction.x);
         }
@@ -48,11 +120,11 @@ const Joystick = () => {
                         <ReactNipple
                             // supports all nipplejs options
                             // see https://github.com/yoannmoinet/nipplejs#options
-                            options={{ mode: 'static', position: { top: '50%', left: '50%' }, lockY: true}}
+                            options={{ mode: 'static', position: { top: '50%', left: '50%' }, size: 200, lockY: true}}
                             // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
                             style={{
-                                width: 150,
-                                height: 150
+                                width: 250,
+                                height: 250
                                 // if you pass position: 'relative', you don't need to import the stylesheet
                             }}
                             // all events supported by nipplejs are available as callbacks
@@ -67,11 +139,11 @@ const Joystick = () => {
                         <ReactNipple
                             // supports all nipplejs options
                             // see https://github.com/yoannmoinet/nipplejs#options
-                            options={{ mode: 'static', position: { top: '50%', left: '50%' }, lockX: true}}
+                            options={{ mode: 'static', position: { top: '50%', left: '50%' },  size: 200, lockX: true}}
                             // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
                             style={{
-                                width: 150,
-                                height: 150
+                                width: 250,
+                                height: 250
                                 // if you pass position: 'relative', you don't need to import the stylesheet
                             }}
                             // all events supported by nipplejs are available as callbacks
