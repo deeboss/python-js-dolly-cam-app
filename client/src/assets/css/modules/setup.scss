@@ -13,24 +13,25 @@
                             Colors
 ************************************
 ***********************************/
-$darkerBlue: #071e3d;
-$darkBlue: #1f4287;
-$fadedGreen: #278ea5;
+$blue-1: #071e3d;
+$blue-2: #1f4287;
+$blue-3: #031631;
 $green: #21e6c1;
+$green-2: #278ea5;
 $black: #000000;
 $white: #ffffff;
 
 $primary:  $green;
-$secondary: $fadedGreen;
-$tertiary: $darkBlue;
-$quatenary: $darkerBlue;
+$secondary: $green-2;
+$tertiary: $blue-2;
+$quatenary: $blue-1;
 
-$themeBackground: $darkerBlue;
+$themeBackground: $blue-1;
 
 /* Z-Index */
 $ceiling: 9999;
 $radius: 4px;
-
+$radius-2: 12px;
 
 /**************************************************************************************
 ***************************************************************************************

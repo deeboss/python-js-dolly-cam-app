@@ -45,7 +45,7 @@ function Home() {
                     <div className="xs-12 md-7">
                       <div className="left-spacer">
                         <div className="module__list">
-                          <h3>Operator</h3>
+                          {/* <h3>Operator</h3> */}
                           <ul>
                             <li>
                               <Link to="/dev">
@@ -82,7 +82,7 @@ function Home() {
                           </ul>
                         </div>
                         <div className="module__list">
-                          <h3>Settings</h3>
+                          {/* <h3>Settings</h3> */}
                           <ul>
                             <li><button disabled="true">
                               <div><img src={TuneParameters} /></div>

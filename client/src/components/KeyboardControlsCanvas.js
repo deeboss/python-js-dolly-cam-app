@@ -27,22 +27,49 @@ const KeyboardControlsCanvas = () => {
         <Fragment>
             <footer className="keyboard-group-container">
                 <div className="keyboard-group">
-                    <div onKeyDown={handleKeyDown} data-keystroke="r" className={`keyboard-item`}>R</div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="Escape" className={`keyboard-item`}>esc</div>
+                    <div onKeyDown={handleKeyDown} data-keystroke="r" className={`keyboard-item`}>
+                        <span className="tooltip">Return</span>
+                        R
+                    </div>
+                    <div onKeyDown={handleKeyDown} data-keystroke="Escape" className={`keyboard-item`}>
+                        <span className="tooltip">Shutdown</span>
+                        esc
+                    </div>
                 </div>
                 <div className="keyboard-group">
-                    <div onKeyDown={handleKeyDown} data-keystroke="z" className={`keyboard-item`}>Z</div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="x" className={`keyboard-item`}>X</div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="c" className={`keyboard-item`}>C</div>
+                    <div onKeyDown={handleKeyDown} data-keystroke="z" className={`keyboard-item`}>
+                        <span className="tooltip">Save #1</span>
+                        Z
+                    </div>
+                    <div onKeyDown={handleKeyDown} data-keystroke="x" className={`keyboard-item`}>
+                        <span className="tooltip">Save #2</span>
+                        X
+                    </div>
+                    <div onKeyDown={handleKeyDown} data-keystroke="c" className={`keyboard-item`}>
+                        <span className="tooltip">Save #3</span>
+                        C
+                    </div>
                 </div>
                 <div className="keyboard-group direction-keys">
                     <div>
-                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowUp" className={`keyboard-item`}>↑</div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowUp" className={`keyboard-item`}>
+                            <span className="tooltip">Move forwards</span>
+                            ↑
+                        </div>
                     </div>
                     <div>
-                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowLeft" className={`keyboard-item`}>←</div>
-                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowDown" className={`keyboard-item`}>↓</div>
-                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowRight" className={`keyboard-item`}>→</div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowLeft" className={`keyboard-item`}>
+                            <span className="tooltip">Turn left</span>
+                            ←
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowDown" className={`keyboard-item`}>
+                            <span className="tooltip">Move backwards</span>
+                            ↓
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="ArrowRight" className={`keyboard-item`}>
+                            <span className="tooltip">Turn right</span>
+                            →
+                        </div>
                     </div>
                 </div>
             </footer>

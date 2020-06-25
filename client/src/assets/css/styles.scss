@@ -2,7 +2,7 @@
 @import "components/base.scss";
 
 body {
-    background: darken($themeBackground, 8%);
+    background: $blue-3;
 }
 
 body #root {
@@ -15,12 +15,11 @@ body #root {
     width: 100%;
     height: 100%;
     position: relative;
+    margin: auto;
 
-    
-    @include xl {
-        width: 1600px;
-        margin: auto;
-        
+    @include md {
+        width: 1200px;
+
         .app-container {
             position: absolute;
             top: 50%;
@@ -30,6 +29,10 @@ body #root {
             padding-top: 50px;
             @include transform(translate(-50%, -50%));
         }
+    }
+    
+    @include xl {
+        width: 1400px;
     }
 }
 
@@ -65,14 +68,43 @@ body #root {
     @include flexJustify(center);
     font-size: smaller;
     text-align: center;
+
+    .tooltip {
+        position: absolute;
+        background: $black;
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-weight: $light;
+        color: $white;
+        padding: 2px 5px;
+        border-radius: $radius;
+        font-size: smaller;
+        top: -30px;
+        left: 50%;
+        opacity: 0;
+        @include transform(translate(-50%, 20%) scale(0.95));
+        @include transition(all 0.125s ease-in-out);
+    }
     
     transform: scale(1) translateY(0px);
     @include transition(all 0.03s ease-in-out);
+
     &.active {
-        opacity: 1;
         transform: scale(0.95) translateY(2px);
-        @include transition(all 0.08s ease-in-out);
     }
+    
+    &.active, &:hover {
+        opacity: 1;
+        @include transition(all 0.08s ease-in-out);
+
+        .tooltip {
+            opacity: 1;
+            @include transform(translate(-50%, -20%) scale(1));
+            @include transition(all 0.25s 0.15s ease-in-out);
+        }
+    }
+
+    
 
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -143,7 +175,7 @@ body #root {
             color: $white;
             background: transparent;
             border: none;
-            border-radius: $radius;
+            border-radius: $radius-2;
             cursor: pointer;
             text-decoration: none;
             width: calc(100% - 12px);
