@@ -34,7 +34,7 @@ function Home() {
                     <div className="xs-12 md-5">
                         <div className="module__device-info flex align-items-center">
                           <div>
-                            <img src={Chassis} className="img-device"/>
+                            <img alt="" src={Chassis} className="img-device"/>
                             <div className="align-center">
                               <h1>MAD-II</h1>
                               <StatusIndicator/>
@@ -50,54 +50,49 @@ function Home() {
                             <li>
                               <Link to="/dev">
                                 <button>
-                                  <div><img src={Debug} /></div>
+                                  <div><img alt="" src={Debug} /></div>
                                   Dev tools
                                 </button>
                               </Link>
                             </li>
-                            <li><button disabled="true">
-                              <div><img src={FreeMove} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={FreeMove} /></div>
                               <span>Free move</span>
                               </button></li>
-                            <li><button disabled="true">
-                              <div><img src={RouteEditor} /></div>
-                              <span>Route editor</span>
-                              </button></li>
-                            <li><button disabled="true">
-                              <div><img src={LinearMode} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={LinearMode} /></div>
                               <span>Linear mode</span>
                               </button></li>
-                            <li><button disabled="true">
-                              <div><img src={DittoMode} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={RouteEditor} /></div>
+                              <span>Route editor</span>
+                              </button></li>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={DittoMode} /></div>
                               <span>Ditto mode</span>
                               </button></li>
-                            <li><button disabled="true">
-                              <div><img src={CrewMode} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={CrewMode} /></div>
                               <span>Crew mode</span>
                               </button></li>
-                            <li><button disabled="true">
-                              <div><img src={SkillsLibrary} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={SkillsLibrary} /></div>
                               <span>Skills library</span>
                               </button></li>
-                          </ul>
-                        </div>
-                        <div className="module__list">
-                          {/* <h3>Settings</h3> */}
-                          <ul>
-                            <li><button disabled="true">
-                              <div><img src={TuneParameters} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={TuneParameters} /></div>
                               <span>Tune parameters</span>
                               </button></li>
-                            <li><button disabled="true">
-                              <div><img src={Updates} /></div>
+                            <li><button disabled={true}>
+                              <div><img alt="" src={Updates} /></div>
                               <span>Check for updates</span>
                               </button></li>
                             <li><button>
-                              <div><img src={Restart} /></div>
+                              <div><img alt="" src={Restart} /></div>
                               Restart
                               </button></li>
                             <li><button>
-                              <div><img src={PowerOff} /></div>
+                              <div><img alt="" src={PowerOff} /></div>
                               Shutdown
                               </button></li>
                           </ul>

@@ -68,23 +68,6 @@ body #root {
     @include flexJustify(center);
     font-size: smaller;
     text-align: center;
-
-    .tooltip {
-        position: absolute;
-        background: $black;
-        white-space: nowrap;
-        text-transform: uppercase;
-        font-weight: $light;
-        color: $white;
-        padding: 2px 5px;
-        border-radius: $radius;
-        font-size: smaller;
-        top: -30px;
-        left: 50%;
-        opacity: 0;
-        @include transform(translate(-50%, 20%) scale(0.95));
-        @include transition(all 0.125s ease-in-out);
-    }
     
     transform: scale(1) translateY(0px);
     @include transition(all 0.03s ease-in-out);
@@ -100,7 +83,7 @@ body #root {
         .tooltip {
             opacity: 1;
             @include transform(translate(-50%, -20%) scale(1));
-            @include transition(all 0.25s 0.15s ease-in-out);
+            @include transition(all 0.25s 0.125s ease-in-out);
         }
     }
 
@@ -115,13 +98,17 @@ body #root {
 }
 
 .keyboard-group-container {
-    @include flex;
     @include flexJustify(flex-end);
     @include flexAlign(flex-end);
     position: fixed;
     bottom: 0;
     width: 100%;
     padding: 20px;
+    display: none;
+    
+    @include md {
+        @include flex;
+    }
 }
 
 .keyboard-group {
@@ -129,7 +116,7 @@ body #root {
     margin-left: 20px;
 }
 
-.keyboard-group.direction-keys {
+.keyboard-group.keyboard-group-row {
     @include flexDirection(column);
     @include flexAlign(center);
     > div {
@@ -169,11 +156,11 @@ body #root {
         }
 
         button {
-            padding: 25px 15px;
+            padding: 30px 15px;
             display: block;
             text-align: center;
             color: $white;
-            background: transparent;
+            background: $themeBackground;
             border: none;
             border-radius: $radius-2;
             cursor: pointer;

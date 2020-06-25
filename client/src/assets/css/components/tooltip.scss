@@ -1,0 +1,18 @@
+
+    .tooltip {
+        pointer-events: none;
+        position: absolute;
+        background: $black;
+        white-space: nowrap;
+        text-transform: uppercase;
+        font-weight: $light;
+        color: $white;
+        padding: 2px 5px;
+        border-radius: $radius;
+        font-size: smaller;
+        top: -30px;
+        left: 50%;
+        opacity: 0;
+        @include transform(translate(-50%, 40%) scale(0.85));
+        @include transition(all 0.125s ease-in-out);
+    }
