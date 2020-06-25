@@ -17,8 +17,10 @@ body #root {
     height: 100%;
     position: relative;
     margin: auto;
+    padding-top: 25px;
 
     @include md {
+        padding-top: 0;
         width: 1200px;
 
         .app-container {

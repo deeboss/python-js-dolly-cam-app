@@ -16,6 +16,8 @@ const AppSettingsContextProvider = ({ children }) => {
         isReleased: true,
     });
 
+    const [ mobileOrientation , setMobileOrientation ] = useState(0);
+
     const handleKeyDown = (e) => {
         
         if (!activeKeystroke.isReleased) {
@@ -156,6 +158,10 @@ const AppSettingsContextProvider = ({ children }) => {
         {
             message: "Moving forwards",
             type: 2
+        },
+        {
+            message: "Moving backwards",
+            type: 2
         }
     ]);
 
@@ -227,6 +233,10 @@ const AppSettingsContextProvider = ({ children }) => {
         emit('control vehicle', {motorMove: shouldMove})
     }
 
+    const turnVehicle = (dir, zone) => {
+        emit('turn vehicle', {dir: dir, zone: zone});
+    }
+
     const testSocketConnection = () => {        
         emit('acknowledge', {message: "Hello from client!"});
         
@@ -238,13 +248,14 @@ const AppSettingsContextProvider = ({ children }) => {
     return (
         <AppSettingsContext.Provider value={{
             apiRoutes,
+            mobileOrientation , setMobileOrientation,
             closeServer, restartDevice, shutdownDevice, blinkLed,
             testSocketConnection,
             statusList, status, setStatus,
             activeKeystroke, setActiveKeystroke,
             handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
-            moveVehicle, stopVehicle
+            moveVehicle, stopVehicle, turnVehicle
             }}>
             {children}
         </AppSettingsContext.Provider>
