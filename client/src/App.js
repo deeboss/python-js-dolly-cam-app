@@ -1,19 +1,21 @@
 import React from 'react';
-import './assets/css/styles.scss';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 
 import AppSettingsContextProvider from './contexts/AppSettingsContext';
-import ControllerCanvas from './components/ControllerCanvas';
-import StatusBar from './components/StatusBar';
+import Home from './components/Home';
+import DevToolsCanvas from './components/DevToolsCanvas';
 
 function App() {
   return (
-    <div className="App">
-      <AppSettingsContextProvider>
-        {/* This text is from App.js */}
-        <StatusBar/>
-        <ControllerCanvas/>
-      </AppSettingsContextProvider>
-    </div>
+    <AppSettingsContextProvider>
+      <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/dev" component={DevToolsCanvas} />
+            <Redirect to="/" />
+          </Switch>
+      </BrowserRouter>
+    </AppSettingsContextProvider>
   );
 }
 

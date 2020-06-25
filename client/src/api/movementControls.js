@@ -1,3 +1,2 @@
-// import axios from 'axios';
-// import { baseURL } from './request';
-
+import axios from 'axios';
+import { baseURL } from './request';

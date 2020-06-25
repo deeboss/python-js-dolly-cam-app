@@ -97,7 +97,7 @@ $elementSpacing: 10px;
 	@for $i from 1 to 13 {
 		.sm-#{$i} {
 			display: block;
-			$percentage: $i/12 * 100;
+			$percentage: $i/12 * 100%;
 	
 			width: calc(#{$percentage}% - #{$elementSpacing});
 			// margin-right: $elementSpacing;
@@ -116,7 +116,7 @@ $elementSpacing: 10px;
 	@for $i from 1 to 13 {
 		.md-#{$i} {
 			display: block;
-			$percentage: $i/12 * 100;
+			$percentage: $i/12 * 100%;
 			width: $percentage;
 			padding: 0 $elementSpacing;
 			margin-bottom: $elementSpacing * 2;
@@ -133,7 +133,7 @@ $elementSpacing: 10px;
 	@for $i from 1 to 13 {
 		.lg-#{$i} {
 			display: block;
-			$percentage: $i/12 * 100;
+			$percentage: $i/12 * 100%;
 			width: $percentage;
 			padding: 0 $elementSpacing;
 			margin-bottom: $elementSpacing * 2;

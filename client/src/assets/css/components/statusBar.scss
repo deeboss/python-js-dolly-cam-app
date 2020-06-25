@@ -4,7 +4,42 @@ nav.status-bar {
     width: 100%;
     background: $black;
     color: $white;
-    padding: 4px;
+    padding: 8px 10px;
     z-index: $ceiling;
     text-transform: uppercase;
+
+    ul {
+        margin: 0;
+    }
+}
+
+.status-indicator {
+    @include flex;
+    @include flexAlign(center);
+
+    h4 {
+        margin: 0;
+        margin-left: 8px;
+        font-size: smaller;
+    }
+}
+
+[data-status] {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    background: transparent;
+}
+
+[data-status="0"] {
+    background: red;
+}
+
+[data-status="1"] {
+    background: yellow;
+}
+
+[data-status="2"] {
+    background: green;
 }
