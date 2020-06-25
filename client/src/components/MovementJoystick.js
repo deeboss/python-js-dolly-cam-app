@@ -11,7 +11,7 @@ const Joystick = () => {
     const [ zoneForHorizontalPosition, setZoneForHorizontalPosition ] = useState(0);
 
     const handleVerticalJoystickThresholding = (current) => {
-        const thresholdArr =  [20, 40, 60, 80];
+        const thresholdArr =  [33, 66];
 
         let shouldTriggerSocket = false;
         let currentPosition = Math.floor(current);
@@ -24,12 +24,8 @@ const Joystick = () => {
             newZoneCandidate = 1;
         } else if (currentPosition < thresholdArr[1]) {
             newZoneCandidate = 2;
-        } else if (currentPosition < thresholdArr[2]) {
-            newZoneCandidate = 3;
-        } else if (currentPosition < thresholdArr[3]) {
-            newZoneCandidate = 4;
         } else {
-            newZoneCandidate = 5;
+            newZoneCandidate = 3;
         }
 
         if (newZoneCandidate !== currentZone) {
@@ -46,27 +42,25 @@ const Joystick = () => {
             setStopVehicleHasFired(false);
             if (data.direction.y === 'up') {
                 let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
-                console.log("starting");
-                setTimeout(function(){
+                // setTimeout(function(){
                     if (shouldFireSocketEvent && !stopVehicleHasFired) {
                         moveVehicle(true, true);
                     }
-                }, 500);
+                // }, 500);
             } else {
                 let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
-                console.log("starting");
-                setTimeout(function(){
+                // setTimeout(function(){
                     if (shouldFireSocketEvent && !stopVehicleHasFired) {
                         moveVehicle(false, true);
                     }
-                }, 500);
+                // }, 500);
             }
         }
     }
 
     const handleYJoystickEnd = (evt, data) => {
         setStopVehicleHasFired(true);
-        stopVehicle(false);
+        // stopVehicle(false);
     }
 
     const handleHorizontalJoystickThresholding = (current) => {
@@ -131,9 +125,9 @@ const Joystick = () => {
     }
 
     useEffect(() => {
-        stopVehicle(false);
+        console.log("Component Mounted");
         return() => {
-
+            stopVehicle(false);
         }
     }, [stopVehicleHasFired]);
 
