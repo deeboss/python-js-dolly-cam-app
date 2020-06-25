@@ -1,39 +1,24 @@
 from . import app_views
-from flask import Flask, jsonify, json, render_template, request
+from flask import session, Flask, jsonify, json, render_template, request
+from flask_socketio import emit, join_room, leave_room
 from ..models import Servo
+import os
+import sys
+import time
 import RPi.GPIO as GPIO
+from ... import socketio
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
-GPIO.setup(12,GPIO.OUT)
+servo = Servo()
 
-# Default values input
-servo=Servo(333,1500,1000,2000)
+def socketCallback(methods=['GET', 'POST']):
+    print('message was received')
 
-@app_views.route('/updateServoParameters')
-def updateServoParameters():
-    frequency = request.args.get('frequency', 0, type=int)
-    minimum = request.args.get('minimum', 0, type=int)
-    neutral = request.args.get('neutral', 0, type=int)
-    maximum = request.args.get('maximum', 0, type=int)
-    servo.updateValues(frequency,minimum,neutral,maximum)
-
-    return jsonify("OK")
-
-@app_views.route('/runServoMinimum')
-def runServoMinimum():
-    servo.goMinimum()
-
-    return jsonify("OK")
-
-@app_views.route('/runServoMaximum')
-def runServoMaximum():
-    servo.goMaximum()
-
-    return jsonify("OK")
-
-@app_views.route('/runServoNeutral')
-def runServoNeutral():
-    servo.goNeutral()
-
-    return jsonify("OK")
+@socketio.on('turn vehicle')
+def servoMove(json, methods=['GET','POST']):
+    # set turning to start or stop
+    '''
+    dir = -1, or 1
+    zone = int
+    '''
+    servo.moveServo(json['dir'], json['zone'])
+    emit('my response', json, callback=socketCallback)
