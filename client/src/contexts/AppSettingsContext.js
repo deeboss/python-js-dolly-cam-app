@@ -17,12 +17,18 @@ const AppSettingsContextProvider = ({ children }) => {
     });
 
     const handleKeyDown = (e) => {
+        
+        if (!activeKeystroke.isReleased) {
+            return
+        }
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
+                moveVehicle(true, true);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
+                moveVehicle(false, true);
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
@@ -72,9 +78,11 @@ const AppSettingsContextProvider = ({ children }) => {
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: true});
+                stopVehicle(false);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: true});
+                stopVehicle(false);
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: true});
@@ -202,14 +210,22 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     socket.on('connect', function(){
-        console.log("server connection detected");
+        console.log("socket server has been connected");
         setHasSocketConnection(true);
     });
 
     socket.on('disconnect', function(){
-        console.log("server disconnection detected");
+        console.log("socket server has been connected");
         setHasSocketConnection(false);
     });
+
+    const moveVehicle = (forwardsDir, shouldMove) => {
+        emit('control vehicle', {shouldMoveForwards: forwardsDir, motorMove: shouldMove})
+    }
+
+    const stopVehicle = (shouldMove) => {
+        emit('control vehicle', {motorMove: shouldMove})
+    }
 
     const testSocketConnection = () => {        
         emit('acknowledge', {message: "Hello from client!"});
@@ -220,7 +236,16 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     return (
-        <AppSettingsContext.Provider value={{ apiRoutes, blinkLed, testSocketConnection, statusList, status, setStatus, activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp, hasSocketConnection, setHasSocketConnection, checkSocketConnection }}>
+        <AppSettingsContext.Provider value={{
+            apiRoutes,
+            closeServer, restartDevice, shutdownDevice, blinkLed,
+            testSocketConnection,
+            statusList, status, setStatus,
+            activeKeystroke, setActiveKeystroke,
+            handleKeyDown, handleKeyUp,
+            hasSocketConnection, setHasSocketConnection, checkSocketConnection,
+            moveVehicle, stopVehicle
+            }}>
             {children}
         </AppSettingsContext.Provider>
     )
