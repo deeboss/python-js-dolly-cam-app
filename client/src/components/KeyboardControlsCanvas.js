@@ -19,6 +19,10 @@ const KeyboardControlsCanvas = () => {
         document.addEventListener("keydown", handleKeyDown);
         document.addEventListener("keyup", handleKeyUp);
         highlightActiveKey(activeKeystroke.key);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('keyup', handleKeyUp);
+        };
     }, [activeKeystroke.key, activeKeystroke.isReleased])
 
       
