@@ -40,21 +40,37 @@ const KeyboardControlsCanvas = () => {
                         esc
                     </div>
                 </div>
-                <div className="keyboard-group">
-                    <div onKeyDown={handleKeyDown} data-keystroke="z" className={`keyboard-item`}>
-                        <span className="tooltip">Save #1</span>
-                        Z
+                <div className="keyboard-group keyboard-group-row">
+                    <div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="a" className={`keyboard-item`}>
+                            <span className="tooltip">Go from 1 → 2</span>
+                            A
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="s" className={`keyboard-item`}>
+                            <span className="tooltip">Go from 2 → 3</span>
+                            S
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="d" className={`keyboard-item`}>
+                            <span className="tooltip">Go from 3 → 1</span>
+                            D
+                        </div>
                     </div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="x" className={`keyboard-item`}>
-                        <span className="tooltip">Save #2</span>
-                        X
-                    </div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="c" className={`keyboard-item`}>
-                        <span className="tooltip">Save #3</span>
-                        C
+                    <div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="z" className={`keyboard-item`}>
+                            <span className="tooltip">Save #1</span>
+                            Z
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="x" className={`keyboard-item`}>
+                            <span className="tooltip">Save #2</span>
+                            X
+                        </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="c" className={`keyboard-item`}>
+                            <span className="tooltip">Save #3</span>
+                            C
+                        </div>
                     </div>
                 </div>
-                <div className="keyboard-group direction-keys">
+                <div className="keyboard-group keyboard-group-row">
                     <div>
                         <div onKeyDown={handleKeyDown} data-keystroke="ArrowUp" className={`keyboard-item`}>
                             <span className="tooltip">Move forwards</span>

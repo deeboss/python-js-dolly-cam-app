@@ -35,6 +35,18 @@ const AppSettingsContextProvider = ({ children }) => {
                 setActiveKeystroke({ key: 'Escape', isReleased: false});
                 break;
 
+            case "a":
+                setActiveKeystroke({ key: 'a', isReleased: false});
+                break;
+
+            case "s":
+                setActiveKeystroke({ key: 's', isReleased: false});
+                break;
+
+            case "d":
+                setActiveKeystroke({ key: 'd', isReleased: false});
+                break;
+
             case "z":
                 setActiveKeystroke({ key: 'z', isReleased: false});
                 break;
@@ -75,6 +87,18 @@ const AppSettingsContextProvider = ({ children }) => {
                 setActiveKeystroke({ key: 'Escape', isReleased: true});
                 break;
 
+            case "a":
+                setActiveKeystroke({ key: 'a', isReleased: true});
+                break;
+
+            case "s":
+                setActiveKeystroke({ key: 's', isReleased: true});
+                break;
+
+            case "d":
+                setActiveKeystroke({ key: 'd', isReleased: true});
+                break;
+
             case "z":
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
@@ -103,11 +127,11 @@ const AppSettingsContextProvider = ({ children }) => {
         },
         {
             message: "Connected",
-            type: 1
+            type: 2
         },
         {
             message: "Idle, waiting for commands",
-            type: 1
+            type: 2
         },
         {
             message: "Moving forwards",
