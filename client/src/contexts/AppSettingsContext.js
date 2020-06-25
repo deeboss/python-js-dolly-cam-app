@@ -34,9 +34,11 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
+                turnVehicle(-1, 5);
                 break;
             case "ArrowRight":
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: false});
+                turnVehicle(1, 5);
                 break;
 
             case "Escape":
@@ -88,9 +90,11 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: true});
+                turnVehicle(-1, 0);
                 break;
             case "ArrowRight":
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: true});
+                turnVehicle(-1, 0);
                 break;
 
             case "Escape":
