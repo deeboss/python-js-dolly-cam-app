@@ -34,40 +34,16 @@ def motorMove(json, methods=['GET','POST']):
     # set movement start or stop
     if json['motorMove'] == True:
         # set direction forwards or backwards
+        print("Moving vehicle...")
         GPIO.output(11,json['shouldMoveForwards']) # 'shouldMoveForwards' will return True or False
         motor.motorMove = True
         motor.Move()
         emit('my response', json, callback=socketCallback)
     else:
+        print("Stopping motor")
         motor.motorMove = False
         json['current_position'] = motor.stepsTaken
         emit('vehicle position data', json, callback=socketCallback)
-
-# @app_views.route('/forwardStart')
-# def forwardStart():
-#     GPIO.output(11,True) # set direction
-#     motor.motorMove = True
-#     motor.Move()
-#     return jsonify("OK")
-
-# @app_views.route('/forwardStop')
-# def forwardStop():
-#     motor.motorMove = False
-#     data = {'current_position': motor.stepsTaken}
-#     return jsonify(data)
-
-# @app_views.route('/backwardStart')
-# def backwardStart():
-#     GPIO.output(11,False)
-#     motor.motorMove = True
-#     motor.Move()
-#     return jsonify("OK")
-
-# @app_views.route('/backwardStop')
-# def backwardStop():
-#     motor.motorMove = False
-#     data = {'current_position': motor.stepsTaken}
-#     return jsonify(data)
 
 @app_views.route('/rewind')
 def rewind():
