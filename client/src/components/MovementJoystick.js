@@ -6,8 +6,7 @@ import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 const Joystick = () => {
     const { moveVehicle, stopVehicle, turnVehicle }  = useContext(AppSettingsContext);
-    const [ verticalPosition, setVerticalPosition ] = useState(0);
-    const [ horizontalPosition, setHorizontalPosition ] = useState(0);
+    const [ stopVehicleHasFired, setStopVehicleHasFired ] = useState(false);
     const [ zoneForVerticalPosition, setZoneForVerticalPosition ] = useState(0);
     const [ zoneForHorizontalPosition, setZoneForHorizontalPosition ] = useState(0);
 
@@ -42,20 +41,22 @@ const Joystick = () => {
     }
 
     const handleYJoystickMove = (evt, data) => {
-
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
+            setStopVehicleHasFired(false);
             if (data.direction.y === 'up') {
                 let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
+                console.log("starting");
                 setTimeout(function(){
-                    if (shouldFireSocketEvent) {
+                    if (shouldFireSocketEvent && !stopVehicleHasFired) {
                         moveVehicle(true, true);
                     }
                 }, 500);
             } else {
                 let shouldFireSocketEvent = handleVerticalJoystickThresholding(currentDistance);
+                console.log("starting");
                 setTimeout(function(){
-                    if (shouldFireSocketEvent) {
+                    if (shouldFireSocketEvent && !stopVehicleHasFired) {
                         moveVehicle(false, true);
                     }
                 }, 500);
@@ -64,7 +65,7 @@ const Joystick = () => {
     }
 
     const handleYJoystickEnd = (evt, data) => {
-        setVerticalPosition(0);
+        setStopVehicleHasFired(true);
         stopVehicle(false);
     }
 
@@ -77,49 +78,47 @@ const Joystick = () => {
         let newZoneCandidate = 0;
 
         if (currentPosition === 0) {
-            console.log("We're at zone: 0");
             newZoneCandidate = 0;
         } else if (currentPosition < thresholdArr[0]) {
-            console.log("We're at zone: 1");
             newZoneCandidate = 1;
         } else if (currentPosition < thresholdArr[1]) {
-            console.log("We're at zone: 2");
             newZoneCandidate = 2;
         } else if (currentPosition < thresholdArr[2]) {
-            console.log("We're at zone: 3");
             newZoneCandidate = 3;
         } else if (currentPosition < thresholdArr[3]) {
-            console.log("We're at zone: 4");
             newZoneCandidate = 4;
         } else {
-            console.log("We're at zone: 5");
             newZoneCandidate = 5;
         }
 
         if (newZoneCandidate !== currentZone) {
-            console.log("Updating current zone to: " + newZoneCandidate);
             setZoneForHorizontalPosition(newZoneCandidate);
-            shouldTriggerSocket = true;   
+            shouldTriggerSocket = true;
+            return [shouldTriggerSocket, newZoneCandidate];
         }
 
-        return shouldTriggerSocket;
+        return [shouldTriggerSocket, 0];
     }
 
     const handleXJoystickMove = (evt, data) => {
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
             if (data.direction.x === 'left') {
-                let shouldFireSocketEvent = handleHorizontalJoystickThresholding(currentDistance);
+                const results = handleHorizontalJoystickThresholding(currentDistance);
+                const shouldFireSocketEvent = results[0];
+                const targetZone = results[1];
                 setTimeout(function(){
                     if (shouldFireSocketEvent) {
-                        turnVehicle(-1, (zoneForHorizontalPosition + 1));
+                        turnVehicle(-1, targetZone);
                     }
                 }, 500);
             } else {
-                let shouldFireSocketEvent = handleHorizontalJoystickThresholding(currentDistance);
+                const results = handleHorizontalJoystickThresholding(currentDistance);
+                const shouldFireSocketEvent = results[0];
+                const targetZone = results[1];
                 setTimeout(function(){
                     if (shouldFireSocketEvent) {
-                        turnVehicle(1, (zoneForHorizontalPosition + 1));
+                        turnVehicle(1, targetZone);
                     }
                 }, 500);
             }
@@ -132,10 +131,11 @@ const Joystick = () => {
     }
 
     useEffect(() => {
+        stopVehicle(false);
         return() => {
 
         }
-    }, [zoneForHorizontalPosition]);
+    }, [stopVehicleHasFired]);
 
     return (
         <Fragment>
