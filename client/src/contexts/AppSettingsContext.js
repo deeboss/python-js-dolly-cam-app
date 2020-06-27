@@ -27,11 +27,11 @@ const AppSettingsContextProvider = ({ children }) => {
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
-                moveVehicle(true, true);
+                moveVehicle(-1, true);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
-                moveVehicle(false, true);
+                moveVehicle(1, true);
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
