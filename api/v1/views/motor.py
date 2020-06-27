@@ -1,6 +1,7 @@
 from . import app_views
 from flask import session, Flask, jsonify, json, render_template, request
 from flask_socketio import emit, join_room, leave_room
+from flask_cors import CORS, cross_origin
 from ..models import Motor, easeFunctions
 import os
 import sys
@@ -26,7 +27,7 @@ motor = Motor()
 easeFunctions = easeFunctions()        
 
 #################### MANUAL MOVEMENT #######################
-def socketCallback(methods=['GET', 'POST']):
+def vehicleDataCallback(methods=['GET', 'POST']):
     print('message was received')
 
 @socketio.on('control vehicle')
@@ -45,12 +46,12 @@ def motorMove(json, methods=['GET','POST']):
 
         motor.shouldMove = True
         motor.Move()
-        emit('my response', json, callback=socketCallback)
+        emit('my response', json, callback=vehicleDataCallback)
     else:
-        print("Stopping motor")
         motor.shouldMove = False
-        json['current_position'] = motor.stepsTaken
-        emit('vehicle position data', json, callback=socketCallback)
+        print("Stopping motor. Steps Taken = {}".format(motor.stepsTaken))
+        json['steps_taken'] = motor.stepsTaken
+        emit('vehicle position data', json, callback=vehicleDataCallback)
 
 @app_views.route('/rewind')
 def rewind():
@@ -76,6 +77,17 @@ def continuousStop():
     return jsonify("OK")
 
 ##################### SAVE WAYPOINTS ########################
+@app_views.route('/saveWaypoint/<body>', methods = ['POST'])
+@cross_origin()
+def saveWaypoint(body):
+    data = request.json
+    motor.waypoints[data["id"]] = data
+    print("\n\nWaypoint {} saved!\n============".format(data["id"]))
+    print(motor.waypoints)
+    print("============\n\n")
+    return jsonify(data)
+
+
 @app_views.route('/saveWaypointOne')
 def saveWaypointOne():
     motor.waypointOneSteps=motor.stepsTaken
