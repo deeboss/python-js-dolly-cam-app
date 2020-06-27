@@ -8,150 +8,13 @@ export const AppSettingsContext = createContext();
 
 
 const AppSettingsContextProvider = ({ children }) => {
-    const [apiRoutes, setApiRoutes] = useState({
-        development: 'http://127.0.0.1:5000',
-        production: 'http://0.0.0.0:5000',
-    });
 
     const [activeKeystroke, setActiveKeystroke] = useState({
         key: null,
         isReleased: true,
     });
 
-    const [ moveVehicleCommandIssued, setMoveVehicleCommandIssued ] = useState(false);
-
-    useEffect(() => {
-        if (moveVehicleCommandIssued === false) {
-            socket.on('vehicle position data', function(data){
-                setVehicleStepsTaken(data.steps_taken);
-            })
-        }
-
-        return () => {
-        }
-    }, [moveVehicleCommandIssued])
-
     const [ mobileOrientation , setMobileOrientation ] = useState(0);
-
-    const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
-
-    const handleKeyDown = (e) => {
-        if (!activeKeystroke.isReleased) {
-            return
-        }
-        switch(e.key) {
-            case "ArrowUp":
-                setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
-                moveVehicle(-1, true);
-                break;
-            case "ArrowDown":
-                setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
-                moveVehicle(1, true);
-                break;
-            case "ArrowLeft":
-                setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
-                turnVehicle(-1, 5);
-                break;
-            case "ArrowRight":
-                setActiveKeystroke({ key: 'ArrowRight', isReleased: false});
-                turnVehicle(1, 5);
-                break;
-
-            case "Escape":
-                setActiveKeystroke({ key: 'Escape', isReleased: false});
-                break;
-
-            case "a":
-                setActiveKeystroke({ key: 'a', isReleased: false});
-                break;
-
-            case "s":
-                setActiveKeystroke({ key: 's', isReleased: false});
-                break;
-
-            case "d":
-                setActiveKeystroke({ key: 'd', isReleased: false});
-                break;
-
-            case "z":
-                setActiveKeystroke({ key: 'z', isReleased: false});
-                break;
-
-            case "x":
-                setActiveKeystroke({ key: 'x', isReleased: false});
-                break;
-
-            case "c":
-                setActiveKeystroke({ key: 'c', isReleased: false});
-                break;
-
-            case "r":
-                setActiveKeystroke({ key: 'r', isReleased: false});
-                break;
-                
-            default:
-                break;
-        }
-    }
-
-    const handleKeyUp = (e) => {
-        switch(e.key) {
-            case "ArrowUp":
-                setActiveKeystroke({ key: 'ArrowUp', isReleased: true});
-                moveVehicle(0, false);
-                break;
-            case "ArrowDown":
-                setActiveKeystroke({ key: 'ArrowDown', isReleased: true});
-                moveVehicle(0, false);
-                break;
-            case "ArrowLeft":
-                setActiveKeystroke({ key: 'ArrowLeft', isReleased: true});
-                turnVehicle(-1, 0);
-                break;
-            case "ArrowRight":
-                setActiveKeystroke({ key: 'ArrowRight', isReleased: true});
-                turnVehicle(-1, 0);
-                break;
-
-            case "Escape":
-                setActiveKeystroke({ key: 'Escape', isReleased: true});
-                break;
-
-            case "a":
-                setActiveKeystroke({ key: 'a', isReleased: true});
-                break;
-
-            case "s":
-                setActiveKeystroke({ key: 's', isReleased: true});
-                break;
-
-            case "d":
-                setActiveKeystroke({ key: 'd', isReleased: true});
-                break;
-
-            case "z":
-                saveWaypoint({"id": "1", "name": "Waypoint One", "info": {"steps_taken": vehicleStepsTaken}});
-                setActiveKeystroke({ key: 'z', isReleased: true});
-                break;
-
-            case "x":
-                saveWaypoint({"id": "2", "name": "Waypoint Two", "info": {"steps_taken": vehicleStepsTaken}});
-                setActiveKeystroke({ key: 'x', isReleased: true});
-                break;
-
-            case "c":
-                saveWaypoint({"id": "3", "name": "Waypoint Three", "info": {"steps_taken": vehicleStepsTaken}});
-                setActiveKeystroke({ key: 'c', isReleased: true});
-                break;
-
-            case "r":
-                setActiveKeystroke({ key: 'r', isReleased: true});
-                break;
-                
-            default:
-                break;
-        }
-    }
 
     const [ hasSocketConnection, setHasSocketConnection ] = useState(false);
 
@@ -164,10 +27,8 @@ const AppSettingsContextProvider = ({ children }) => {
             setStatus(statusList[2]);
 
         } else {
-            setTimeout(function(){
-                setHasSocketConnection(socket.connected);
-                setStatus(statusList[0]);
-            }, 500);
+            setHasSocketConnection(socket.connected);
+            setStatus(statusList[0]);
         }
     }
 
@@ -253,11 +114,6 @@ const AppSettingsContextProvider = ({ children }) => {
         console.log(result);
     }
 
-    const saveWaypoint = (data) => {
-        const result = saveWaypointAPI(data);
-        console.log(result);
-    }
-
     socket.on('connect', function(){
         // console.log("socket server has been connected");
         setHasSocketConnection(true);
@@ -273,14 +129,6 @@ const AppSettingsContextProvider = ({ children }) => {
         setHasSocketConnection(false);
     });
 
-    const moveVehicle = (dir, shouldMove) => {
-        emit('control vehicle', {dir: dir, shouldMove: shouldMove})
-    }
-
-    const turnVehicle = (dir, zone) => {
-        emit('turn vehicle', {dir: dir, zone: zone});
-    }
-
     const testSocketConnection = () => {        
         emit('acknowledge', {message: "Hello from client!"});
         
@@ -291,18 +139,12 @@ const AppSettingsContextProvider = ({ children }) => {
 
     return (
         <AppSettingsContext.Provider value={{
-            apiRoutes,
             mobileOrientation , setMobileOrientation,
             closeServer, restartDevice, shutdownDevice, blinkLed,
             testSocketConnection,
             statusList, status, setStatus,
             activeKeystroke, setActiveKeystroke,
-            handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
-            moveVehicleCommandIssued, setMoveVehicleCommandIssued,
-            moveVehicle, turnVehicle,
-            saveWaypoint,
-            vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}
         </AppSettingsContext.Provider>

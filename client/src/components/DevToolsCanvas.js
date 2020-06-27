@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useContext } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 import Joystick from './Joystick';
 import DeviceControls from './DeviceControls';
 import StatusBar from './Status/StatusBar';

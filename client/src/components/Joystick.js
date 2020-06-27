@@ -3,10 +3,10 @@ import ReactNipple from 'react-nipple';
 import 'react-nipple/lib/styles.css';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 
 const Joystick = () => {
-    const { moveVehicle, turnVehicle }  = useContext(AppSettingsContext);
-    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued } = useContext(AppSettingsContext);
+    const { moveVehicle, turnVehicle, moveVehicleCommandIssued, setMoveVehicleCommandIssued }  = useContext(VehicleContext);
     const [ currentVerticalZone, setCurrentVerticalZone ] = useState(0);
     const [ currentHorizontalZone, setCurrentHorizontalZone ] = useState(0);
 

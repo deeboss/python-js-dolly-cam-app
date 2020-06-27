@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import '../../assets/css/styles.scss';
 import { AppSettingsContext } from '../../contexts/AppSettingsContext';
+import { VehicleContext } from '../../contexts/VehicleContext';
 
 const WaypointsChart = () => {
     const { status }  = useContext(AppSettingsContext);
