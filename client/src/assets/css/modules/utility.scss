@@ -145,3 +145,9 @@ $elementSpacing: 10px;
 		@include transitionDelay($i * 0.2s);
 	}
 }
+
+@for $i from 1 to 10 {
+	[data-animation-delay="#{$i}"] {
+		@include animationDelay($i * 0.05s);
+	}
+}
