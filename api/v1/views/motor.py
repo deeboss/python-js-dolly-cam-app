@@ -35,13 +35,10 @@ def motorMove(json, methods=['GET','POST']):
     # set movement start or stop
     if json['shouldMove'] == True:
         # set direction forwards or backwards
-        print(str(json))
         print("Moving vehicle...")
         if json['dir'] == -1:
-            print("Forwards")
             GPIO.output(11,True) # Goes forwards
         else:
-            print("Backwards")
             GPIO.output(11,False) # Goes backwards
 
         motor.shouldMove = True
@@ -77,15 +74,15 @@ def continuousStop():
     return jsonify("OK")
 
 ##################### SAVE WAYPOINTS ########################
-@app_views.route('/saveWaypoint/<body>', methods = ['POST'])
+@app_views.route('/saveWaypoint/<id>', methods = ['POST'])
 @cross_origin()
-def saveWaypoint(body):
+def saveWaypoint(id):
     data = request.json
     motor.waypoints[data["id"]] = data
     print("\n\nWaypoint {} saved!\n============".format(data["id"]))
     print(motor.waypoints)
     print("============\n\n")
-    return jsonify(data)
+    return jsonify(motor.waypoints)
 
 
 @app_views.route('/saveWaypointOne')
@@ -111,6 +108,24 @@ def saveWaypointThree():
 
 
 ###################### RUN WAYPOINTS #########################
+@app_views.route('/goToWaypoint/<id>', methods = ['POST'])
+@cross_origin()
+def goToWaypoint(id):
+    data = request.json
+    selected_waypoint = motor.waypoints[id]
+    target_steps = selected_waypoint['position']['steps_taken']
+    print("\n\Going to waypoint {}\n============".format(selected_waypoint['id']))
+    print(selected_waypoint)
+    print(target_steps)
+    print("============\n\n")
+
+    try:
+        motor.gotoWaypoint(target_steps)
+        return jsonify('Going to Waypoint One')
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
     print("Going to Waypoint One")
