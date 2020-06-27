@@ -100,8 +100,8 @@ body #root {
             user-select: none;
 }
 
-.keyboard-group-container {
-    @include flexJustify(flex-end);
+.floating-controller {
+    @include flexJustify(space-between);
     @include flexAlign(flex-end);
     position: fixed;
     bottom: 0;
@@ -112,6 +112,11 @@ body #root {
     @include md {
         @include flex;
     }
+}
+
+.keyboard-group-container {
+    @include flex;
+    @include flexAlign(flex-end);
 }
 
 .keyboard-group {

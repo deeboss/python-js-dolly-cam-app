@@ -81,7 +81,6 @@ $elementSpacing: 10px;
 @for $i from 1 to 13 {
 	.xs-#{$i} {
 		display: block;
-		width: 100%;
 		$percentage: $i/12 * 100%;
 		width: $percentage;
 		padding: 0 $elementSpacing;
@@ -99,7 +98,7 @@ $elementSpacing: 10px;
 			display: block;
 			$percentage: $i/12 * 100%;
 	
-			width: calc(#{$percentage}% - #{$elementSpacing});
+			width: $percentage;
 			// margin-right: $elementSpacing;
 			margin-bottom: $elementSpacing * 2 * 2;
 		}

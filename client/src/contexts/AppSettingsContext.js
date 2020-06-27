@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../actions/deviceControls';
-import { saveWaypoint as saveWaypointAPI } from '../actions/movementControls';
-import { socket, emitSocketEvent as emit } from '../actions/socketEvents';
+import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../actions/deviceActions';
+import { saveWaypoint as saveWaypointAPI } from '../actions/movementActions';
+import { socket, emitSocketEvent as emit } from '../actions/socketActions';
 
 export const AppSettingsContext = createContext();
 
@@ -156,12 +156,18 @@ const AppSettingsContextProvider = ({ children }) => {
     const [ hasSocketConnection, setHasSocketConnection ] = useState(false);
 
     const checkSocketConnection = () => {
+        setHasSocketConnection(socket.connected);
+        setStatus(statusList[1]);
+
         if (socket.connected) {
             setHasSocketConnection(socket.connected);
-            setStatus(statusList[1])
+            setStatus(statusList[2]);
+
         } else {
-            setHasSocketConnection(socket.connected);
-            setStatus(statusList[0])
+            setTimeout(function(){
+                setHasSocketConnection(socket.connected);
+                setStatus(statusList[0]);
+            }, 500);
         }
     }
 
@@ -169,6 +175,10 @@ const AppSettingsContextProvider = ({ children }) => {
         {
             message: "Disconnected",
             type: 0
+        },
+        {
+            message: "Attempting Connection...",
+            type: 1
         },
         {
             message: "Connected",
@@ -249,12 +259,17 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     socket.on('connect', function(){
-        console.log("socket server has been connected");
+        // console.log("socket server has been connected");
         setHasSocketConnection(true);
+        // emit('retrieve session info', {message: "We've connected!"});
+
+        // socket.on('session information', function(data) {
+        //     console.log(data);
+        // })
     });
 
     socket.on('disconnect', function(){
-        console.log("socket server has been connected");
+        // console.log("socket server has been disconnected");
         setHasSocketConnection(false);
     });
 
