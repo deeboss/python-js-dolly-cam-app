@@ -97,13 +97,11 @@ const Joystick = () => {
     }
     
     const handleYJoystickEnd = (evt, data) => {
-        console.log("joystick END event");
         setCurrentVerticalZone(0);
         moveVehicle(0, false);
     }
 
     const handleXJoystickEnd = (evt, data) => {
-        // setStopTurningHasFired(true);
         setCurrentHorizontalZone(0);
         turnVehicle(-1, 0);
     }

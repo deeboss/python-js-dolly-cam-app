@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 
 import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../api/deviceControls';
+import { saveWaypoint as saveWaypointAPI } from '../api/movementControls';
 import { socket, emitSocketEvent as emit } from '../api/socketEvents';
 
 export const AppSettingsContext = createContext();
@@ -18,6 +19,8 @@ const AppSettingsContextProvider = ({ children }) => {
     });
 
     const [ mobileOrientation , setMobileOrientation ] = useState(0);
+
+    const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
 
     const handleKeyDown = (e) => {
         
@@ -220,6 +223,17 @@ const AppSettingsContextProvider = ({ children }) => {
         fetchData();
     }
 
+    const saveWaypoint = (data) => {
+        return saveWaypointAPI(data)
+            .then(res => {
+                // setPhoneVerifyDetails({
+                //     ...phoneVerifyDetails,
+                //     phone: data.phone,
+                //     token: res.token
+                // })
+            })
+    }
+
     socket.on('connect', function(){
         console.log("socket server has been connected");
         setHasSocketConnection(true);
@@ -229,6 +243,10 @@ const AppSettingsContextProvider = ({ children }) => {
         console.log("socket server has been connected");
         setHasSocketConnection(false);
     });
+
+    socket.on('vehicle position data', function(data){
+        setVehicleStepsTaken(data.steps_taken);
+    })
 
     const moveVehicle = (dir, shouldMove) => {
         emit('control vehicle', {dir: dir, shouldMove: shouldMove})
@@ -256,7 +274,9 @@ const AppSettingsContextProvider = ({ children }) => {
             activeKeystroke, setActiveKeystroke,
             handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
-            moveVehicle, turnVehicle
+            moveVehicle, turnVehicle,
+            saveWaypoint,
+            vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}
         </AppSettingsContext.Provider>
