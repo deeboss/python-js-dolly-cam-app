@@ -1,7 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../api/deviceControls';
-import { socket, emitSocketEvent as emit } from '../api/socketEvents';
+import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../actions/deviceControls';
+import { saveWaypoint as saveWaypointAPI } from '../actions/movementControls';
+import { socket, emitSocketEvent as emit } from '../actions/socketEvents';
 
 export const AppSettingsContext = createContext();
 
@@ -17,21 +18,35 @@ const AppSettingsContextProvider = ({ children }) => {
         isReleased: true,
     });
 
+    const [ moveVehicleCommandIssued, setMoveVehicleCommandIssued ] = useState(false);
+
+    useEffect(() => {
+        if (moveVehicleCommandIssued === false) {
+            socket.on('vehicle position data', function(data){
+                setVehicleStepsTaken(data.steps_taken);
+            })
+        }
+
+        return () => {
+        }
+    }, [moveVehicleCommandIssued])
+
     const [ mobileOrientation , setMobileOrientation ] = useState(0);
 
+    const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
+
     const handleKeyDown = (e) => {
-        
         if (!activeKeystroke.isReleased) {
             return
         }
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
-                moveVehicle(true, true);
+                moveVehicle(-1, true);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
-                moveVehicle(false, true);
+                moveVehicle(1, true);
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: false});
@@ -115,14 +130,17 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
 
             case "z":
+                saveWaypoint({"id": "1", "name": "Waypoint One", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
+                saveWaypoint({"id": "2", "name": "Waypoint Two", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
+                saveWaypoint({"id": "3", "name": "Waypoint Three", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
@@ -208,16 +226,26 @@ const AppSettingsContextProvider = ({ children }) => {
         fetchData();
     }
 
+    // const blinkLed = () => {
+    //     async function fetchData() {
+    //         try {
+    //             const result = await makeDeviceBlinkAPI();
+    //             console.log(result);
+    //         } catch(error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     fetchData();
+    // }
+
     const blinkLed = () => {
-        async function fetchData() {
-            try {
-                const result = await makeDeviceBlinkAPI();
-                console.log(result);
-            } catch(error) {
-                console.log(error);
-            }
-        }
-        fetchData();
+        const result = makeDeviceBlinkAPI();
+        console.log(result);
+    }
+
+    const saveWaypoint = (data) => {
+        const result = saveWaypointAPI(data);
+        console.log(result);
     }
 
     socket.on('connect', function(){
@@ -256,7 +284,10 @@ const AppSettingsContextProvider = ({ children }) => {
             activeKeystroke, setActiveKeystroke,
             handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
-            moveVehicle, turnVehicle
+            moveVehicleCommandIssued, setMoveVehicleCommandIssued,
+            moveVehicle, turnVehicle,
+            saveWaypoint,
+            vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}
         </AppSettingsContext.Provider>

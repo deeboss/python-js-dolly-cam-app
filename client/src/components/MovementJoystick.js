@@ -6,8 +6,7 @@ import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 const Joystick = () => {
     const { moveVehicle, turnVehicle }  = useContext(AppSettingsContext);
-    const [ stopVehicleHasFired, setStopVehicleHasFired ] = useState(false);
-    // const [ stopTurningHasFired, setStopTurningHasFired ] = useState(false);
+    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued } = useContext(AppSettingsContext);
     const [ currentVerticalZone, setCurrentVerticalZone ] = useState(0);
     const [ currentHorizontalZone, setCurrentHorizontalZone ] = useState(0);
 
@@ -59,19 +58,19 @@ const Joystick = () => {
     const handleYJoystickMove = (evt, data) => {
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
-            setStopVehicleHasFired(false);
+            setMoveVehicleCommandIssued(true);
             if (data.direction.y === 'up') {
                 const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
-                if (shouldFireSocketEvent && !stopVehicleHasFired) {
+                if (shouldFireSocketEvent) {
                     moveVehicle(-1, true);
                 }
             } else {
                 const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
-                if (shouldFireSocketEvent && !stopVehicleHasFired) {
+                if (shouldFireSocketEvent) {
                     moveVehicle(1, true);
                 }
             }
@@ -100,28 +99,16 @@ const Joystick = () => {
     }
     
     const handleYJoystickEnd = (evt, data) => {
-        setStopVehicleHasFired(true);
+        setCurrentVerticalZone(0);
+        moveVehicle(0, false);
+        setMoveVehicleCommandIssued(false);
     }
 
     const handleXJoystickEnd = (evt, data) => {
-        // setStopTurningHasFired(true);
         setCurrentHorizontalZone(0);
         turnVehicle(-1, 0);
+        setMoveVehicleCommandIssued(false);
     }
-
-    useEffect(() => {
-        setCurrentVerticalZone(0);
-        return() => {
-            moveVehicle(0, false);
-        }
-    }, [stopVehicleHasFired]);
-
-    // useEffect(() => {
-    //     setCurrentHorizontalZone(0);
-    //     return() => {
-    //         turnVehicle(-1, 0);
-    //     }
-    // }, [stopTurningHasFired]);
 
     return (
         <Fragment>
