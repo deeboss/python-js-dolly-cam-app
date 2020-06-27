@@ -25,7 +25,7 @@
                 width: 32px;
                 height: 32px;
                 border-radius: 100px;
-                background: rgba($primary, 1);
+                background: linear-gradient(to bottom, $primary, $secondary);
                 cursor: pointer;
 
                 &.active, &:hover {
@@ -47,7 +47,7 @@
                 left: 0;
                 height: 2px;
                 width: calc(100% + 150px);
-                background: $primary;
+                background: linear-gradient(to right, $primary, $secondary);
                 @include animation(scaleXIn 0.65s 1 forwards);
             }
         }

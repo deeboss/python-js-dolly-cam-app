@@ -1,6 +1,6 @@
 @keyframes fadeAndScaleIn {
 	from { opacity: 0; @include transform(scale(0)) }
-	65%  { opacity: 0.8; @include transform(scale(1.15)) }
+	65%  { opacity: 1; @include transform(scale(1.15)) }
 	to   { opacity: 1; @include transform(scale(1)) }
 }
 
