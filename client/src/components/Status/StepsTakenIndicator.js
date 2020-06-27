@@ -19,7 +19,7 @@ const StepsTakenIndicator = () => {
     return (
         <Fragment>
             <span className="indicator-module">
-                <h4>Steps Taken: {vehicleStepsTaken} (~{metersTraveled} meters)</h4>
+                <h4>Steps Taken: {vehicleStepsTaken} (~{metersTraveled}m)</h4>
             </span>
         </Fragment>
     )

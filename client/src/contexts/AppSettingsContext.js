@@ -62,6 +62,7 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
 
             case "z":
+                saveWaypoint({"id": "123", "info": {"message": "hello world"}});
                 setActiveKeystroke({ key: 'z', isReleased: false});
                 break;
 
@@ -224,14 +225,24 @@ const AppSettingsContextProvider = ({ children }) => {
     }
 
     const saveWaypoint = (data) => {
-        return saveWaypointAPI(data)
-            .then(res => {
-                // setPhoneVerifyDetails({
-                //     ...phoneVerifyDetails,
-                //     phone: data.phone,
-                //     token: res.token
-                // })
-            })
+        // return saveWaypointAPI(data)
+        //     .then(res => {
+        //         console.log(res);
+        //         // setPhoneVerifyDetails({
+        //         //     ...phoneVerifyDetails,
+        //         //     phone: data.phone,
+        //         //     token: res.token
+        //         // })
+        //     });
+        async function sendData(data) {
+            try {
+                const result = await saveWaypointAPI(data);
+                console.log(result);
+            } catch(error) {
+                console.log(error);
+            }
+        }
+        sendData(data);
     }
 
     socket.on('connect', function(){
