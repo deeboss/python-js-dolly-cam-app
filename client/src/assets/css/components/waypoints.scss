@@ -16,7 +16,7 @@
         height: 100%;
 
         li {
-            margin: -20px 80px 0;
+            margin: -20px 0 0 150px;
             > span.waypoint-node {
                 @include animation(fadeAndScaleIn 0.5s 1 forwards);
                 opacity: 0;
@@ -25,7 +25,7 @@
                 width: 32px;
                 height: 32px;
                 border-radius: 100px;
-                background: rgba($white, 1);
+                background: rgba($primary, 1);
                 cursor: pointer;
 
                 &.active, &:hover {
@@ -38,6 +38,17 @@
                         @include transition(all 0.25s 0.125s ease-in-out);
                     }
                 }
+            }
+
+            &:not(:last-of-type) > span.waypoint-node:before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                height: 2px;
+                width: calc(100% + 150px);
+                background: $primary;
+                @include animation(scaleXIn 0.65s 1 forwards);
             }
         }
     }
