@@ -34,10 +34,13 @@ def motorMove(json, methods=['GET','POST']):
     # set movement start or stop
     if json['shouldMove'] == True:
         # set direction forwards or backwards
+        print(str(json))
         print("Moving vehicle...")
         if json['dir'] == '-1':
+            print("Forwards")
             GPIO.output(11,True) # Goes forwards
         else:
+            print("Backwards")
             GPIO.output(11,False) # Goes backwards
 
         motor.shouldMove = True
