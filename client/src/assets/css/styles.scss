@@ -208,3 +208,23 @@ body #root {
         padding-left: 50px;
     }
 }
+
+
+
+
+.app-container > header {
+    background: $black;
+    padding: 15px;
+
+    @include flex;
+    @include flexJustify(space-between);
+    @include flexAlign(center);
+
+    h3 {
+        margin: 0;
+    }
+}
+
+img.icon-s {
+    width: 32px;
+}
