@@ -1,8 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../api/deviceControls';
-import { saveWaypoint as saveWaypointAPI } from '../api/movementControls';
-import { socket, emitSocketEvent as emit } from '../api/socketEvents';
+import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../actions/deviceControls';
+import { saveWaypoint as saveWaypointAPI } from '../actions/movementControls';
+import { socket, emitSocketEvent as emit } from '../actions/socketEvents';
 
 export const AppSettingsContext = createContext();
 
@@ -18,12 +18,24 @@ const AppSettingsContextProvider = ({ children }) => {
         isReleased: true,
     });
 
+    const [ moveVehicleCommandIssued, setMoveVehicleCommandIssued ] = useState(false);
+
+    useEffect(() => {
+        if (moveVehicleCommandIssued === false) {
+            socket.on('vehicle position data', function(data){
+                setVehicleStepsTaken(data.steps_taken);
+            })
+        }
+
+        return () => {
+        }
+    }, [moveVehicleCommandIssued])
+
     const [ mobileOrientation , setMobileOrientation ] = useState(0);
 
     const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
 
     const handleKeyDown = (e) => {
-        
         if (!activeKeystroke.isReleased) {
             return
         }
@@ -62,7 +74,6 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
 
             case "z":
-                saveWaypoint({"id": "123", "info": {"message": "hello world"}});
                 setActiveKeystroke({ key: 'z', isReleased: false});
                 break;
 
@@ -119,6 +130,7 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
 
             case "z":
+                saveWaypoint({"id": "123", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
@@ -212,37 +224,26 @@ const AppSettingsContextProvider = ({ children }) => {
         fetchData();
     }
 
+    // const blinkLed = () => {
+    //     async function fetchData() {
+    //         try {
+    //             const result = await makeDeviceBlinkAPI();
+    //             console.log(result);
+    //         } catch(error) {
+    //             console.log(error);
+    //         }
+    //     }
+    //     fetchData();
+    // }
+
     const blinkLed = () => {
-        async function fetchData() {
-            try {
-                const result = await makeDeviceBlinkAPI();
-                console.log(result);
-            } catch(error) {
-                console.log(error);
-            }
-        }
-        fetchData();
+        const result = makeDeviceBlinkAPI();
+        console.log(result);
     }
 
     const saveWaypoint = (data) => {
-        // return saveWaypointAPI(data)
-        //     .then(res => {
-        //         console.log(res);
-        //         // setPhoneVerifyDetails({
-        //         //     ...phoneVerifyDetails,
-        //         //     phone: data.phone,
-        //         //     token: res.token
-        //         // })
-        //     });
-        async function sendData(data) {
-            try {
-                const result = await saveWaypointAPI(data);
-                console.log(result);
-            } catch(error) {
-                console.log(error);
-            }
-        }
-        sendData(data);
+        const result = saveWaypointAPI(data);
+        console.log(result);
     }
 
     socket.on('connect', function(){
@@ -254,10 +255,6 @@ const AppSettingsContextProvider = ({ children }) => {
         console.log("socket server has been connected");
         setHasSocketConnection(false);
     });
-
-    socket.on('vehicle position data', function(data){
-        setVehicleStepsTaken(data.steps_taken);
-    })
 
     const moveVehicle = (dir, shouldMove) => {
         emit('control vehicle', {dir: dir, shouldMove: shouldMove})
@@ -285,6 +282,7 @@ const AppSettingsContextProvider = ({ children }) => {
             activeKeystroke, setActiveKeystroke,
             handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
+            moveVehicleCommandIssued, setMoveVehicleCommandIssued,
             moveVehicle, turnVehicle,
             saveWaypoint,
             vehicleStepsTaken, setVehicleStepsTaken

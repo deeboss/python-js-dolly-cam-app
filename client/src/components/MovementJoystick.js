@@ -6,6 +6,7 @@ import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 const Joystick = () => {
     const { moveVehicle, turnVehicle }  = useContext(AppSettingsContext);
+    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued } = useContext(AppSettingsContext);
     const [ currentVerticalZone, setCurrentVerticalZone ] = useState(0);
     const [ currentHorizontalZone, setCurrentHorizontalZone ] = useState(0);
 
@@ -57,6 +58,7 @@ const Joystick = () => {
     const handleYJoystickMove = (evt, data) => {
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
+            setMoveVehicleCommandIssued(true);
             if (data.direction.y === 'up') {
                 const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
                 const shouldFireSocketEvent = results[0];
@@ -99,11 +101,13 @@ const Joystick = () => {
     const handleYJoystickEnd = (evt, data) => {
         setCurrentVerticalZone(0);
         moveVehicle(0, false);
+        setMoveVehicleCommandIssued(false);
     }
 
     const handleXJoystickEnd = (evt, data) => {
         setCurrentHorizontalZone(0);
         turnVehicle(-1, 0);
+        setMoveVehicleCommandIssued(false);
     }
 
     return (
