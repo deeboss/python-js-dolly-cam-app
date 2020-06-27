@@ -146,7 +146,7 @@ $elementSpacing: 10px;
 	}
 }
 
-@for $i from 1 to 10 {
+@for $i from 1 to 20 {
 	[data-animation-delay="#{$i}"] {
 		@include animationDelay($i * 0.05s);
 	}
