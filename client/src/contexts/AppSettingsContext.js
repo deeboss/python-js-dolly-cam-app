@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 
 import { makeDeviceBlink as makeDeviceBlinkAPI, shutdownDevice as shutdownDeviceAPI, restartDevice as restartDeviceAPI, closeServer as closeServerAPI } from '../api/deviceControls';
 import { socket, emitSocketEvent as emit } from '../api/socketEvents';
+
 export const AppSettingsContext = createContext();
 
 
@@ -82,11 +83,11 @@ const AppSettingsContextProvider = ({ children }) => {
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: true});
-                stopVehicle(false);
+                moveVehicle(0, false);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: true});
-                stopVehicle(false);
+                moveVehicle(0, false);
                 break;
             case "ArrowLeft":
                 setActiveKeystroke({ key: 'ArrowLeft', isReleased: true});
@@ -229,12 +230,8 @@ const AppSettingsContextProvider = ({ children }) => {
         setHasSocketConnection(false);
     });
 
-    const moveVehicle = (forwardsDir, shouldMove) => {
-        emit('control vehicle', {shouldMoveForwards: forwardsDir, motorMove: shouldMove})
-    }
-
-    const stopVehicle = (shouldMove) => {
-        emit('control vehicle', {motorMove: shouldMove})
+    const moveVehicle = (dir, shouldMove) => {
+        emit('control vehicle', {dir: dir, shouldMove: shouldMove})
     }
 
     const turnVehicle = (dir, zone) => {
@@ -259,7 +256,7 @@ const AppSettingsContextProvider = ({ children }) => {
             activeKeystroke, setActiveKeystroke,
             handleKeyDown, handleKeyUp,
             hasSocketConnection, setHasSocketConnection, checkSocketConnection,
-            moveVehicle, stopVehicle, turnVehicle
+            moveVehicle, turnVehicle
             }}>
             {children}
         </AppSettingsContext.Provider>

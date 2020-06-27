@@ -5,7 +5,7 @@ import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 const Joystick = () => {
-    const { moveVehicle, stopVehicle, turnVehicle }  = useContext(AppSettingsContext);
+    const { moveVehicle, turnVehicle }  = useContext(AppSettingsContext);
     const [ stopVehicleHasFired, setStopVehicleHasFired ] = useState(false);
     // const [ stopTurningHasFired, setStopTurningHasFired ] = useState(false);
     const [ currentVerticalZone, setCurrentVerticalZone ] = useState(0);
@@ -65,14 +65,14 @@ const Joystick = () => {
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
                 if (shouldFireSocketEvent && !stopVehicleHasFired) {
-                    moveVehicle(true, true);
+                    moveVehicle(-1, true);
                 }
             } else {
                 const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
                 if (shouldFireSocketEvent && !stopVehicleHasFired) {
-                    moveVehicle(false, true);
+                    moveVehicle(1, true);
                 }
             }
         }
@@ -112,7 +112,7 @@ const Joystick = () => {
     useEffect(() => {
         setCurrentVerticalZone(0);
         return() => {
-            stopVehicle(false);
+            moveVehicle(0, false);
         }
     }, [stopVehicleHasFired]);
 

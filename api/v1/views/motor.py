@@ -32,16 +32,20 @@ def socketCallback(methods=['GET', 'POST']):
 @socketio.on('control vehicle')
 def motorMove(json, methods=['GET','POST']):
     # set movement start or stop
-    if json['motorMove'] == True:
+    if json['shouldMove'] == True:
         # set direction forwards or backwards
         print("Moving vehicle...")
-        GPIO.output(11,json['shouldMoveForwards']) # 'shouldMoveForwards' will return True or False
-        motor.motorMove = True
+        if json['dir'] == '-1':
+            GPIO.output(11,True) # Goes forwards
+        else:
+            GPIO.output(11,False) # Goes backwards
+
+        motor.shouldMove = True
         motor.Move()
         emit('my response', json, callback=socketCallback)
     else:
         print("Stopping motor")
-        motor.motorMove = False
+        motor.shouldMove = False
         json['current_position'] = motor.stepsTaken
         emit('vehicle position data', json, callback=socketCallback)
 
@@ -56,14 +60,14 @@ def rewind():
 @app_views.route('/continuousStart')
 def continuousStart():
     GPIO.output(11,True) # set direction
-    motor.motorMove = True
+    motor.shouldMove = True
     motor.delay = 0.0005
     motor.Move()
     return jsonify("OK")
 
 @app_views.route('/continuousStop')
 def continuousStop():
-    motor.motorMove = False
+    motor.shouldMove = False
     motor.delay = 0.001
     motor.stepsTaken = 0
     return jsonify("OK")
