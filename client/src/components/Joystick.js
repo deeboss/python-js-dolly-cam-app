@@ -114,7 +114,7 @@ const Joystick = () => {
         <Fragment>
             <div className="row">
                 <div className="xs-12 sm-6">
-                    <h4>Movement</h4>
+                    {/* <h4>Movement</h4> */}
                     <ReactNipple
                         // supports all nipplejs options
                         // see https://github.com/yoannmoinet/nipplejs#options
@@ -133,7 +133,7 @@ const Joystick = () => {
                     />
                 </div>
                 <div className="xs-12 sm-6">
-                    <h4>Turning</h4>
+                    {/* <h4>Turning</h4> */}
                     <ReactNipple
                         // supports all nipplejs options
                         // see https://github.com/yoannmoinet/nipplejs#options

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { saveWaypoint as saveWaypointAPI } from '../actions/movementActions';
+import { saveWaypoint as saveWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
 import { socket, emitSocketEvent as emit } from '../actions/socketActions';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
@@ -98,14 +98,17 @@ const VehicleContextProvider = ({ children }) => {
 
             case "a":
                 setActiveKeystroke({ key: 'a', isReleased: true});
+                goToWaypoint(savedWaypoints['1']);
                 break;
 
             case "s":
                 setActiveKeystroke({ key: 's', isReleased: true});
+                goToWaypoint(savedWaypoints['2']);
                 break;
 
             case "d":
                 setActiveKeystroke({ key: 'd', isReleased: true});
+                goToWaypoint(savedWaypoints['3']);
                 break;
 
             case "z":
@@ -137,6 +140,18 @@ const VehicleContextProvider = ({ children }) => {
             try {
                 const result = await saveWaypointAPI(data);
                 setSavedWaypoints(result);
+            } catch(error) {
+                console.log(error);
+            }
+        }
+        sendData();
+    }
+
+    const goToWaypoint = (data) => {
+        async function sendData() {
+            try {
+                const result = await goToWaypointAPI(data);
+                // setSavedWaypoints(result);
             } catch(error) {
                 console.log(error);
             }
