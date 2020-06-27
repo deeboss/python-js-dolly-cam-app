@@ -1,9 +1,11 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 
 const KeyboardControlsCanvas = () => {
-    const { activeKeystroke, setActiveKeystroke, handleKeyDown, handleKeyUp }  = useContext(AppSettingsContext);
+    const { activeKeystroke, setActiveKeystroke }  = useContext(AppSettingsContext);
+    const { handleKeyDown, handleKeyUp }  = useContext(VehicleContext);
     
     const highlightActiveKey = (target) => {
         if (activeKeystroke.key !== null) {

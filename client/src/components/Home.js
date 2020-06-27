@@ -16,6 +16,7 @@ import PowerOff from "../assets/img/icons/poweroff.svg";
 import {Link} from "react-router-dom";
 
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 import StatusBar from './Status/StatusBar';
 import StatusIndicator from "./Status/StatusIndicator";
 import DeviceControls from './DeviceControls';

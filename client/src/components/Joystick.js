@@ -3,10 +3,10 @@ import ReactNipple from 'react-nipple';
 import 'react-nipple/lib/styles.css';
 import '../assets/css/styles.scss';
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 
 const Joystick = () => {
-    const { moveVehicle, turnVehicle }  = useContext(AppSettingsContext);
-    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued } = useContext(AppSettingsContext);
+    const { moveVehicle, turnVehicle, moveVehicleCommandIssued, setMoveVehicleCommandIssued }  = useContext(VehicleContext);
     const [ currentVerticalZone, setCurrentVerticalZone ] = useState(0);
     const [ currentHorizontalZone, setCurrentHorizontalZone ] = useState(0);
 
@@ -112,45 +112,43 @@ const Joystick = () => {
 
     return (
         <Fragment>
-            <div className="module">
-                <div className="row">
-                    <div className="xs-12 md-6">
-                        <h4>Movement</h4>
-                        <ReactNipple
-                            // supports all nipplejs options
-                            // see https://github.com/yoannmoinet/nipplejs#options
-                            options={{ mode: 'static', position: { top: '50%', left: '50%' }, size: 200, lockY: true}}
-                            // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
-                            style={{
-                                width: 250,
-                                height: 250
-                                // if you pass position: 'relative', you don't need to import the stylesheet
-                            }}
-                            // all events supported by nipplejs are available as callbacks
-                            // see https://github.com/yoannmoinet/nipplejs#start
-                            onMove={(evt, data) => handleYJoystickMove(evt, data)}
-                            onEnd={(evt, data) => handleYJoystickEnd(evt, data)}
+            <div className="row">
+                <div className="xs-12 sm-6">
+                    <h4>Movement</h4>
+                    <ReactNipple
+                        // supports all nipplejs options
+                        // see https://github.com/yoannmoinet/nipplejs#options
+                        options={{ mode: 'static', position: { top: '50%', left: '50%' }, size: 200, lockY: true}}
+                        // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
+                        style={{
+                            width: 250,
+                            height: 250
+                            // if you pass position: 'relative', you don't need to import the stylesheet
+                        }}
+                        // all events supported by nipplejs are available as callbacks
+                        // see https://github.com/yoannmoinet/nipplejs#start
+                        onMove={(evt, data) => handleYJoystickMove(evt, data)}
+                        onEnd={(evt, data) => handleYJoystickEnd(evt, data)}
 
-                        />
-                    </div>
-                    <div className="xs-12 md-6">
-                        <h4>Turning</h4>
-                        <ReactNipple
-                            // supports all nipplejs options
-                            // see https://github.com/yoannmoinet/nipplejs#options
-                            options={{ mode: 'static', position: { top: '50%', left: '50%' },  size: 200, lockX: true}}
-                            // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
-                            style={{
-                                width: 250,
-                                height: 250
-                                // if you pass position: 'relative', you don't need to import the stylesheet
-                            }}
-                            // all events supported by nipplejs are available as callbacks
-                            // see https://github.com/yoannmoinet/nipplejs#start
-                            onMove={(evt, data) => handleXJoystickMove(evt, data)}
-                            onEnd={(evt, data) => handleXJoystickEnd(evt, data)}
-                        />
-                    </div>
+                    />
+                </div>
+                <div className="xs-12 sm-6">
+                    <h4>Turning</h4>
+                    <ReactNipple
+                        // supports all nipplejs options
+                        // see https://github.com/yoannmoinet/nipplejs#options
+                        options={{ mode: 'static', position: { top: '50%', left: '50%' },  size: 200, lockX: true}}
+                        // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
+                        style={{
+                            width: 250,
+                            height: 250
+                            // if you pass position: 'relative', you don't need to import the stylesheet
+                        }}
+                        // all events supported by nipplejs are available as callbacks
+                        // see https://github.com/yoannmoinet/nipplejs#start
+                        onMove={(evt, data) => handleXJoystickMove(evt, data)}
+                        onEnd={(evt, data) => handleXJoystickEnd(evt, data)}
+                    />
                 </div>
             </div>
         </Fragment>
