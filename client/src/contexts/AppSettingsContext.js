@@ -132,9 +132,9 @@ const AppSettingsContextProvider = ({ children }) => {
     const testSocketConnection = () => {        
         emit('acknowledge', {message: "Hello from client!"});
         
-        socket.on( 'my response', function( data ) {
-            console.log(data);
-        })
+        // socket.on( 'my response', function( data ) {
+        //     console.log(data);
+        // })
     }
 
     return (

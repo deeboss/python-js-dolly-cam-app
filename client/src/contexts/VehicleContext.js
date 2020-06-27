@@ -10,18 +10,9 @@ const VehicleContextProvider = ({ children }) => {
     const { activeKeystroke, setActiveKeystroke } = useContext(AppSettingsContext);
     const [ moveVehicleCommandIssued, setMoveVehicleCommandIssued ] = useState(false);
 
-    useEffect(() => {
-        if (moveVehicleCommandIssued === false) {
-            socket.on('vehicle position data', function(data){
-                setVehicleStepsTaken(data.steps_taken);
-            })
-        }
-
-        return () => {
-        }
-    }, [moveVehicleCommandIssued])
-
     const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
+
+    const [ savedWaypoints, setSavedWaypoints ] = useState({});
 
     const handleKeyDown = (e) => {
         if (!activeKeystroke.isReleased) {
@@ -118,17 +109,17 @@ const VehicleContextProvider = ({ children }) => {
                 break;
 
             case "z":
-                saveWaypoint({"id": "1", "name": "Waypoint One", "info": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "1", "name": "Waypoint One", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
-                saveWaypoint({"id": "2", "name": "Waypoint Two", "info": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "2", "name": "Waypoint Two", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
-                saveWaypoint({"id": "3", "name": "Waypoint Three", "info": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "3", "name": "Waypoint Three", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
@@ -145,7 +136,7 @@ const VehicleContextProvider = ({ children }) => {
         async function sendData() {
             try {
                 const result = await saveWaypointAPI(data);
-                console.log(result);
+                setSavedWaypoints(result);
             } catch(error) {
                 console.log(error);
             }
@@ -161,12 +152,41 @@ const VehicleContextProvider = ({ children }) => {
         emit('turn vehicle', {dir: dir, zone: zone});
     }
 
+    useEffect(() => {
+        if (moveVehicleCommandIssued === false) {
+            socket.on('vehicle position data', function(data){
+                setVehicleStepsTaken(data.steps_taken);
+            })
+        }
+
+        return () => {
+        }
+    }, [moveVehicleCommandIssued])
+
+    useEffect(() => {
+        Object.size = function(obj) {
+            let size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+        
+        // Get the size of an object
+        let numOfWaypoints = Object.size(savedWaypoints);
+        // console.log(savedWaypoints);
+        // console.log(numOfWaypoints);
+        
+        return () => {}
+    }, [savedWaypoints])
+
     return (
         <VehicleContext.Provider value={{
             handleKeyDown, handleKeyUp,
             moveVehicleCommandIssued, setMoveVehicleCommandIssued,
             moveVehicle, turnVehicle,
             saveWaypoint,
+            savedWaypoints, setSavedWaypoints,
             vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}

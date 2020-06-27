@@ -5,4 +5,37 @@
     background-color: $black;
     background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .09) 25%, rgba(255, 255, 255, .09) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .09) 75%, rgba(255, 255, 255, .09) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .09) 25%, rgba(255, 255, 255, .09) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .09) 75%, rgba(255, 255, 255, .09) 76%, transparent 77%, transparent);
     background-size:50px 50px;
+
+
+
+    ul {
+        @include flex;
+        @include flexAlign(center);
+        @include flexJustify(flex-start);
+        height: 100%;
+
+        li {
+            width: 200px;
+            > span.waypoint-node {
+                position: relative;
+                display: inline-block;
+                width: 32px;
+                height: 32px;
+                border-radius: 100px;
+                background: rgba($white, 1);
+                cursor: pointer;
+
+                &.active, &:hover {
+                    opacity: 1;
+                    @include transition(all 0.08s ease-in-out);
+            
+                    .tooltip {
+                        opacity: 1;
+                        @include transform(translate(-50%, -20%) scale(1));
+                        @include transition(all 0.25s 0.125s ease-in-out);
+                    }
+                }
+            }
+        }
+    }
 }
