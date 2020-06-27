@@ -130,15 +130,17 @@ const AppSettingsContextProvider = ({ children }) => {
                 break;
 
             case "z":
-                saveWaypoint({"id": "123", "info": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "1", "name": "Waypoint One", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
+                saveWaypoint({"id": "2", "name": "Waypoint Two", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
+                saveWaypoint({"id": "3", "name": "Waypoint Three", "info": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
