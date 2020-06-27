@@ -45,15 +45,15 @@ const KeyboardControlsCanvas = () => {
                 <div className="keyboard-group keyboard-group-row">
                     <div>
                         <div onKeyDown={handleKeyDown} data-keystroke="a" className={`keyboard-item`}>
-                            <span className="tooltip">Go from 1 → 2</span>
+                            <span className="tooltip">Go to #1</span>
                             A
                         </div>
                         <div onKeyDown={handleKeyDown} data-keystroke="s" className={`keyboard-item`}>
-                            <span className="tooltip">Go from 2 → 3</span>
+                            <span className="tooltip">Go to #2</span>
                             S
                         </div>
                         <div onKeyDown={handleKeyDown} data-keystroke="d" className={`keyboard-item`}>
-                            <span className="tooltip">Go from 3 → 1</span>
+                            <span className="tooltip">Go to #3</span>
                             D
                         </div>
                     </div>

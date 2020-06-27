@@ -8,4 +8,14 @@
             user-select: none;
 
   margin: auto;
+
+  cursor: pointer;
+
+  > div {
+    opacity: 0.75!important;
+  }
+
+  .front {
+    opacity: 1!important;
+  }
 }

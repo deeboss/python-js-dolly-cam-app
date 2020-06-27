@@ -11,11 +11,11 @@
     ul {
         @include flex;
         @include flexAlign(center);
-        @include flexJustify(flex-start);
+        @include flexJustify(center);
         height: 100%;
 
         li {
-            width: 200px;
+            margin: 0 80px;
             > span.waypoint-node {
                 position: relative;
                 display: inline-block;
