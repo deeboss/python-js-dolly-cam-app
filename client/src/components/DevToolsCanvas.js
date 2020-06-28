@@ -16,8 +16,8 @@ const DevToolsCanvas = () => {
     const { savedWaypoints, getWaypointData }  = useContext(VehicleContext);
 
     useEffect(() => {
+        getWaypointData();
         return () => {
-            getWaypointData();
         }
     }, [])
 
@@ -31,9 +31,11 @@ const DevToolsCanvas = () => {
                         <div><h3>Dev Tools</h3></div>
                         <div></div>
                     </header>
-                    <div className="module"> 
-                        <WaypointsChart/>
-                        <Joystick />
+                    <div className="flex wrap">    
+                        <div className="module"> 
+                            <WaypointsChart/>
+                            <Joystick />
+                        </div>
                         <Drawer />
                     </div>
                 </div>

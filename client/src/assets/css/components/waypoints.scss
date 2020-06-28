@@ -43,6 +43,7 @@
             &:not(:last-of-type) > span.waypoint-node:before {
                 content: "";
                 position: absolute;
+                pointer-events: none;
                 top: 50%;
                 left: 32px;
                 height: 2px;

@@ -1,0 +1,12 @@
+.drawer {
+    width: 100%;   
+    background: black;
+
+    .drawer-content {
+        display: none;
+
+        &.expand {
+            display: block;
+        }
+    }
+}

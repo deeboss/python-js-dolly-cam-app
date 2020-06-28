@@ -3,10 +3,10 @@ import '../../assets/css/styles.scss';
 import { VehicleContext } from '../../contexts/VehicleContext';
 
 const WaypointNode = ({id, name, steps_taken}) => {
-    const { savedWaypoints }  = useContext(VehicleContext);
+    const { savedWaypoints, setSelectedWaypoint }  = useContext(VehicleContext);
 
     const handleWaypointNodeClick = (e) => {
-        console.log(savedWaypoints[e.target.id]);
+        setSelectedWaypoint(savedWaypoints[e.target.id]);
     }
 
     return (

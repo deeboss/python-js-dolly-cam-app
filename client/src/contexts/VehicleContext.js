@@ -16,6 +16,8 @@ const VehicleContextProvider = ({ children }) => {
 
     const [ savedWaypoints, setSavedWaypoints ] = useState({});
 
+    const [ selectedWaypoint, setSelectedWaypoint ] = useState({});
+
     const handleKeyDown = (e) => {
         if (!activeKeystroke.isReleased) {
             return
@@ -168,6 +170,9 @@ const VehicleContextProvider = ({ children }) => {
                 try {
                     const result = await deleteWaypointAPI(data);
                     setSavedWaypoints(result);
+                    if (selectedWaypoint.id === data.id) {
+                        setSelectedWaypoint({});
+                    }
                 } catch(error) {
                     console.log(error);
                 }
@@ -184,6 +189,7 @@ const VehicleContextProvider = ({ children }) => {
                 try {
                     const result = await deleteAllWaypointsAPI();
                     setSavedWaypoints(result);
+                    setSelectedWaypoint({});
                 } catch(error) {
                     console.log(error);
                 }
@@ -247,6 +253,7 @@ const VehicleContextProvider = ({ children }) => {
             moveVehicle, turnVehicle,
             saveWaypoint, deleteWaypoint, getWaypointData,
             savedWaypoints, setSavedWaypoints,
+            selectedWaypoint, setSelectedWaypoint,
             vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}
