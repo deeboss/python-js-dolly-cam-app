@@ -56,47 +56,13 @@ const Joystick = () => {
     }
 
     const handleXYJoystickMove = (evt, data) => {
-        console.log("\n\n\n====================")
-        console.log(evt);
-        console.log("--------------------")
-        console.log(data);
-        console.log("====================\n\n\n")
+        // console.log("\n\n\n====================")
+        // console.log(evt);
+        // console.log("--------------------")
+        // console.log(data);
+        // console.log("====================\n\n\n")
         handleXJoystickMove(evt, data);
         handleYJoystickMove(evt, data);
-        // if (data.direction !== undefined) {
-        //     const currentDistance = data.distance;
-        //     if (data.direction.y === 'up') {
-        //         const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
-        //         const shouldFireSocketEvent = results[0];
-        //         const targetZone = results[1];
-        //         if (shouldFireSocketEvent) {
-        //             setMoveVehicleCommandIssued(true);
-        //             moveVehicle(-1, true);
-        //         }
-        //     } else if (data.direction.y === 'down') {
-        //         const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
-        //         const shouldFireSocketEvent = results[0];
-        //         const targetZone = results[1];
-        //         if (shouldFireSocketEvent) {
-        //             setMoveVehicleCommandIssued(true);
-        //             moveVehicle(1, true);
-        //         }
-        //     } else if (data.direction.x === 'left') {
-        //         const results = checkCurrentZone(5, 100, currentDistance, currentHorizontalZone, setCurrentHorizontalZone);
-        //         const shouldFireSocketEvent = results[0];
-        //         const targetZone = results[1];
-        //         if (shouldFireSocketEvent) {
-        //             turnVehicle(-1, targetZone);
-        //         }
-        //     } else {
-        //         const results = checkCurrentZone(5, 100, currentDistance, currentHorizontalZone, setCurrentHorizontalZone);
-        //         const shouldFireSocketEvent = results[0];
-        //         const targetZone = results[1];
-        //         if (shouldFireSocketEvent) {
-        //             turnVehicle(1, targetZone);
-        //         }
-        //     }
-        // }
     }
 
     const handleYJoystickMove = (evt, data) => {
@@ -166,8 +132,8 @@ const Joystick = () => {
     return (
         <Fragment>
             <div className="row">
-                <div className="xs-12 sm-6">
-                    {/* <h4>Movement</h4> */}
+                <div className="xs-12 sm-4">
+                    <h4>Movement</h4>
                     <ReactNipple
                         // supports all nipplejs options
                         // see https://github.com/yoannmoinet/nipplejs#options
@@ -185,8 +151,8 @@ const Joystick = () => {
 
                     />
                 </div>
-                <div className="xs-12 sm-6">
-                    {/* <h4>Turning</h4> */}
+                <div className="xs-12 sm-4">
+                    <h4>Turning</h4>
                     <ReactNipple
                         // supports all nipplejs options
                         // see https://github.com/yoannmoinet/nipplejs#options
@@ -203,8 +169,8 @@ const Joystick = () => {
                         onEnd={(evt, data) => handleXJoystickEnd(evt, data)}
                     />
                 </div>
-                <div className="xs-12 sm-12">
-                    {/* <h4>Movement</h4> */}
+                <div className="xs-12 sm-4">
+                    <h4>Movement + Turn</h4>
                     <ReactNipple
                         // supports all nipplejs options
                         // see https://github.com/yoannmoinet/nipplejs#options

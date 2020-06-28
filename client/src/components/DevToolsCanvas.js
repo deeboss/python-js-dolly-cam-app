@@ -6,7 +6,6 @@ import BackArrow from "../assets/img/icons/arrow-left.svg";
 
 import { VehicleContext } from '../contexts/VehicleContext';
 import Joystick from './Joystick';
-import DeviceControls from './DeviceControls';
 import StatusBar from './Status/StatusBar';
 import KeyboardControlsCanvas from './KeyboardControlsCanvas';
 import WaypointsChart from './Waypoints/';
@@ -41,7 +40,6 @@ const DevToolsCanvas = () => {
                 </div>
             </div>
             <div className="floating-controller">
-                <DeviceControls />
                 <KeyboardControlsCanvas />
             </div>
         </Fragment>

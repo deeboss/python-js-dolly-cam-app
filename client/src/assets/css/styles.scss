@@ -101,7 +101,7 @@ body #root {
 }
 
 .floating-controller {
-    @include flexJustify(space-between);
+    @include flexJustify(flex-end);
     @include flexAlign(flex-end);
     position: fixed;
     bottom: 0;
