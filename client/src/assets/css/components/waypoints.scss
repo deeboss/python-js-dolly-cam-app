@@ -5,24 +5,27 @@
     background-color: $black;
     background-image: linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, .09) 25%, rgba(255, 255, 255, .09) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .09) 75%, rgba(255, 255, 255, .09) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, .09) 25%, rgba(255, 255, 255, .09) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, .09) 75%, rgba(255, 255, 255, .09) 76%, transparent 77%, transparent);
     background-size:50px 50px;
-
-
+    overflow-y: hidden;
 
     ul {
+        overflow-x: scroll;
+        
         @include flex;
         @include flexAlign(center);
         @include flexJustify(center);
         height: 100%;
 
         li {
-            margin: 0 80px;
+            margin: -20px 0 0 150px;
             > span.waypoint-node {
+                @include animation(fadeAndScaleIn 0.5s 1 forwards);
+                opacity: 0;
                 position: relative;
                 display: inline-block;
                 width: 32px;
                 height: 32px;
                 border-radius: 100px;
-                background: rgba($white, 1);
+                background: linear-gradient(to bottom, $primary, $secondary);
                 cursor: pointer;
 
                 &.active, &:hover {
@@ -35,6 +38,17 @@
                         @include transition(all 0.25s 0.125s ease-in-out);
                     }
                 }
+            }
+
+            &:not(:last-of-type) > span.waypoint-node:before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0;
+                height: 2px;
+                width: calc(100% + 150px);
+                background: linear-gradient(to right, $primary, $secondary);
+                @include animation(scaleXIn 0.65s 1 forwards);
             }
         }
     }

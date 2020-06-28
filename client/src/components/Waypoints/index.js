@@ -22,7 +22,7 @@ const WaypointsChart = () => {
                         <ul>
                             {Object.entries(savedWaypoints).map(([key, value]) => 
                                 <li key={key}>
-                                    <span className="waypoint-node" id={key} onClick={handleWaypointNodeClick}>
+                                    <span className="waypoint-node" id={key} onClick={handleWaypointNodeClick} data-animation-delay={key}>
                                         <span className="tooltip align-center">
                                             {value.name}
                                             <br />

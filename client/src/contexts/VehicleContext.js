@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { saveWaypoint as saveWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
 import { socket, emitSocketEvent as emit } from '../actions/socketActions';
+import { getObjectSize } from '../utils/general';
+
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
 
 export const VehicleContext = createContext();
@@ -62,6 +64,10 @@ const VehicleContextProvider = ({ children }) => {
 
             case "c":
                 setActiveKeystroke({ key: 'c', isReleased: false});
+                break;
+            
+            case "+":
+                setActiveKeystroke({ key: '+', isReleased: false});
                 break;
 
             case "r":
@@ -126,6 +132,12 @@ const VehicleContextProvider = ({ children }) => {
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
+            case "+":
+                const nextIndex = getObjectSize(savedWaypoints) + 1;
+                saveWaypoint({"id": nextIndex.toString(), "name": "Unnamed Waypoint", "position": {"steps_taken": vehicleStepsTaken}});
+                setActiveKeystroke({ key: '+', isReleased: true});
+                break;
+
             case "r":
                 setActiveKeystroke({ key: 'r', isReleased: true});
                 break;
@@ -179,18 +191,11 @@ const VehicleContextProvider = ({ children }) => {
     }, [moveVehicleCommandIssued])
 
     useEffect(() => {
-        Object.size = function(obj) {
-            let size = 0, key;
-            for (key in obj) {
-                if (obj.hasOwnProperty(key)) size++;
-            }
-            return size;
-        };
+        let numOfWaypoints = getObjectSize(savedWaypoints);
         
         // Get the size of an object
-        let numOfWaypoints = Object.size(savedWaypoints);
         // console.log(savedWaypoints);
-        // console.log(numOfWaypoints);
+        console.log(numOfWaypoints);
         
         return () => {}
     }, [savedWaypoints])

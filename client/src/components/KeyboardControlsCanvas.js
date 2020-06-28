@@ -70,6 +70,10 @@ const KeyboardControlsCanvas = () => {
                             <span className="tooltip">Save #3</span>
                             C
                         </div>
+                        <div onKeyDown={handleKeyDown} data-keystroke="+" className={`keyboard-item`}>
+                            <span className="tooltip">Save New</span>
+                            +
+                        </div>
                     </div>
                 </div>
                 <div className="keyboard-group keyboard-group-row">
