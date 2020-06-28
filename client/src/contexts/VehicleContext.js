@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { saveWaypoint as saveWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
+import { saveWaypoint as saveWaypointAPI, deleteWaypoint as deleteWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
 import { socket, emitSocketEvent as emit } from '../actions/socketActions';
 import { getObjectSize } from '../utils/general';
 
@@ -38,8 +38,8 @@ const VehicleContextProvider = ({ children }) => {
                 turnVehicle(1, 5);
                 break;
 
-            case "Escape":
-                setActiveKeystroke({ key: 'Escape', isReleased: false});
+            case "-":
+                setActiveKeystroke({ key: '-', isReleased: false});
                 break;
 
             case "a":
@@ -69,10 +69,6 @@ const VehicleContextProvider = ({ children }) => {
             case "+":
                 setActiveKeystroke({ key: '+', isReleased: false});
                 break;
-
-            case "r":
-                setActiveKeystroke({ key: 'r', isReleased: false});
-                break;
                 
             default:
                 break;
@@ -96,10 +92,6 @@ const VehicleContextProvider = ({ children }) => {
             case "ArrowRight":
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: true});
                 turnVehicle(-1, 0);
-                break;
-
-            case "Escape":
-                setActiveKeystroke({ key: 'Escape', isReleased: true});
                 break;
 
             case "a":
@@ -138,8 +130,10 @@ const VehicleContextProvider = ({ children }) => {
                 setActiveKeystroke({ key: '+', isReleased: true});
                 break;
 
-            case "r":
-                setActiveKeystroke({ key: 'r', isReleased: true});
+            case "-":
+                const currentIndex = getObjectSize(savedWaypoints);
+                deleteWaypoint({"id": currentIndex.toString()});
+                setActiveKeystroke({ key: '-', isReleased: true});
                 break;
                 
             default:
@@ -157,6 +151,22 @@ const VehicleContextProvider = ({ children }) => {
             }
         }
         sendData();
+    }
+
+    const deleteWaypoint = (data) => {
+        if (getObjectSize(savedWaypoints) !== 0) {
+            async function sendData() {
+                try {
+                    const result = await deleteWaypointAPI(data);
+                    setSavedWaypoints(result);
+                } catch(error) {
+                    console.log(error);
+                }
+            }
+            sendData();
+        } else {
+            console.log("No waypoints to delete! Save one first.")
+        }
     }
 
     const goToWaypoint = (data) => {

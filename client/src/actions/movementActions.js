@@ -17,6 +17,21 @@ export const saveWaypoint = (data) => new Promise((resolve, reject) => {
     .then(reject)
 });
 
+export const deleteWaypoint = (data) => new Promise((resolve, reject) => {
+  request().delete('/deleteWaypoint/' + data.id, data)
+    .then(res => {
+      // do good things
+      const data = res.data;
+      if (data) {
+        resolve(data)
+      } else {
+        reject(new Error('Something went wrong!'))
+      }
+    })
+    .catch(parseErrorResponse)
+    .then(reject)
+});
+
 export const goToWaypoint = (data) => new Promise((resolve, reject) => {
   request().post('/goToWaypoint/' + data.id, data)
     .then(res => {
