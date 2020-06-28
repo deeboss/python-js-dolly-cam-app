@@ -3,6 +3,8 @@ import '../../assets/css/styles.scss';
 import { AppSettingsContext } from '../../contexts/AppSettingsContext';
 import { VehicleContext } from '../../contexts/VehicleContext';
 
+import WaypointNode from './WaypointNode';
+
 const WaypointsChart = () => {
     const { savedWaypoints }  = useContext(VehicleContext);
 
@@ -14,6 +16,8 @@ const WaypointsChart = () => {
         Object.entries(savedWaypoints).map(([key, value]) => {console.log(value)});
     }, [savedWaypoints])
 
+    const test = "hello";
+
     return (
         <Fragment>
             <div className="row">
@@ -22,13 +26,19 @@ const WaypointsChart = () => {
                         <ul>
                             {Object.entries(savedWaypoints).map(([key, value]) => 
                                 <li key={key}>
-                                    <span className="waypoint-node" id={key} onClick={handleWaypointNodeClick} data-animation-delay={key}>
+                                    {/* <span className="waypoint-node" id={key} onClick={handleWaypointNodeClick} data-animation-delay={key}>
                                         <span className="tooltip align-center">
                                             {value.name}
                                             <br />
                                             <small>Steps taken: {value.position.steps_taken}</small>
                                         </span>
-                                    </span>
+                                    </span> */}
+                                    <WaypointNode
+                                        id={key}
+                                        name={value.name}
+                                        steps_taken={value.position.steps_taken}
+                                        onClick={handleWaypointNodeClick}
+                                    />
                                 </li>
                             )}
                         </ul>

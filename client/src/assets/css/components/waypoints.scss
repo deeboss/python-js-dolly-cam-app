@@ -44,9 +44,9 @@
                 content: "";
                 position: absolute;
                 top: 50%;
-                left: 0;
+                left: 32px;
                 height: 2px;
-                width: calc(100% + 150px);
+                width: calc(100% + 118px);
                 background: linear-gradient(to right, $primary, $secondary);
                 @include animation(scaleXIn 0.65s 1 forwards);
             }
