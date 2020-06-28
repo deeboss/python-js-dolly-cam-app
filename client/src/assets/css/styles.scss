@@ -214,7 +214,7 @@ body #root {
 
 .app-container > header {
     background: $black;
-    padding: 15px;
+    padding: 5px 15px;
 
     @include flex;
     @include flexJustify(space-between);
@@ -226,5 +226,5 @@ body #root {
 }
 
 img.icon-s {
-    width: 32px;
+    width: 24px;
 }

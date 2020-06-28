@@ -31,7 +31,7 @@ const DevToolsCanvas = () => {
                         <div><h3>Dev Tools</h3></div>
                         <div></div>
                     </header>
-                    <div className="flex wrap">    
+                    <div className="flex nowrap">    
                         <div className="module"> 
                             <WaypointsChart/>
                             <Joystick />

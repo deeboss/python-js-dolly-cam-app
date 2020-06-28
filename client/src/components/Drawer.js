@@ -3,7 +3,7 @@ import '../assets/css/styles.scss';
 import { VehicleContext } from '../contexts/VehicleContext';
 
 const Drawer = ({}) => {
-    const { selectedWaypoint }  = useContext(VehicleContext);
+    const { selectedWaypoint, deleteWaypoint }  = useContext(VehicleContext);
 
     useEffect(()=>{
         console.log(selectedWaypoint);
@@ -11,16 +11,20 @@ const Drawer = ({}) => {
         return () => {}
     }, [selectedWaypoint])
 
+    const handleDeleteSelectedWaypoint = (e) => {
+        deleteWaypoint({"id": selectedWaypoint.id.toString()});
+    }
+
     return (
         <Fragment>
-            <div className="drawer">
-                <div className={Object.keys(selectedWaypoint).length !== 0 ? "drawer-content expand" : "drawer-content"}>
+            <div className={Object.keys(selectedWaypoint).length !== 0 ? "drawer expand" : "drawer"}>
+                <div className="drawer-content">
                     <h3>{selectedWaypoint.name}</h3>
-                    <div>{selectedWaypoint.id}</div>
+                    <div><small>ID: {selectedWaypoint.id}</small></div>
                     {
                         selectedWaypoint.position && <div>{selectedWaypoint.position.steps_taken}</div>
                     }
-                    <button>Delete this waypoint</button>
+                    <button onClick={handleDeleteSelectedWaypoint}>Delete this waypoint</button>
                 </div>
             </div>
         </Fragment>

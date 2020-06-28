@@ -55,6 +55,50 @@ const Joystick = () => {
         return [hasLeftZone, 0];
     }
 
+    const handleXYJoystickMove = (evt, data) => {
+        console.log("\n\n\n====================")
+        console.log(evt);
+        console.log("--------------------")
+        console.log(data);
+        console.log("====================\n\n\n")
+        handleXJoystickMove(evt, data);
+        handleYJoystickMove(evt, data);
+        // if (data.direction !== undefined) {
+        //     const currentDistance = data.distance;
+        //     if (data.direction.y === 'up') {
+        //         const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
+        //         const shouldFireSocketEvent = results[0];
+        //         const targetZone = results[1];
+        //         if (shouldFireSocketEvent) {
+        //             setMoveVehicleCommandIssued(true);
+        //             moveVehicle(-1, true);
+        //         }
+        //     } else if (data.direction.y === 'down') {
+        //         const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
+        //         const shouldFireSocketEvent = results[0];
+        //         const targetZone = results[1];
+        //         if (shouldFireSocketEvent) {
+        //             setMoveVehicleCommandIssued(true);
+        //             moveVehicle(1, true);
+        //         }
+        //     } else if (data.direction.x === 'left') {
+        //         const results = checkCurrentZone(5, 100, currentDistance, currentHorizontalZone, setCurrentHorizontalZone);
+        //         const shouldFireSocketEvent = results[0];
+        //         const targetZone = results[1];
+        //         if (shouldFireSocketEvent) {
+        //             turnVehicle(-1, targetZone);
+        //         }
+        //     } else {
+        //         const results = checkCurrentZone(5, 100, currentDistance, currentHorizontalZone, setCurrentHorizontalZone);
+        //         const shouldFireSocketEvent = results[0];
+        //         const targetZone = results[1];
+        //         if (shouldFireSocketEvent) {
+        //             turnVehicle(1, targetZone);
+        //         }
+        //     }
+        // }
+    }
+
     const handleYJoystickMove = (evt, data) => {
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
@@ -97,6 +141,14 @@ const Joystick = () => {
                 }
             }
         }
+    }
+
+    const handleXYJoystickEnd = (evt, data) => {
+        setCurrentVerticalZone(0);
+        moveVehicle(0, false);
+        setCurrentHorizontalZone(0);
+        turnVehicle(-1, 0);
+        setMoveVehicleCommandIssued(false);
     }
     
     const handleYJoystickEnd = (evt, data) => {
@@ -149,6 +201,25 @@ const Joystick = () => {
                         // see https://github.com/yoannmoinet/nipplejs#start
                         onMove={(evt, data) => handleXJoystickMove(evt, data)}
                         onEnd={(evt, data) => handleXJoystickEnd(evt, data)}
+                    />
+                </div>
+                <div className="xs-12 sm-12">
+                    {/* <h4>Movement</h4> */}
+                    <ReactNipple
+                        // supports all nipplejs options
+                        // see https://github.com/yoannmoinet/nipplejs#options
+                        options={{ mode: 'static', position: { top: '50%', left: '50%' }, size: 200}}
+                        // any unknown props will be passed to the container element, e.g. 'title', 'style' etc
+                        style={{
+                            width: 250,
+                            height: 250
+                            // if you pass position: 'relative', you don't need to import the stylesheet
+                        }}
+                        // all events supported by nipplejs are available as callbacks
+                        // see https://github.com/yoannmoinet/nipplejs#start
+                        onMove={(evt, data) => handleXYJoystickMove(evt, data)}
+                        onEnd={(evt, data) => handleXYJoystickEnd(evt, data)}
+
                     />
                 </div>
             </div>

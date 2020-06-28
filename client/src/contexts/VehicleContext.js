@@ -9,7 +9,7 @@ import { AppSettingsContext } from '../contexts/AppSettingsContext';
 export const VehicleContext = createContext();
 
 const VehicleContextProvider = ({ children }) => {
-    const { activeKeystroke, setActiveKeystroke } = useContext(AppSettingsContext);
+    const { status, setStatus, statusList, activeKeystroke, setActiveKeystroke } = useContext(AppSettingsContext);
     const [ moveVehicleCommandIssued, setMoveVehicleCommandIssued ] = useState(false);
 
     const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
@@ -25,10 +25,12 @@ const VehicleContextProvider = ({ children }) => {
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: false});
+                setMoveVehicleCommandIssued(true);
                 moveVehicle(-1, true);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: false});
+                setMoveVehicleCommandIssued(true);
                 moveVehicle(1, true);
                 break;
             case "ArrowLeft":
@@ -85,10 +87,12 @@ const VehicleContextProvider = ({ children }) => {
         switch(e.key) {
             case "ArrowUp":
                 setActiveKeystroke({ key: 'ArrowUp', isReleased: true});
+                setMoveVehicleCommandIssued(false);
                 moveVehicle(0, false);
                 break;
             case "ArrowDown":
                 setActiveKeystroke({ key: 'ArrowDown', isReleased: true});
+                setMoveVehicleCommandIssued(false);
                 moveVehicle(0, false);
                 break;
             case "ArrowLeft":
@@ -210,10 +214,13 @@ const VehicleContextProvider = ({ children }) => {
     }
 
     const goToWaypoint = (data) => {
+        setStatus({message: "Going to waypoint " + data.id, type: 1});
+
         async function sendData() {
             try {
                 const result = await goToWaypointAPI(data);
                 // setSavedWaypoints(result);
+                setStatus(statusList[2]);
             } catch(error) {
                 console.log(error);
             }
@@ -222,7 +229,15 @@ const VehicleContextProvider = ({ children }) => {
     }
 
     const moveVehicle = (dir, shouldMove) => {
-        emit('control vehicle', {dir: dir, shouldMove: shouldMove})
+        emit('control vehicle', {dir: dir, shouldMove: shouldMove});
+        
+        const direction = (dir === -1) ? 'forwards' : 'backwards';
+
+        if (shouldMove) {
+            setStatus({message: "Moving " + direction, type: 1});
+        } else {
+            setStatus(statusList[2]);
+        }
     }
 
     const turnVehicle = (dir, zone) => {
