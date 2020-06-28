@@ -58,12 +58,12 @@ const Joystick = () => {
     const handleYJoystickMove = (evt, data) => {
         if (data.direction !== undefined) {
             const currentDistance = data.distance;
-            setMoveVehicleCommandIssued(true);
             if (data.direction.y === 'up') {
                 const results = checkCurrentZone(3, 100, currentDistance, currentVerticalZone, setCurrentVerticalZone);
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
                 if (shouldFireSocketEvent) {
+                    setMoveVehicleCommandIssued(true);
                     moveVehicle(-1, true);
                 }
             } else {
@@ -71,6 +71,7 @@ const Joystick = () => {
                 const shouldFireSocketEvent = results[0];
                 const targetZone = results[1];
                 if (shouldFireSocketEvent) {
+                    setMoveVehicleCommandIssued(true);
                     moveVehicle(1, true);
                 }
             }

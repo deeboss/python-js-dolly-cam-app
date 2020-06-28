@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { saveWaypoint as saveWaypointAPI, deleteWaypoint as deleteWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
+import { saveOneWaypoint as saveWaypointAPI, deleteOneWaypoint as deleteWaypointAPI, deleteAllWaypoints as deleteAllWaypointsAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
 import { socket, emitSocketEvent as emit } from '../actions/socketActions';
 import { getObjectSize } from '../utils/general';
 
@@ -15,6 +15,8 @@ const VehicleContextProvider = ({ children }) => {
     const [ vehicleStepsTaken, setVehicleStepsTaken ] = useState(0);
 
     const [ savedWaypoints, setSavedWaypoints ] = useState({});
+
+    const [ selectedWaypoint, setSelectedWaypoint ] = useState({});
 
     const handleKeyDown = (e) => {
         if (!activeKeystroke.isReleased) {
@@ -36,10 +38,6 @@ const VehicleContextProvider = ({ children }) => {
             case "ArrowRight":
                 setActiveKeystroke({ key: 'ArrowRight', isReleased: false});
                 turnVehicle(1, 5);
-                break;
-
-            case "-":
-                setActiveKeystroke({ key: '-', isReleased: false});
                 break;
 
             case "a":
@@ -68,6 +66,14 @@ const VehicleContextProvider = ({ children }) => {
             
             case "+":
                 setActiveKeystroke({ key: '+', isReleased: false});
+                break;
+
+            case "-":
+                setActiveKeystroke({ key: '-', isReleased: false});
+                break;
+
+            case "Delete":
+                setActiveKeystroke({ key: 'Delete', isReleased: false});
                 break;
                 
             default:
@@ -110,23 +116,23 @@ const VehicleContextProvider = ({ children }) => {
                 break;
 
             case "z":
-                saveWaypoint({"id": "1", "name": "Waypoint One", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "1", "name": "Waypoint 1", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
-                saveWaypoint({"id": "2", "name": "Waypoint Two", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "2", "name": "Waypoint 2", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
-                saveWaypoint({"id": "3", "name": "Waypoint Three", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "3", "name": "Waypoint 3", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
             case "+":
                 const nextIndex = getObjectSize(savedWaypoints) + 1;
-                saveWaypoint({"id": nextIndex.toString(), "name": "Unnamed Waypoint", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": nextIndex.toString(), "name": "Waypoint " + nextIndex.toString(), "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: '+', isReleased: true});
                 break;
 
@@ -134,6 +140,11 @@ const VehicleContextProvider = ({ children }) => {
                 const currentIndex = getObjectSize(savedWaypoints);
                 deleteWaypoint({"id": currentIndex.toString()});
                 setActiveKeystroke({ key: '-', isReleased: true});
+                break;
+
+            case "Delete":
+                deleteAllWaypoints();
+                setActiveKeystroke({ key: 'Delete', isReleased: true});
                 break;
                 
             default:
@@ -159,6 +170,9 @@ const VehicleContextProvider = ({ children }) => {
                 try {
                     const result = await deleteWaypointAPI(data);
                     setSavedWaypoints(result);
+                    if (selectedWaypoint.id === data.id) {
+                        setSelectedWaypoint({});
+                    }
                 } catch(error) {
                     console.log(error);
                 }
@@ -167,6 +181,32 @@ const VehicleContextProvider = ({ children }) => {
         } else {
             console.log("No waypoints to delete! Save one first.")
         }
+    }
+
+    const deleteAllWaypoints = () => {
+        if (getObjectSize(savedWaypoints) !== 0) {
+            async function sendData() {
+                try {
+                    const result = await deleteAllWaypointsAPI();
+                    setSavedWaypoints(result);
+                    setSelectedWaypoint({});
+                } catch(error) {
+                    console.log(error);
+                }
+            }
+            sendData();
+        } else {
+            console.log("No waypoints to delete! Save one first.")
+        }
+    }
+
+
+    const getWaypointData = () => {
+        emit('get waypoint data', {});
+
+        socket.on('send waypoint data', function(data) {
+            setSavedWaypoints(data);
+        })
     }
 
     const goToWaypoint = (data) => {
@@ -201,11 +241,7 @@ const VehicleContextProvider = ({ children }) => {
     }, [moveVehicleCommandIssued])
 
     useEffect(() => {
-        let numOfWaypoints = getObjectSize(savedWaypoints);
-        
-        // Get the size of an object
-        // console.log(savedWaypoints);
-        console.log(numOfWaypoints);
+
         
         return () => {}
     }, [savedWaypoints])
@@ -215,8 +251,9 @@ const VehicleContextProvider = ({ children }) => {
             handleKeyDown, handleKeyUp,
             moveVehicleCommandIssued, setMoveVehicleCommandIssued,
             moveVehicle, turnVehicle,
-            saveWaypoint,
+            saveWaypoint, deleteWaypoint, getWaypointData,
             savedWaypoints, setSavedWaypoints,
+            selectedWaypoint, setSelectedWaypoint,
             vehicleStepsTaken, setVehicleStepsTaken
             }}>
             {children}

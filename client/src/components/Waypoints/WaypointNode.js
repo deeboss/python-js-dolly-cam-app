@@ -1,14 +1,23 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import '../../assets/css/styles.scss';
-import { AppSettingsContext } from '../../contexts/AppSettingsContext';
 import { VehicleContext } from '../../contexts/VehicleContext';
 
-const WaypointNode = () => {
-    const { status }  = useContext(AppSettingsContext);
+const WaypointNode = ({id, name, steps_taken}) => {
+    const { savedWaypoints, setSelectedWaypoint }  = useContext(VehicleContext);
+
+    const handleWaypointNodeClick = (e) => {
+        setSelectedWaypoint(savedWaypoints[e.target.id]);
+    }
 
     return (
         <Fragment>
-            Test
+            <span className="waypoint-node" id={id} data-animation-delay={id} onClick={handleWaypointNodeClick}>
+                <span className="tooltip align-center">
+                    {name}
+                    <br />
+                    <small>Steps taken: {steps_taken}</small>
+                </span>
+            </span>
         </Fragment>
     )
 }

@@ -1,19 +1,25 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import {Link} from "react-router-dom";
 
 import '../assets/css/styles.scss';
 import BackArrow from "../assets/img/icons/arrow-left.svg";
 
-import { AppSettingsContext } from '../contexts/AppSettingsContext';
 import { VehicleContext } from '../contexts/VehicleContext';
 import Joystick from './Joystick';
 import DeviceControls from './DeviceControls';
 import StatusBar from './Status/StatusBar';
 import KeyboardControlsCanvas from './KeyboardControlsCanvas';
 import WaypointsChart from './Waypoints/';
+import Drawer from './Drawer';
 
 const DevToolsCanvas = () => {
-    const { user }  = useContext(AppSettingsContext);
+    const { savedWaypoints, getWaypointData }  = useContext(VehicleContext);
+
+    useEffect(() => {
+        getWaypointData();
+        return () => {
+        }
+    }, [])
 
     return (
         <Fragment>
@@ -25,9 +31,12 @@ const DevToolsCanvas = () => {
                         <div><h3>Dev Tools</h3></div>
                         <div></div>
                     </header>
-                    <div className="module"> 
-                        <WaypointsChart/>
-                        <Joystick />
+                    <div className="flex wrap">    
+                        <div className="module"> 
+                            <WaypointsChart/>
+                            <Joystick />
+                        </div>
+                        <Drawer />
                     </div>
                 </div>
             </div>
