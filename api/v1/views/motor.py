@@ -84,6 +84,47 @@ def saveWaypoint(id):
     print("============\n\n")
     return jsonify(motor.waypoints)
 
+##################### DELETE WAYPOINT ########################
+@app_views.route('/deleteWaypoint/<id>', methods = ['DELETE'])
+@cross_origin()
+def deleteWaypoint(id):
+    del motor.waypoints[id]
+    print("\n\nWaypoint {} deleted!\n============".format(id))
+    print(motor.waypoints)
+    print("============\n\n")
+    return jsonify(motor.waypoints)
+
+
+###################### RUN WAYPOINTS #########################
+@app_views.route('/goToWaypoint/<id>', methods = ['POST'])
+@cross_origin()
+def goToWaypoint(id):
+    data = request.json
+    selected_waypoint = motor.waypoints[id]
+    target_steps = selected_waypoint['position']['steps_taken']
+    print("\n\Going to waypoint {}\n============".format(selected_waypoint['id']))
+    print(selected_waypoint)
+    print(target_steps)
+    print("============\n\n")
+
+    try:
+        motor.gotoWaypoint(target_steps)
+        return jsonify('Going to Waypoint One')
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+
+
+
+'''
+     
+    _   ___  ___ _  _ _____   _____ ___  
+   /_\ | _ \/ __| || |_ _\ \ / | __|   \ 
+  / _ \|   | (__| __ || | \ V /| _|| |) |
+ /_/ \_|_|_\\___|_||_|___| \_/ |___|___/ 
+                                         
+    PRESERVED FOR FLASK STATIC APP DEMO.
+'''
 
 @app_views.route('/saveWaypointOne')
 def saveWaypointOne():
@@ -106,25 +147,6 @@ def saveWaypointThree():
     data = {"id": 2, "name": "Waypoint 3", "steps": motor.waypointThreeSteps}
     return jsonify(data)
 
-
-###################### RUN WAYPOINTS #########################
-@app_views.route('/goToWaypoint/<id>', methods = ['POST'])
-@cross_origin()
-def goToWaypoint(id):
-    data = request.json
-    selected_waypoint = motor.waypoints[id]
-    target_steps = selected_waypoint['position']['steps_taken']
-    print("\n\Going to waypoint {}\n============".format(selected_waypoint['id']))
-    print(selected_waypoint)
-    print(target_steps)
-    print("============\n\n")
-
-    try:
-        motor.gotoWaypoint(target_steps)
-        return jsonify('Going to Waypoint One')
-    except UnboundLocalError as error:
-        print(error);
-        return jsonify(500)
 
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
@@ -155,22 +177,6 @@ def runWaypointThree():
     except UnboundLocalError as error:
         print(error);
         return jsonify('Going to Waypoint Three')
-        
-    
-
-@app_views.route('/runSingleWaypoint')
-def runWaypoint():
-    targetId = request.args.get('targetId', 0, type=int)
-    print(targetId)
-    return jsonify("OK")
-
-@app_views.route('runMultipleWaypoints')
-def runMultipleWaypoints():
-    data = request.args.get('data', [])
-    print(data)
-    print("yep")
-    
-    return jsonify("OK")
 
 
 @app_views.route('runSingleRoute')
