@@ -7,16 +7,12 @@ import WaypointNode from './WaypointNode';
 
 const WaypointsChart = () => {
     const { savedWaypoints }  = useContext(VehicleContext);
-
-    const handleWaypointNodeClick = (e) => {
-        console.log(savedWaypoints[e.target.id]);
-    }
     
     useEffect(() => {
-        Object.entries(savedWaypoints).map(([key, value]) => {console.log(value)});
+        Object.entries(savedWaypoints).map(([key, value]) => {
+            // console.log()
+        });
     }, [savedWaypoints])
-
-    const test = "hello";
 
     return (
         <Fragment>
@@ -37,7 +33,6 @@ const WaypointsChart = () => {
                                         id={key}
                                         name={value.name}
                                         steps_taken={value.position.steps_taken}
-                                        onClick={handleWaypointNodeClick}
                                     />
                                 </li>
                             )}

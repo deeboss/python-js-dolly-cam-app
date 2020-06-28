@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 import '../assets/css/styles.scss';
 import BackArrow from "../assets/img/icons/arrow-left.svg";
 
-import { AppSettingsContext } from '../contexts/AppSettingsContext';
 import { VehicleContext } from '../contexts/VehicleContext';
 import Joystick from './Joystick';
 import DeviceControls from './DeviceControls';
@@ -14,11 +13,12 @@ import WaypointsChart from './Waypoints/';
 import Drawer from './Drawer';
 
 const DevToolsCanvas = () => {
-    const { user }  = useContext(AppSettingsContext);
-    const { getWaypointData }  = useContext(VehicleContext);
+    const { savedWaypoints, getWaypointData }  = useContext(VehicleContext);
 
     useEffect(() => {
-        getWaypointData();
+        return () => {
+            getWaypointData();
+        }
     }, [])
 
     return (
@@ -32,17 +32,9 @@ const DevToolsCanvas = () => {
                         <div></div>
                     </header>
                     <div className="module"> 
-                        <div className="row">
-                            <div className="xs-12">
-                                <WaypointsChart/>
-                                <Joystick />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="xs-12">
-                                <Drawer />
-                            </div>
-                        </div>
+                        <WaypointsChart/>
+                        <Joystick />
+                        <Drawer />
                     </div>
                 </div>
             </div>

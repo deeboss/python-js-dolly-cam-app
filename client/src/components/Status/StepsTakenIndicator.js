@@ -1,9 +1,11 @@
 import React, { Fragment, useState, useContext, useEffect } from 'react';
 import '../../assets/css/styles.scss';
+import Spinner from '../../assets/img/spinner-radial.svg';
+
 import { VehicleContext } from '../../contexts/VehicleContext';
 
 const StepsTakenIndicator = () => {
-    const { vehicleStepsTaken }  = useContext(VehicleContext);
+    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued, vehicleStepsTaken }  = useContext(VehicleContext);
     const [ metersTraveled, setMetersTraveled ] = useState(0);
 
     const convertStepsToMeters = (steps) => {
@@ -15,11 +17,15 @@ const StepsTakenIndicator = () => {
         convertStepsToMeters(vehicleStepsTaken);
     }, [vehicleStepsTaken])
 
-
     return (
         <Fragment>
             <span className="indicator-module">
-                <h4>Steps Taken: {vehicleStepsTaken} (~{metersTraveled}m)</h4>
+                <h4>Steps Taken: 
+                    { moveVehicleCommandIssued ? (
+                        <img className="spinner" src={Spinner} alt=""/>
+                    ) : (<span>{vehicleStepsTaken} (~{metersTraveled}m)</span>
+                    )}
+                </h4>
             </span>
         </Fragment>
     )

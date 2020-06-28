@@ -5,7 +5,7 @@ import { VehicleContext } from '../contexts/VehicleContext';
 
 const KeyboardControlsCanvas = () => {
     const { activeKeystroke, setActiveKeystroke }  = useContext(AppSettingsContext);
-    const { handleKeyDown, handleKeyUp }  = useContext(VehicleContext);
+    const { moveVehicleCommandIssued, setMoveVehicleCommandIssued, handleKeyDown, handleKeyUp }  = useContext(VehicleContext);
     
     const highlightActiveKey = (target) => {
         if (activeKeystroke.key !== null) {
