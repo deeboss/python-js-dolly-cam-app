@@ -33,13 +33,17 @@ const KeyboardControlsCanvas = () => {
         <Fragment>
             <footer className="keyboard-group-container">
                 <div className="keyboard-group">
+                    <div onKeyDown={handleKeyDown} data-keystroke="+" className={`keyboard-item`}>
+                        <span className="tooltip">Save new waypoint</span>
+                        +
+                    </div>
                     <div onKeyDown={handleKeyDown} data-keystroke="-" className={`keyboard-item`}>
                         <span className="tooltip">Delete last waypoint</span>
                         -
                     </div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="+" className={`keyboard-item`}>
-                        <span className="tooltip">Save new waypoint</span>
-                        +
+                    <div onKeyDown={handleKeyDown} data-keystroke="Delete" className={`keyboard-item`}>
+                        <span className="tooltip">Delete all waypoints</span>
+                        del
                     </div>
                 </div>
                 <div className="keyboard-group keyboard-group-row">

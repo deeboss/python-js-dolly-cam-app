@@ -2,7 +2,7 @@ import axios from "axios";
 import { baseApiURL, request, parseErrorResponse } from "./request";
 
 
-export const saveWaypoint = (data) => new Promise((resolve, reject) => {
+export const saveOneWaypoint = (data) => new Promise((resolve, reject) => {
   request().post('/saveWaypoint/' + data.id, data)
     .then(res => {
       // do good things
@@ -17,8 +17,23 @@ export const saveWaypoint = (data) => new Promise((resolve, reject) => {
     .then(reject)
 });
 
-export const deleteWaypoint = (data) => new Promise((resolve, reject) => {
+export const deleteOneWaypoint = (data) => new Promise((resolve, reject) => {
   request().delete('/deleteWaypoint/' + data.id, data)
+    .then(res => {
+      // do good things
+      const data = res.data;
+      if (data) {
+        resolve(data)
+      } else {
+        reject(new Error('Something went wrong!'))
+      }
+    })
+    .catch(parseErrorResponse)
+    .then(reject)
+});
+
+export const deleteAllWaypoints = (data) => new Promise((resolve, reject) => {
+  request().delete('/deleteAllWaypoints', data)
     .then(res => {
       // do good things
       const data = res.data;
@@ -46,16 +61,3 @@ export const goToWaypoint = (data) => new Promise((resolve, reject) => {
     .catch(parseErrorResponse)
     .then(reject)
 });
-
-// export const saveWaypoint = (data) => new Promise((resolve, reject) => {
-//     request().post('/saveWaypoint/' + data.id, data)
-//         .then(res => {
-//             const { data } = res.data;
-//             if (data && data.id) {resolve(data)}
-//             else {
-//                 reject(new Error('Something went wrong!'))
-//             }
-//         })
-//         .catch(parseErrorResponse)
-//         .then(reject)
-// })

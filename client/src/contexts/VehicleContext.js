@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { saveWaypoint as saveWaypointAPI, deleteWaypoint as deleteWaypointAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
+import { saveOneWaypoint as saveWaypointAPI, deleteOneWaypoint as deleteWaypointAPI, deleteAllWaypoints as deleteAllWaypointsAPI, goToWaypoint as goToWaypointAPI } from '../actions/movementActions';
 import { socket, emitSocketEvent as emit } from '../actions/socketActions';
 import { getObjectSize } from '../utils/general';
 
@@ -38,10 +38,6 @@ const VehicleContextProvider = ({ children }) => {
                 turnVehicle(1, 5);
                 break;
 
-            case "-":
-                setActiveKeystroke({ key: '-', isReleased: false});
-                break;
-
             case "a":
                 setActiveKeystroke({ key: 'a', isReleased: false});
                 break;
@@ -68,6 +64,14 @@ const VehicleContextProvider = ({ children }) => {
             
             case "+":
                 setActiveKeystroke({ key: '+', isReleased: false});
+                break;
+
+            case "-":
+                setActiveKeystroke({ key: '-', isReleased: false});
+                break;
+
+            case "Delete":
+                setActiveKeystroke({ key: 'Delete', isReleased: false});
                 break;
                 
             default:
@@ -135,6 +139,11 @@ const VehicleContextProvider = ({ children }) => {
                 deleteWaypoint({"id": currentIndex.toString()});
                 setActiveKeystroke({ key: '-', isReleased: true});
                 break;
+
+            case "Delete":
+                deleteAllWaypoints();
+                setActiveKeystroke({ key: 'Delete', isReleased: true});
+                break;
                 
             default:
                 break;
@@ -169,14 +178,28 @@ const VehicleContextProvider = ({ children }) => {
         }
     }
 
+    const deleteAllWaypoints = () => {
+        if (getObjectSize(savedWaypoints) !== 0) {
+            async function sendData() {
+                try {
+                    const result = await deleteAllWaypointsAPI();
+                    setSavedWaypoints(result);
+                } catch(error) {
+                    console.log(error);
+                }
+            }
+            sendData();
+        } else {
+            console.log("No waypoints to delete! Save one first.")
+        }
+    }
+
 
     const getWaypointData = () => {
         emit('get waypoint data', {});
 
         socket.on('send waypoint data', function(data) {
             setSavedWaypoints(data);
-            console.log("Waypoint data retrieved:\n")
-            console.log(data)
         })
     }
 
@@ -212,11 +235,7 @@ const VehicleContextProvider = ({ children }) => {
     }, [moveVehicleCommandIssued])
 
     useEffect(() => {
-        let numOfWaypoints = getObjectSize(savedWaypoints);
-        
-        // Get the size of an object
-        // console.log(savedWaypoints);
-        console.log(numOfWaypoints);
+
         
         return () => {}
     }, [savedWaypoints])
