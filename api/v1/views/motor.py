@@ -1,6 +1,7 @@
 from . import app_views
 from flask import session, Flask, jsonify, json, render_template, request
 from flask_socketio import emit, join_room, leave_room
+from flask_cors import CORS, cross_origin
 from ..models import Motor, easeFunctions
 import os
 import sys
@@ -26,24 +27,28 @@ motor = Motor()
 easeFunctions = easeFunctions()        
 
 #################### MANUAL MOVEMENT #######################
-def socketCallback(methods=['GET', 'POST']):
+def vehicleDataCallback(methods=['GET', 'POST']):
     print('message was received')
 
 @socketio.on('control vehicle')
 def motorMove(json, methods=['GET','POST']):
     # set movement start or stop
-    if json['motorMove'] == True:
+    if json['shouldMove'] == True:
         # set direction forwards or backwards
         print("Moving vehicle...")
-        GPIO.output(11,json['shouldMoveForwards']) # 'shouldMoveForwards' will return True or False
-        motor.motorMove = True
+        if json['dir'] == -1:
+            GPIO.output(11,True) # Goes forwards
+        else:
+            GPIO.output(11,False) # Goes backwards
+
+        motor.shouldMove = True
         motor.Move()
-        emit('my response', json, callback=socketCallback)
+        emit('control vehicle response', json, callback=vehicleDataCallback)
     else:
-        print("Stopping motor")
-        motor.motorMove = False
-        json['current_position'] = motor.stepsTaken
-        emit('vehicle position data', json, callback=socketCallback)
+        motor.shouldMove = False
+        print("Stopping motor. Steps Taken = {}".format(motor.stepsTaken))
+        json['steps_taken'] = motor.stepsTaken
+        emit('vehicle position data', json, callback=vehicleDataCallback)
 
 @app_views.route('/rewind')
 def rewind():
@@ -56,19 +61,89 @@ def rewind():
 @app_views.route('/continuousStart')
 def continuousStart():
     GPIO.output(11,True) # set direction
-    motor.motorMove = True
+    motor.shouldMove = True
     motor.delay = 0.0005
     motor.Move()
     return jsonify("OK")
 
 @app_views.route('/continuousStop')
 def continuousStop():
-    motor.motorMove = False
+    motor.shouldMove = False
     motor.delay = 0.001
     motor.stepsTaken = 0
     return jsonify("OK")
 
 ##################### SAVE WAYPOINTS ########################
+@app_views.route('/saveWaypoint/<id>', methods = ['POST'])
+@cross_origin()
+def saveWaypoint(id):
+    data = request.json
+    motor.waypoints[data["id"]] = data
+    print("\n\nWaypoint {} saved!\n============".format(data["id"]))
+    print(json.dumps(motor.waypoints, indent=2))
+    print("============\n\n")
+    return jsonify(motor.waypoints)
+
+##################### DELETE WAYPOINT ########################
+@app_views.route('/deleteWaypoint/<id>', methods = ['DELETE'])
+@cross_origin()
+def deleteWaypoint(id):
+    del motor.waypoints[id]
+    print("\n\nWaypoint {} deleted!\n============".format(id))
+    print(json.dumps(motor.waypoints, indent=2))
+    print("============\n\n")
+    return jsonify(motor.waypoints)
+
+@app_views.route('/deleteAllWaypoints', methods = ['DELETE'])
+@cross_origin()
+def deleteAllWaypoints():
+    motor.waypoints.clear()
+    print("\n\nAll waypoints deleted!\n============")
+    print(json.dumps(motor.waypoints, indent=2))
+    print("============\n\n")
+    return jsonify(motor.waypoints)
+
+
+##################### GET WAYPOINT ########################
+@socketio.on('get waypoint data')
+def sendWaypointData(json, methods=['GET','POST']):
+    # set movement start or stop
+    print("Retrieving current waypoint data..")
+    results = motor.waypoints
+    # print(results)
+    emit('send waypoint data', results, callback=vehicleDataCallback)
+
+###################### RUN WAYPOINTS #########################
+@app_views.route('/goToWaypoint/<id>', methods = ['POST'])
+@cross_origin()
+def goToWaypoint(id):
+    data = request.json
+    selected_waypoint = motor.waypoints[id]
+    target_steps = selected_waypoint['position']['steps_taken']
+    print("\n\Going to waypoint {}\n============".format(selected_waypoint['id']))
+    print(selected_waypoint)
+    print(target_steps)
+    print("============\n\n")
+
+    try:
+        motor.gotoWaypoint(target_steps)
+        return jsonify('Going to Waypoint One')
+    except UnboundLocalError as error:
+        print(error);
+        return jsonify(500)
+
+
+
+'''
+     
+    _   ___  ___ _  _ _____   _____ ___  
+   /_\ | _ \/ __| || |_ _\ \ / | __|   \ 
+  / _ \|   | (__| __ || | \ V /| _|| |) |
+ /_/ \_|_|_\\___|_||_|___| \_/ |___|___/ 
+                                         
+    PRESERVED FOR FLASK STATIC APP DEMO.
+'''
+
 @app_views.route('/saveWaypointOne')
 def saveWaypointOne():
     motor.waypointOneSteps=motor.stepsTaken
@@ -91,7 +166,6 @@ def saveWaypointThree():
     return jsonify(data)
 
 
-###################### RUN WAYPOINTS #########################
 @app_views.route('/runWaypointOne')
 def runWaypointOne():
     print("Going to Waypoint One")
@@ -121,22 +195,6 @@ def runWaypointThree():
     except UnboundLocalError as error:
         print(error);
         return jsonify('Going to Waypoint Three')
-        
-    
-
-@app_views.route('/runSingleWaypoint')
-def runWaypoint():
-    targetId = request.args.get('targetId', 0, type=int)
-    print(targetId)
-    return jsonify("OK")
-
-@app_views.route('runMultipleWaypoints')
-def runMultipleWaypoints():
-    data = request.args.get('data', [])
-    print(data)
-    print("yep")
-    
-    return jsonify("OK")
 
 
 @app_views.route('runSingleRoute')

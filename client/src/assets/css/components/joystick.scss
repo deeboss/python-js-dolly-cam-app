@@ -6,4 +6,20 @@
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+
+  margin: auto;
+
+  cursor: pointer;
+
+  > div {
+    opacity: 1!important;
+  }
+
+  .back {
+    opacity: 0.5!important;
+  }
+
+  .front {
+    opacity: 1!important;
+  }
 }

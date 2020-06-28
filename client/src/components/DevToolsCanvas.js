@@ -1,28 +1,47 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
+import {Link} from "react-router-dom";
+
 import '../assets/css/styles.scss';
-import { AppSettingsContext } from '../contexts/AppSettingsContext';
-import Joystick from './MovementJoystick';
-import DeviceControls from './DeviceControls';
+import BackArrow from "../assets/img/icons/arrow-left.svg";
+
+import { VehicleContext } from '../contexts/VehicleContext';
+import Joystick from './Joystick';
 import StatusBar from './Status/StatusBar';
 import KeyboardControlsCanvas from './KeyboardControlsCanvas';
+import WaypointsChart from './Waypoints/';
+import Drawer from './Drawer';
 
 const DevToolsCanvas = () => {
-    const { user }  = useContext(AppSettingsContext);
+    const { savedWaypoints, getWaypointData }  = useContext(VehicleContext);
+
+    useEffect(() => {
+        getWaypointData();
+        return () => {
+        }
+    }, [])
 
     return (
         <Fragment>
             <StatusBar/>
             <div className="wrapper">
                 <div className="app-container">
-                    <div className="row">
-                        <div className="xs-12 md-10"><Joystick /></div>
-                    </div>
-                    <div className="row">
-                        <div className="xs-12 md-12"><DeviceControls /></div>
+                    <header>
+                        <div><Link to="/"><img className="icon-s" alt="" src={BackArrow}/></Link></div>
+                        <div><h3>Dev Tools</h3></div>
+                        <div></div>
+                    </header>
+                    <div className="flex nowrap">    
+                        <div className="module"> 
+                            <WaypointsChart/>
+                            <Joystick />
+                        </div>
+                        <Drawer />
                     </div>
                 </div>
             </div>
-            <KeyboardControlsCanvas />
+            <div className="floating-controller">
+                <KeyboardControlsCanvas />
+            </div>
         </Fragment>
     )
 }

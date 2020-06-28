@@ -9,7 +9,7 @@ from ..models import Buzzer
 
 buzzer = Buzzer()
 
-@app_views.route('/blinkLed', methods=['GET'])
+@app_views.route('/blinkLed', methods=['GET', 'POST'])
 def blinkLed():
     # buzzer.playSuccess()
     os.system("sudo echo gpio | sudo tee /sys/class/leds/led1/trigger")

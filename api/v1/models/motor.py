@@ -12,12 +12,13 @@ class Motor:
     
     # Initialize variables
     def __init__(self):
-        self.motorMove = False
+        self.shouldMove = False
         self.stepsTaken = 0
         self.waypointOneSteps = 'N/A'
         self.waypointTwoSteps = 'N/A'
         self.waypointThreeSteps = 'N/A'
         self.defaultDelay = 0.001
+        self.waypoints = {}
     
     # Manual motor move
     def Move(self):
@@ -26,7 +27,7 @@ class Motor:
         count = 1
 
         # ramp up and continuous motion portion
-        while self.motorMove == True:
+        while self.shouldMove == True:
             # motor step
             GPIO.output(13,True)
             GPIO.output(13,False)

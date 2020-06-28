@@ -1,0 +1,21 @@
+.drawer {
+    width: 0%;   
+    @include transition(width 0.3s ease-in-out);
+    background: black;
+    white-space: nowrap;
+    overflow-x: hidden;
+
+    .drawer-content {
+        display: none;
+        padding: 15px;
+    }
+    
+    &.expand {
+        width: 40%;
+        @include transition(width 0.3s ease-in-out);
+        .drawer-content {
+            display: block;
+        }
+
+    }
+}

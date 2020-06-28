@@ -100,7 +100,7 @@ body #root {
             user-select: none;
 }
 
-.keyboard-group-container {
+.floating-controller {
     @include flexJustify(flex-end);
     @include flexAlign(flex-end);
     position: fixed;
@@ -112,6 +112,11 @@ body #root {
     @include md {
         @include flex;
     }
+}
+
+.keyboard-group-container {
+    @include flex;
+    @include flexAlign(flex-end);
 }
 
 .keyboard-group {
@@ -202,4 +207,24 @@ body #root {
         margin-left: 20px;
         padding-left: 50px;
     }
+}
+
+
+
+
+.app-container > header {
+    background: $black;
+    padding: 5px 15px;
+
+    @include flex;
+    @include flexJustify(space-between);
+    @include flexAlign(center);
+
+    h3 {
+        margin: 0;
+    }
+}
+
+img.icon-s {
+    width: 24px;
 }

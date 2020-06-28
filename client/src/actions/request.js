@@ -1,6 +1,6 @@
-// export const baseURL = 'http://192.168.1.16:5000/api/v1';
-
 import axios from 'axios';
+
+export const baseApiURL = 'http://192.168.1.16:5000/api/v1';
 
 const axiosInstance = axios.create({
     // React auto set process.env.NODE_ENV to 'production' when run build
