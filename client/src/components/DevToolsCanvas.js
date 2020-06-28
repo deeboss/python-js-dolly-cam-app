@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useContext } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import {Link} from "react-router-dom";
 
 import '../assets/css/styles.scss';
@@ -11,9 +11,15 @@ import DeviceControls from './DeviceControls';
 import StatusBar from './Status/StatusBar';
 import KeyboardControlsCanvas from './KeyboardControlsCanvas';
 import WaypointsChart from './Waypoints/';
+import Drawer from './Drawer';
 
 const DevToolsCanvas = () => {
     const { user }  = useContext(AppSettingsContext);
+    const { getWaypointData }  = useContext(VehicleContext);
+
+    useEffect(() => {
+        getWaypointData();
+    }, [])
 
     return (
         <Fragment>
@@ -26,8 +32,17 @@ const DevToolsCanvas = () => {
                         <div></div>
                     </header>
                     <div className="module"> 
-                        <WaypointsChart/>
-                        <Joystick />
+                        <div className="row">
+                            <div className="xs-12">
+                                <WaypointsChart/>
+                                <Joystick />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="xs-12">
+                                <Drawer />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

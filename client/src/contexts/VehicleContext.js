@@ -110,23 +110,23 @@ const VehicleContextProvider = ({ children }) => {
                 break;
 
             case "z":
-                saveWaypoint({"id": "1", "name": "Waypoint One", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "1", "name": "Waypoint 1", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'z', isReleased: true});
                 break;
 
             case "x":
-                saveWaypoint({"id": "2", "name": "Waypoint Two", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "2", "name": "Waypoint 2", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'x', isReleased: true});
                 break;
 
             case "c":
-                saveWaypoint({"id": "3", "name": "Waypoint Three", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": "3", "name": "Waypoint 3", "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: 'c', isReleased: true});
                 break;
 
             case "+":
                 const nextIndex = getObjectSize(savedWaypoints) + 1;
-                saveWaypoint({"id": nextIndex.toString(), "name": "Unnamed Waypoint", "position": {"steps_taken": vehicleStepsTaken}});
+                saveWaypoint({"id": nextIndex.toString(), "name": "Waypoint " + nextIndex.toString(), "position": {"steps_taken": vehicleStepsTaken}});
                 setActiveKeystroke({ key: '+', isReleased: true});
                 break;
 
@@ -167,6 +167,17 @@ const VehicleContextProvider = ({ children }) => {
         } else {
             console.log("No waypoints to delete! Save one first.")
         }
+    }
+
+
+    const getWaypointData = () => {
+        emit('get waypoint data', {});
+
+        socket.on('send waypoint data', function(data) {
+            setSavedWaypoints(data);
+            console.log("Waypoint data retrieved:\n")
+            console.log(data)
+        })
     }
 
     const goToWaypoint = (data) => {
@@ -215,7 +226,7 @@ const VehicleContextProvider = ({ children }) => {
             handleKeyDown, handleKeyUp,
             moveVehicleCommandIssued, setMoveVehicleCommandIssued,
             moveVehicle, turnVehicle,
-            saveWaypoint,
+            saveWaypoint, deleteWaypoint, getWaypointData,
             savedWaypoints, setSavedWaypoints,
             vehicleStepsTaken, setVehicleStepsTaken
             }}>
