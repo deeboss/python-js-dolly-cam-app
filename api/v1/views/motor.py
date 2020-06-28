@@ -94,6 +94,24 @@ def deleteWaypoint(id):
     print("============\n\n")
     return jsonify(motor.waypoints)
 
+@app_views.route('/deleteAllWaypoints', methods = ['DELETE'])
+@cross_origin()
+def deleteAllWaypoints():
+    motor.waypoints.clear()
+    print("\n\nAll waypoints deleted!\n============")
+    print(motor.waypoints)
+    print("============\n\n")
+    return jsonify(motor.waypoints)
+
+
+##################### GET WAYPOINT ########################
+@socketio.on('get waypoint data')
+def sendWaypointData(json, methods=['GET','POST']):
+    # set movement start or stop
+    print("Retrieving current waypoint data..")
+    results = motor.waypoints
+    print(results)
+    emit('send waypoint data', results, callback=vehicleDataCallback)
 
 ###################### RUN WAYPOINTS #########################
 @app_views.route('/goToWaypoint/<id>', methods = ['POST'])
