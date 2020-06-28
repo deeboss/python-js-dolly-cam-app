@@ -43,7 +43,7 @@ def motorMove(json, methods=['GET','POST']):
 
         motor.shouldMove = True
         motor.Move()
-        emit('my response', json, callback=vehicleDataCallback)
+        emit('control vehicle response', json, callback=vehicleDataCallback)
     else:
         motor.shouldMove = False
         print("Stopping motor. Steps Taken = {}".format(motor.stepsTaken))
@@ -80,7 +80,7 @@ def saveWaypoint(id):
     data = request.json
     motor.waypoints[data["id"]] = data
     print("\n\nWaypoint {} saved!\n============".format(data["id"]))
-    print(motor.waypoints)
+    print(json.dumps(motor.waypoints, indent=2))
     print("============\n\n")
     return jsonify(motor.waypoints)
 
@@ -90,7 +90,7 @@ def saveWaypoint(id):
 def deleteWaypoint(id):
     del motor.waypoints[id]
     print("\n\nWaypoint {} deleted!\n============".format(id))
-    print(motor.waypoints)
+    print(json.dumps(motor.waypoints, indent=2))
     print("============\n\n")
     return jsonify(motor.waypoints)
 
@@ -99,7 +99,7 @@ def deleteWaypoint(id):
 def deleteAllWaypoints():
     motor.waypoints.clear()
     print("\n\nAll waypoints deleted!\n============")
-    print(motor.waypoints)
+    print(json.dumps(motor.waypoints, indent=2))
     print("============\n\n")
     return jsonify(motor.waypoints)
 
@@ -110,7 +110,7 @@ def sendWaypointData(json, methods=['GET','POST']):
     # set movement start or stop
     print("Retrieving current waypoint data..")
     results = motor.waypoints
-    print(results)
+    # print(results)
     emit('send waypoint data', results, callback=vehicleDataCallback)
 
 ###################### RUN WAYPOINTS #########################
