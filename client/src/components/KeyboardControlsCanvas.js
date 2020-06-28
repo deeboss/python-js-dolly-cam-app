@@ -33,13 +33,13 @@ const KeyboardControlsCanvas = () => {
         <Fragment>
             <footer className="keyboard-group-container">
                 <div className="keyboard-group">
-                    <div onKeyDown={handleKeyDown} data-keystroke="r" className={`keyboard-item`}>
-                        <span className="tooltip">Return</span>
-                        R
+                    <div onKeyDown={handleKeyDown} data-keystroke="-" className={`keyboard-item`}>
+                        <span className="tooltip">Delete last waypoint</span>
+                        -
                     </div>
-                    <div onKeyDown={handleKeyDown} data-keystroke="Escape" className={`keyboard-item`}>
-                        <span className="tooltip">Shutdown</span>
-                        esc
+                    <div onKeyDown={handleKeyDown} data-keystroke="+" className={`keyboard-item`}>
+                        <span className="tooltip">Save new waypoint</span>
+                        +
                     </div>
                 </div>
                 <div className="keyboard-group keyboard-group-row">
@@ -69,10 +69,6 @@ const KeyboardControlsCanvas = () => {
                         <div onKeyDown={handleKeyDown} data-keystroke="c" className={`keyboard-item`}>
                             <span className="tooltip">Save #3</span>
                             C
-                        </div>
-                        <div onKeyDown={handleKeyDown} data-keystroke="+" className={`keyboard-item`}>
-                            <span className="tooltip">Save New</span>
-                            +
                         </div>
                     </div>
                 </div>
