@@ -127,6 +127,9 @@ const AppSettingsContextProvider = ({ children }) => {
     socket.on('disconnect', function(){
         // console.log("socket server has been disconnected");
         setHasSocketConnection(false);
+
+        // Killswitch on the vehicle on disconnect
+        emit('control vehicle', {dir: 0, shouldMove: false});
     });
 
     const testSocketConnection = () => {        
