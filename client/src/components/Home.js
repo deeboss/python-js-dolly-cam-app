@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import '../assets/css/styles.scss';
 import Chassis from '../assets/img/chassis-outline-demo.png';
 import Debug from "../assets/img/icons/debug.svg";
@@ -10,18 +10,22 @@ import CrewMode from "../assets/img/icons/director.svg";
 import SkillsLibrary from "../assets/img/icons/skills.svg";
 import TuneParameters from "../assets/img/icons/tune.svg";
 import Updates from "../assets/img/icons/update.svg";
+import ServerConnection from "../assets/img/icons/server-connection.svg";
+import Blink from "../assets/img/icons/blink.svg";
 import Restart from "../assets/img/icons/reload.svg";
 import PowerOff from "../assets/img/icons/poweroff.svg";
 
 import {Link} from "react-router-dom";
 
 import { AppSettingsContext } from '../contexts/AppSettingsContext';
+import { VehicleContext } from '../contexts/VehicleContext';
 import StatusBar from './Status/StatusBar';
 import StatusIndicator from "./Status/StatusIndicator";
 import DeviceControls from './DeviceControls';
 import KeyboardControlsCanvas from './KeyboardControlsCanvas';
 
 function Home() {
+  const { blinkLed, testSocketConnection } = useContext(AppSettingsContext);
   return (
     <Fragment>
       <StatusBar/>
@@ -86,6 +90,16 @@ function Home() {
                             <li><button disabled={true}>
                               <div><img alt="" src={Updates} /></div>
                               <span>Check for updates</span>
+                              </button></li>
+                          </ul>
+                          <ul>
+                            <li><button onClick={blinkLed}>
+                              <div><img alt="" src={Blink} /></div>
+                              Make Pi blink
+                              </button></li>
+                            <li><button onClick={testSocketConnection}>
+                              <div><img alt="" src={ServerConnection} /></div>
+                              Test socket connection
                               </button></li>
                             <li><button>
                               <div><img alt="" src={Restart} /></div>

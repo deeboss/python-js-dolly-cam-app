@@ -1,5 +1,5 @@
 from flask import session, Flask, jsonify, json, render_template, request
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit, join_room, leave_room, disconnect
 import os
 import sys
 import time
@@ -20,5 +20,12 @@ def yellow(json, methods=['GET', 'POST']):
 def acknowledge(json, methods=['GET', 'POST']):
     # print('received eggplant: ' + str(json))    
     print(str(json))
-    json['response'] = 'And hello from server!'
+    json['response'] = 'Socket + server connection established.'
+
     emit('my response', json, callback=socketCallback)
+
+@socketio.on('retrieve session info')
+def sessionInfo(json, methods=['GET']):
+    print('connected!')
+    json['message'] = 'Connect!'
+    emit('session information', json, callback=socketCallback)

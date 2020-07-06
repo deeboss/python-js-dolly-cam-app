@@ -13,6 +13,30 @@ nav.status-bar {
     }
 }
 
+
+.indicator-module {
+    @include flex;
+    @include flexAlign(center);
+
+    h4 {
+        margin: 0;
+        margin-left: 8px;
+        font-size: 0.8rem;
+        @include flex;
+
+        span {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    }
+
+    .spinner {
+        height: 16px;
+        margin-left: 5px;
+        display: inline-block;
+    }
+}
+
 .status-indicator {
     @include flex;
     @include flexAlign(center);
