@@ -23,9 +23,3 @@ def acknowledge(json, methods=['GET', 'POST']):
     json['response'] = 'Socket + server connection established.'
 
     emit('my response', json, callback=socketCallback)
-
-@socketio.on('retrieve session info')
-def sessionInfo(json, methods=['GET']):
-    print('connected!')
-    json['message'] = 'Connect!'
-    emit('session information', json, callback=socketCallback)

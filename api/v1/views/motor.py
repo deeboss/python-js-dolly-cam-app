@@ -134,9 +134,15 @@ def goToWaypoint(id):
 
 
 ###################### MISC SOCKET EVENTS / FAIL SAFE  #########################
+@socketio.on('retrieve session info')
+def sessionInfo(json, methods=['GET']):
+    print('connected!')
+    json['steps_taken'] = motor.stepsTaken
+    emit('session information', json, callback=vehicleDataCallback)
+
 @socketio.on('disconnect')
 def acknowledgeDisconnect():
-    print('Client disconnected. Fail safe activated', request.sid)
+    print('Client disconnected.', request.sid)
     if (motor.shouldMove):
         motor.shouldMove = False
         print("Stopping motor. Steps Taken = {}".format(motor.stepsTaken))
