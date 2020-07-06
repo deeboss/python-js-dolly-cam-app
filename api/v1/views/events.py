@@ -24,10 +24,6 @@ def acknowledge(json, methods=['GET', 'POST']):
 
     emit('my response', json, callback=socketCallback)
 
-@socketio.on('disconnect')
-def acknowledgeDisconnect():
-    print('Client disconnected', request.sid)
-
 @socketio.on('retrieve session info')
 def sessionInfo(json, methods=['GET']):
     print('connected!')
