@@ -1,6 +1,6 @@
 from . import app_views
 from flask import session, Flask, jsonify, json, render_template, request
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit, join_room, leave_room, disconnect
 from flask_cors import CORS, cross_origin
 from ..models import Motor, easeFunctions
 import os
@@ -133,6 +133,13 @@ def goToWaypoint(id):
         return jsonify(500)
 
 
+###################### MISC SOCKET EVENTS / FAIL SAFE  #########################
+@socketio.on('disconnect')
+def acknowledgeDisconnect():
+    print('Client disconnected. Fail safe activated', request.sid)
+    if (motor.shouldMove):
+        motor.shouldMove = False
+        print("Stopping motor. Steps Taken = {}".format(motor.stepsTaken))
 
 '''
      
